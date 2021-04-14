@@ -1,5 +1,11 @@
 import React from 'react';
 import SideMenu from '../SideMenu';
+import HomeView from '../../views/Main';
+import AddView from '../../views/Add';
+import SwapView from '../../views/Swap';
+import DropView from '../../views/Drop';
+import ScheduleView from '../../views/Schedule';
+import CourseCartView from '../../views/CourseCart';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,7 +14,17 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Button, ButtonGroup, ClickAwayListener, Grid, Grow, Paper, Popover, Popper } from "@material-ui/core";
-import { Add, DateRange, ExpandLess, ExpandMore, HomeOutlined, RemoveCircleOutline, ShoppingCartOutlined, SwapHoriz } from "@material-ui/icons";
+import {
+    Add,
+    DateRange,
+    ExpandLess,
+    ExpandMore,
+    Home,
+    HomeOutlined,
+    RemoveCircleOutline,
+    ShoppingCartOutlined,
+    SwapHoriz
+} from "@material-ui/icons";
 
 const useStyles = makeStyles({
     root: {
@@ -199,22 +215,22 @@ export default function SimpleTabs() {
                     </Grid>
                 </Grid>
                 <TabPanel value={value} index={0}>
-                    Home View
+                    <HomeView />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    Add View
+                    <AddView />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    Swap View
+                    <SwapView />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    Drop View
+                    <DropView />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                    Schedule View
+                    <ScheduleView />
                 </TabPanel>
                 <TabPanel value={value} index={5}>
-                    Course Cart View
+                    <CourseCartView />
                 </TabPanel>
             </div>
         </div>
