@@ -11,8 +11,8 @@ function App() {
       <Router>
         <Suspense fallback={<div><h1>Loading page ...</h1></div>}>
             <Switch>
-                <Route exact path="/" component={SideMenu} />
-                <Route exact path="/tabs" component={Tabs} />
+                <Route exact path="/" component={Tabs} />
+                <Route exact path="/sidemenu" component={SideMenu} />
             </Switch>
         </Suspense>
       </Router>
