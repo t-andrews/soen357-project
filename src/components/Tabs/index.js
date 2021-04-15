@@ -14,21 +14,12 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Button, ButtonGroup, ClickAwayListener, Grid, Grow, Paper, Popover, Popper } from "@material-ui/core";
-import {
-    Add,
-    DateRange,
-    ExpandLess,
-    ExpandMore,
-    Home,
-    HomeOutlined,
-    RemoveCircleOutline,
-    ShoppingCartOutlined,
-    SwapHoriz
-} from "@material-ui/icons";
+import { Add, DateRange, ExpandLess, ExpandMore, HomeOutlined, RemoveCircleOutline, ShoppingCartOutlined, SwapHoriz } from "@material-ui/icons";
 
 const useStyles = makeStyles({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        marginLeft: '250px'
     },
     paper: {
         backgroundColor: 'white',
@@ -36,8 +27,7 @@ const useStyles = makeStyles({
         height: '50px'
     },
     tabs: {
-        paddingLeft: '250px',
-        width: '1500px',
+        width: '1200px',
         color: 'black',
         backgroundColor: '#b3b3b3'
     },
