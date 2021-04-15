@@ -125,7 +125,7 @@ export default function SimpleTabs() {
             <SideMenu />
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <Grid container direction='row' spacing={5}>
+                <Grid container direction='row' spacing={2}>
                     <Grid item>
                         <AppBar className={classes.tabs} position="static">
                             <Tabs value={value} onChange={handleChange} variant='fullWidth'>
@@ -150,9 +150,9 @@ export default function SimpleTabs() {
                             </Tabs>
                         </AppBar>
                     </Grid>
-                    <Grid item>
+                    <Grid item style={{paddingTop: '21px'}}>
                         <Button ref={anchorRef} aria-controls={toggled ? 'options' : undefined} aria-haspopup="true"
-                                onClick={handleToggleOn}
+                                onClick={handleToggleOn} variant='outlined'
                         >
                             <Grid container direction='row' justify='space-between' alignItems='center'>
                                 <Grid item>Credit Courses</Grid>
@@ -176,8 +176,8 @@ export default function SimpleTabs() {
                             )}
                         </Popper>
                     </Grid>
-                    <Grid item>
-                        <Button onClick={handleClick}>
+                    <Grid item style={{paddingTop: '21px'}}>
+                        <Button onClick={handleClick} variant='outlined'>
                             <Grid container direction='row' justify='space-between' alignItems='center'>
                                 <Grid item>Semester</Grid>
                                 <Grid item className={classes.expand}>{open ? <ExpandLess /> : <ExpandMore />}</Grid>
