@@ -7,7 +7,7 @@ import DropView from '../../views/Drop';
 import ScheduleView from '../../views/Schedule';
 import CourseCartView from '../../views/CourseCart';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles, styled} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -29,10 +29,16 @@ const useStyles = makeStyles({
     tabs: {
         width: '1200px',
         color: 'black',
+        marginLeft: '10px',
         backgroundColor: '#b3b3b3'
+    },
+    indicator: {
+        backgroundColor: '#912338',
     },
     iconWrapper: {
         flexDirection: 'row',
+        height: '20px',
+        fontWeight: 'bold'
     },
     expand: {
         paddingTop: '5px'
@@ -43,7 +49,7 @@ function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
-        <div role="tabs" hidden={value !== index} id={`tabs-${index}`}
+        <div role="tab" hidden={value !== index} id={`tabs-${index}`}
              aria-labelledby={`tabs-${index}`}{...other}
         >
             {value === index && (
@@ -67,6 +73,10 @@ function a11yProps(index) {
         'aria-controls': `tabs-${index}`,
     };
 }
+
+const StyledTab = styled(Tab)({
+    minHeight: '50px'
+});
 
 export default function SimpleTabs() {
     const classes = useStyles();
@@ -128,29 +138,29 @@ export default function SimpleTabs() {
                 <Grid container direction='row' spacing={2}>
                     <Grid item>
                         <AppBar className={classes.tabs} position="static">
-                            <Tabs value={value} onChange={handleChange} variant='fullWidth'>
-                                <Tab classes={{wrapper: classes.iconWrapper}} label="Home"
+                            <Tabs value={value} classes={{ indicator: classes.indicator }} onChange={handleChange} variant='fullWidth'>
+                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Home"
                                      icon={<HomeOutlined style={{paddingRight: '5px'}}/>} {...a11yProps(0)}
                                 />
-                                <Tab classes={{wrapper: classes.iconWrapper}} label="Add"
+                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Add"
                                      icon={<Add style={{paddingRight: '5px'}}/>} {...a11yProps(1)}
                                 />
-                                <Tab classes={{wrapper: classes.iconWrapper}} label="Swap"
+                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Swap"
                                      icon={<SwapHoriz style={{paddingRight: '5px'}}/>} {...a11yProps(2)}
                                 />
-                                <Tab classes={{wrapper: classes.iconWrapper}} label="Drop"
+                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Drop"
                                      icon={<RemoveCircleOutline style={{paddingRight: '5px'}}/>} {...a11yProps(3)}
                                 />
-                                <Tab classes={{wrapper: classes.iconWrapper}} label="Schedule"
+                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Schedule"
                                      icon={<DateRange style={{paddingRight: '5px'}}/>} {...a11yProps(4)}
                                 />
-                                <Tab classes={{wrapper: classes.iconWrapper}} label="Course Cart"
+                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Course Cart"
                                      icon={<ShoppingCartOutlined style={{paddingRight: '5px'}}/>} {...a11yProps(5)}
                                 />
                             </Tabs>
                         </AppBar>
                     </Grid>
-                    <Grid item style={{paddingTop: '21px'}}>
+                    <Grid item style={{paddingTop: '9px'}}>
                         <Button ref={anchorRef} aria-controls={toggled ? 'options' : undefined} aria-haspopup="true"
                                 onClick={handleToggleOn} variant='outlined'
                         >
@@ -176,7 +186,7 @@ export default function SimpleTabs() {
                             )}
                         </Popper>
                     </Grid>
-                    <Grid item style={{paddingTop: '21px'}}>
+                    <Grid item style={{paddingTop: '9px'}}>
                         <Button onClick={handleClick} variant='outlined'>
                             <Grid container direction='row' justify='space-between' alignItems='center'>
                                 <Grid item>Semester</Grid>
