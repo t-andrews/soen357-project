@@ -1,0 +1,134 @@
+import React, {useState} from "react";
+export const enroll = (courseList, courseToAdd) => {
+    if(!(courseToAdd.courseName in courseList)) {
+        courseList[courseToAdd.courseName] = courseToAdd
+        return courseList
+    }
+    else{
+        console.log("Already registered")
+    }
+
+};
+
+export const drop = (courseList, courseToDrop) => {
+    if((courseToDrop.courseName in courseList)){
+        delete courseList[courseToDrop.courseName]
+    }
+    return courseList
+};
+
+export const swap = (courseList, courseToAdd, courseToDrop) => {
+
+    courseList[courseToAdd.courseName] = courseToAdd
+    delete courseList[courseToDrop.courseName]
+    return courseList
+};
+
+
+
+export default function Services(){
+    const courseToAdd = {
+        "courseName": "SOEN 363",
+        "courseTitle": "Data Systems for Software Engineers",
+        "startDate": "Jan 13",
+        "endDate": "Apr 20",
+        "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+        "instructor": "Essam Mansour",
+        "sections": [
+            {
+                "component": "Lecture",
+                "section": "S ",
+                "startTime": "1:15PM",
+                "endTime": "4:00PM",
+                "location": "H-345 SGW",
+                "days": ["Monday, Wednesday"],
+            },
+            {
+                "component": "Tutorial",
+                "section": "S SA",
+                "startTime": "8:45AM",
+                "endTime": "9:35PM",
+                "location": "H-345 SGW",
+                "days": ["Monday"]
+            }
+        ]
+    }
+    const courseToDrop = {
+        "courseName": "SOEN 357",
+        "courseTitle": "UI",
+        "startDate": "Jan 13",
+        "endDate": "Apr 20",
+        "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+        "instructor": "Essam Mansour",
+        "sections": [
+            {
+                "component": "Lecture",
+                "section": "S ",
+                "startTime": "1:15PM",
+                "endTime": "4:00PM",
+                "location": "H-345 SGW",
+                "days": ["Monday, Wednesday"],
+            },
+            {
+                "component": "Tutorial",
+                "section": "S SA",
+                "startTime": "8:45AM",
+                "endTime": "9:35PM",
+                "location": "H-345 SGW",
+                "days": ["Monday"]
+            }
+        ]
+    }
+
+    const courseToSwapIn = {
+        "courseName": "SOEN 345",
+        "courseTitle": "Testing",
+        "startDate": "Jan 13",
+        "endDate": "Apr 20",
+        "description": "jweofwejofwifw",
+        "instructor": "Essam Mansour",
+        "sections": [
+            {
+                "component": "Lecture",
+                "section": "S ",
+                "startTime": "1:15PM",
+                "endTime": "4:00PM",
+                "location": "H-345 SGW",
+                "days": ["Monday, Wednesday"],
+            },
+            {
+                "component": "Tutorial",
+                "section": "S SA",
+                "startTime": "8:45AM",
+                "endTime": "9:35PM",
+                "location": "H-345 SGW",
+                "days": ["Monday"]
+            }
+        ]
+
+    }
+
+    const [courses, setCourses] = useState({});
+    const enrollClass = (courseToAdd) => {
+        setCourses(enroll(courses, courseToAdd))
+        console.log(courses)
+    }
+    const dropClass = (courseToDrop) => {
+        setCourses(drop(courses,courseToDrop))
+        console.log(courses)
+    }
+    const swapClasses = (courseToSwap, courseToDrop) => {
+        setCourses((swap(courses, courseToSwap, courseToDrop)))
+        console.log(courses)
+    }
+
+    return (
+      <div>
+          <button onClick={() => enrollClass(courseToAdd)}>Enroll SOEN 363</button>
+          <button onClick={() => enrollClass(courseToDrop)}>Enroll SOEN 357</button>
+          <button onClick={() => dropClass(courseToDrop)}>Drop SOEN 357</button>
+          <button onClick={() => swapClasses(courseToSwapIn,courseToAdd)}>Swap SOEN363 for SOEN345</button>
+
+      </div>
+    );
+}

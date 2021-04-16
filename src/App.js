@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 
 const Tabs = lazy(() => import("./components/Tabs"));
-
+const Service = lazy( () => import("./components/services"))
 function App() {
   return (
     <div className="App">
@@ -11,6 +11,7 @@ function App() {
         <Suspense fallback={<div><h1>Loading page ...</h1></div>}>
             <Switch>
                 <Route exact path="/" component={Tabs} />
+                <Route exact path="/test" component={Service} />
             </Switch>
         </Suspense>
       </Router>
