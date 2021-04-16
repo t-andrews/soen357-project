@@ -112,7 +112,7 @@ export default function ScheduleView() {
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
                             units: '3.00',
-                            color: '#808000',
+                            color: '#DB8300',
                             sections: [
                                 {
                                     number: 1234,
@@ -128,32 +128,7 @@ export default function ScheduleView() {
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
                             units: '3.00',
-                            color: '#008000',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1235,
-                                    component: 'Laboratory',
-                                    section: 'SSJ',
-                                    daysTimes: 'Tu 3:45PM - 5:30PM',
-                                    room: 'H 911 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            units: '3.00',
-                            color: '#800000',
+                            color: '#00A251',
                             sections: [
                                 {
                                     number: 1234,
@@ -178,12 +153,55 @@ export default function ScheduleView() {
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
                             units: '3.00',
-                            color: '#008080',
+                            color: '#C63A3A',
                             sections: [
                                 {
                                     number: 1234,
                                     component: 'Lecture',
                                     section: 'S',
+                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
+                                    room: 'H 444 SGW',
+                                    instructor: 'Dr Instructor',
+                                    startEndDates: '09/07/2021 - 12/06/2021'
+                                },
+                                {
+                                    number: 1235,
+                                    component: 'Laboratory',
+                                    section: 'SSJ',
+                                    daysTimes: 'Tu 3:45PM - 5:30PM',
+                                    room: 'H 911 SGW',
+                                    instructor: 'Dr Instructor',
+                                    startEndDates: '09/07/2021 - 12/06/2021'
+                                }
+                            ]
+                        },
+                        {
+                            name: 'COMP 123 - Intro Comp.Sci',
+                            units: '3.00',
+                            color: '#006280',
+                            sections: [
+                                {
+                                    number: 1234,
+                                    component: 'Lecture',
+                                    section: 'S',
+                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
+                                    room: 'H 444 SGW',
+                                    instructor: 'Dr Instructor',
+                                    startEndDates: '09/07/2021 - 12/06/2021'
+                                },
+                                {
+                                    number: 1234,
+                                    component: 'Laboratory',
+                                    section: 'SSX',
+                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
+                                    room: 'H 444 SGW',
+                                    instructor: 'Dr Instructor',
+                                    startEndDates: '09/07/2021 - 12/06/2021'
+                                },
+                                {
+                                    number: 1234,
+                                    component: 'Tutorial',
+                                    section: 'SSX',
                                     daysTimes: 'MoWe 10:15AM - 11:30AM',
                                     room: 'H 444 SGW',
                                     instructor: 'Dr Instructor',
@@ -194,7 +212,7 @@ export default function ScheduleView() {
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
                             units: '3.00',
-                            color: '#808099',
+                            color: '#9861A9',
                             sections: [
                                 {
                                     number: 1234,

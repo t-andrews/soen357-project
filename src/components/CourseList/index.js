@@ -10,23 +10,21 @@ export default function CourseList(props) {
     })();
 
     return (
-        <div>
-            <Grid container>
-                <Grid xs={6}>
-                    {
-                        leftCourses.map(c => {
-                            return <div style={{height: `${100/leftCourses.length}%`, marginBottom: '20px'}}><DetailedCourse course={c}/></div>;
-                        })
-                    }
-                </Grid>
-                <Grid xs={6}>
-                    {
-                        rightCourses.map(c => {
-                            return <div style={{height: `${100/leftCourses.length}%`, marginBottom: '20px'}}><DetailedCourse course={c}/></div>;
-                        })
-                    }
-                </Grid>
+        <Grid container style={{width: '100%', marginLeft: '12px', marginTop: '45px'}}>
+            <Grid xs={6}>
+                {
+                    leftCourses.map(c => {
+                        return <div style={{height: `${100/leftCourses.length}%`, marginBottom: '30px'}}><DetailedCourse course={c}/></div>;
+                    })
+                }
             </Grid>
-        </div>
+            <Grid xs={6}>
+                {
+                    rightCourses.map(c => {
+                        return <div style={{height: `${100/leftCourses.length}%`, marginBottom: '30px'}}><DetailedCourse course={c}/></div>;
+                    })
+                }
+            </Grid>
+        </Grid>
     );
 }
