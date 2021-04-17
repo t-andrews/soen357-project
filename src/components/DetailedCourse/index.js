@@ -6,7 +6,7 @@ import {
     TableBody, TableCell,
     TableContainer,
     TableHead,
-    TableRow,
+    TableRow, Tooltip,
     withStyles
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -81,9 +81,9 @@ export default function DetailedCourse(props) {
                     {course.name}
                 </div>
                 {
-                    course.status === 'enrolled' ? <CheckCircle className={classes.status} style={{ color: "lightGreen" }}/>
+                    course.status === 'enrolled' ? <Tooltip title={'Enrolled'}><CheckCircle className={classes.status} style={{ color: "lightGreen" }}/></Tooltip>
                         : (
-                            course.status === 'waitlisted' ? <RemoveCircle className={classes.status} style={{ color: "#FFB300" }}/>
+                            course.status === 'waitlisted' ? <Tooltip title={'Waitlisted'}><RemoveCircle className={classes.status} style={{ color: "#FFB300" }}/></Tooltip>
                                 : null
                         )
                 }
