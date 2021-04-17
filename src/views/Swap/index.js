@@ -8,6 +8,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import CourseCard from "../../components/CoursesCard";
+import Form from "../../components/Form";
 
 const useStyles = makeStyles({
     root: {
@@ -36,7 +37,11 @@ const useStyles = makeStyles({
         paddingTop: '5px'
     },
     card:{
-        width: '50px'
+        width: '50%',
+    },
+    form:{
+        width: '70%',
+        
     }
 });
 
@@ -99,9 +104,15 @@ export default function SwapView() {
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <CourseCard/>
+                <Box display="flex" flexDirection="row" >
+                    <Box className={classes.card}>
+                         <CourseCard/>
+                    </Box>
+                    <Box m={1} p={1} bgcolor="grey.300" className={classes.form}>
+                        <Form/>
+                    </Box>
+                </Box>
             </div>
         </div>
     );
 }
-
