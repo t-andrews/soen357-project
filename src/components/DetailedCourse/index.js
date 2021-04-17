@@ -63,23 +63,28 @@ export default function DetailedCourse(props) {
             backgroundColor: 'inherit',
             float: 'right'
         },
+        className: {
+            backgroundColor: 'inherit',
+            float: 'left'
+        },
         status: {
             stroke: 'white',
             strokeWidth: 2,
-            marginLeft: '5px'
+            marginLeft: '10px'
         }
     })();
 
     return (
         <TableContainer className={classes.table} component={Paper}>
             <Typography className={classes.title} variant="h7" id="tableTitle" component="div">
-                {course.name}
-                {'&nbsp'}
+                <div className={classes.className}>
+                    {course.name}
+                </div>
                 {
                     course.status === 'enrolled' ? <CheckCircle className={classes.status} style={{ color: "lightGreen" }}/>
                         : (
                             course.status === 'waitlisted' ? <RemoveCircle className={classes.status} style={{ color: "#FFB300" }}/>
-                            : null
+                                : null
                         )
                 }
                 <div className={classes.credits}>
