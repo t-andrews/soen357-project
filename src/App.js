@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 
 const Tabs = lazy(() => import("./components/Tabs"));
-const Service = lazy( () => import("./components/services"))
+const Service = lazy( () => import("./components/Test"))
 function App() {
   return (
     <div className="App">
