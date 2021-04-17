@@ -111,6 +111,7 @@ export default function ScheduleView() {
                     <CourseList courses={[
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
+                            status: 'enrolled',
                             units: '3.00',
                             color: '#DB8300',
                             sections: [
@@ -127,6 +128,7 @@ export default function ScheduleView() {
                         },
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
+                            status: 'enrolled',
                             units: '3.00',
                             color: '#00A251',
                             sections: [
@@ -152,6 +154,7 @@ export default function ScheduleView() {
                         },
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
+                            status: 'waitlisted',
                             units: '3.00',
                             color: '#C63A3A',
                             sections: [
@@ -177,6 +180,7 @@ export default function ScheduleView() {
                         },
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
+                            status: 'enrolled',
                             units: '3.00',
                             color: '#006280',
                             sections: [
@@ -211,6 +215,7 @@ export default function ScheduleView() {
                         },
                         {
                             name: 'COMP 123 - Intro Comp.Sci',
+                            status: 'enrolled',
                             units: '3.00',
                             color: '#9861A9',
                             sections: [

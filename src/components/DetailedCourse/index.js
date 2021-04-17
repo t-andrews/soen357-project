@@ -10,6 +10,7 @@ import {
     withStyles
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import {CheckCircle, RemoveCircle} from "@material-ui/icons";
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -61,6 +62,11 @@ export default function DetailedCourse(props) {
         credits: {
             backgroundColor: 'inherit',
             float: 'right'
+        },
+        status: {
+            stroke: 'white',
+            strokeWidth: 2,
+            marginLeft: '5px'
         }
     })();
 
@@ -68,6 +74,14 @@ export default function DetailedCourse(props) {
         <TableContainer className={classes.table} component={Paper}>
             <Typography className={classes.title} variant="h7" id="tableTitle" component="div">
                 {course.name}
+                {'&nbsp'}
+                {
+                    course.status === 'enrolled' ? <CheckCircle className={classes.status} style={{ color: "lightGreen" }}/>
+                        : (
+                            course.status === 'waitlisted' ? <RemoveCircle className={classes.status} style={{ color: "#FFB300" }}/>
+                            : null
+                        )
+                }
                 <div className={classes.credits}>
                     {`${course.units} Units`}
                 </div>
