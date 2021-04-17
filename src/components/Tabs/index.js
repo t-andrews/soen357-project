@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     paper: {
         backgroundColor: 'white',
         width: '100%',
-        height: '50px'
+        height: '25px'
     },
     tabs: {
         width: '1200px',

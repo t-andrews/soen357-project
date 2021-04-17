@@ -8,6 +8,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import CourseList from "../../components/CourseList";
+import WeeklySchedule from "../../components/WeeklySchedule";
 
 const useStyles = makeStyles({
     root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
         border: '2px solid #912338',
         borderRadius: '5px!important',
         minHeight: '700px',
+        minWidth: '1100px',
         padding: '10px'
     },
     paper: {
@@ -138,7 +140,6 @@ export default function ScheduleView() {
                                     section: 'S',
                                     daysTimes: 'MoWe 10:15AM - 11:30AM',
                                     room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
                                     startEndDates: '09/07/2021 - 12/06/2021'
                                 },
                                 {
@@ -147,7 +148,6 @@ export default function ScheduleView() {
                                     section: 'SSJ',
                                     daysTimes: 'Tu 3:45PM - 5:30PM',
                                     room: 'H 911 SGW',
-                                    instructor: 'Dr Instructor',
                                     startEndDates: '09/07/2021 - 12/06/2021'
                                 }
                             ]
@@ -164,7 +164,6 @@ export default function ScheduleView() {
                                     section: 'S',
                                     daysTimes: 'MoWe 10:15AM - 11:30AM',
                                     room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
                                     startEndDates: '09/07/2021 - 12/06/2021'
                                 },
                                 {
@@ -173,7 +172,6 @@ export default function ScheduleView() {
                                     section: 'SSJ',
                                     daysTimes: 'Tu 3:45PM - 5:30PM',
                                     room: 'H 911 SGW',
-                                    instructor: 'Dr Instructor',
                                     startEndDates: '09/07/2021 - 12/06/2021'
                                 }
                             ]
@@ -233,7 +231,68 @@ export default function ScheduleView() {
                     ]}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-
+                    <WeeklySchedule courses={[
+                        {
+                            name: 'Intro Comp.Sci',
+                            className: 'COMP 123',
+                            instructor: 'Dr Instructor',
+                            color: '#9861A9',
+                            startDate: new Date(2021,0, 13),
+                            endDate: new Date(2021,3, 20),
+                            components: [
+                                {
+                                    component: 'Lecture',
+                                    section: 'S',
+                                    day: 'Monday',
+                                    room: 'H 444 SGW',
+                                    startTime: '1:45PM',
+                                    endTime: '3:00PM'
+                                },
+                                {
+                                    component: 'Tutorial',
+                                    section: 'SJ',
+                                    day: 'Monday',
+                                    room: 'H 666 SGW',
+                                    startTime: '3:30PM',
+                                    endTime: '6:00PM'
+                                }
+                            ]
+                        },
+                        {
+                            name: 'Intro Comp.Sci 2',
+                            className: 'COMP 456',
+                            instructor: 'Dr Dok Tor',
+                            color: '#006280',
+                            startDate: new Date(2021,0, 13),
+                            endDate: new Date(2021,3, 20),
+                            components: [
+                                {
+                                    component: 'Lecture',
+                                    section: 'S',
+                                    day: 'Tuesday',
+                                    room: 'H 234 SGW',
+                                    startTime: '2:45PM',
+                                    endTime: '5:00PM'
+                                },
+                                {
+                                    component: 'Tutorial',
+                                    section: 'SJ',
+                                    day: 'Friday',
+                                    room: 'H 666 SGW',
+                                    startTime: '9:30AM',
+                                    endTime: '11:45AM'
+                                },
+                                {
+                                    component: 'Laboratory',
+                                    section: 'SJ',
+                                    day: 'Wednesday',
+                                    room: 'H 666 SGW',
+                                    startTime: '7:30PM',
+                                    endTime: '10:00PM'
+                                }
+                            ]
+                        }
+                    ]}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
 
