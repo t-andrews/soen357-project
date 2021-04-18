@@ -1,0 +1,105 @@
+{
+  "SOEN 363": {
+    "courseName": "SOEN 363",
+    "courseTitle": "Data Systems for Software Engineers",
+    "startDate": "Jan 13",
+    "endDate": "Apr 20",
+    "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+    "instructor": "Essam Mansour",
+    "sections": [
+      {
+        "component": "Lecture",
+        "section": "A ",
+        "startTime": "1:15PM",
+        "endTime": "4:00PM",
+        "location": "H-123 SGW",
+        "days": ["Monday", "Wednesday"]
+      },
+      {
+        "component": "Tutorial",
+        "section": "A AA",
+        "startTime": "8:45AM",
+        "endTime": "9:35PM",
+        "location": "H-345 SGW",
+        "days": ["Monday"]
+      },
+      {
+        "component": "Laboratory",
+        "section": "A AC",
+        "startTime": "8:45AM",
+        "endTime": "9:35AM",
+        "location": "H-345 SGW",
+        "days": ["Monday"]
+      }
+    ]
+  },
+  "SOEN 357": {
+    "courseName": "SOEN 357",
+    "courseTitle": "User Interface Design",
+    "startDate": "Jan 13",
+    "endDate": "Apr 20",
+    "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+    "instructor": "MARTA KERSTEN OLSEL",
+    "sections": [
+      {
+        "component": "Lecture",
+        "section": "B ",
+        "startTime": "4:15PM",
+        "endTime": "5:00PM",
+        "location": "H-345 SGW",
+        "days": ["Tuesday", "Thursday"]
+      },
+      {
+        "component": "Tutorial",
+        "section": "B BB",
+        "startTime": "8:45AM",
+        "endTime": "9:35PM",
+        "location": "H-345 SGW",
+        "days": ["Monday"]
+      },
+      {
+        "component": "Laboratory",
+        "section": "B BC",
+        "startTime": "8:45AM",
+        "endTime": "9:35AM",
+        "location": "H-345 SGW",
+        "days": ["Monday"]
+      }
+    ]
+  },
+  "SOEN 345": {
+    "courseName": "SOEN 345",
+    "courseTitle": "Software Testing, Verification and Quality Assurance",
+    "startDate": "Jan 13",
+    "endDate": "Apr 20",
+    "description": "jweofwejofwifw",
+    "instructor": "RODRIGO MORALES",
+    "sections": [
+      {
+        "component": "Lecture",
+        "section": "S",
+        "startTime": "3:15PM",
+        "endTime": "4:00PM",
+        "location": "H-456 SGW",
+        "days": ["Friday"]
+      },
+      {
+        "component": "Tutorial",
+        "section": "S SC",
+        "startTime": "8:45AM",
+        "endTime": "9:35AM",
+        "location": "H-345 SGW",
+        "days": ["Monday"]
+      },
+      {
+        "component": "Laboratory",
+        "section": "S SC",
+        "startTime": "8:45AM",
+        "endTime": "9:35AM",
+        "location": "H-345 SGW",
+        "days": ["Monday"]
+      }
+
+    ]
+  }
+}
