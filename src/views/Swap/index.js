@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     },
     form:{
         width: '70%',
-        
+
     }
 });
 
@@ -108,7 +108,7 @@ export default function SwapView() {
                     <Box className={classes.card}>
                          <CourseCard/>
                     </Box>
-                    <Box m={1} p={1} bgcolor="grey.300" className={classes.form}>
+                    <Box m={1} p={1} className={classes.form}>
                         <Form/>
                     </Box>
                 </Box>
