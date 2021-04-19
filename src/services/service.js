@@ -1,5 +1,8 @@
 import axios from "axios"
 
+export const getEnrolledCourses = async () => {
+    return (await axios.get("http://localhost:5000/register")).data;
+}
 
 export const addToCourseCart = (courseToAdd) => {
     axios.post("http://localhost:5000/courseCart", courseToAdd).
@@ -7,6 +10,7 @@ export const addToCourseCart = (courseToAdd) => {
         console.log(res.data)
     })
 }
+
 export const deleteFromCourseCart = (courseToDelete) => {
     axios.delete("http://localhost:5000/courseCart/"+ courseToDelete.id).
     then(res => {

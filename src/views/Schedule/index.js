@@ -61,13 +61,6 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-    return {
-        id: `schedule-tabs-${index}`,
-        'aria-controls': `schedule-tabs-${index}`,
-    };
-}
-
 const StyledTab = styled(Tab)({
     minHeight: '30px',
     padding: 0,
@@ -102,9 +95,9 @@ export default function ScheduleView() {
                     <Grid item>
                         <AppBar className={classes.tabs} position="static">
                             <Tabs value={value} classes={{ indicator: classes.indicator }} onChange={handleChange}>
-                                <StyledTab classes={{wrapper: classes.tab}} label="Course List"{...a11yProps(0)}/>
-                                <StyledTab classes={{wrapper: classes.tab}} label="Weekly Schedule"{...a11yProps(1)}/>
-                                <StyledTab classes={{wrapper: classes.tab}} label="Schedule Builder"{...a11yProps(2)}/>
+                                <StyledTab label="Course List"/>
+                                <StyledTab label="Weekly Schedule"/>
+                                <StyledTab label="Schedule Builder"/>
                             </Tabs>
                         </AppBar>
                     </Grid>
@@ -231,68 +224,7 @@ export default function ScheduleView() {
                     ]}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <WeeklySchedule courses={[
-                        {
-                            name: 'Intro Comp.Sci',
-                            className: 'COMP 123',
-                            instructor: 'Dr Instructor',
-                            color: '#9861A9',
-                            startDate: new Date(2021,0, 13),
-                            endDate: new Date(2021,3, 20),
-                            components: [
-                                {
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    day: 'Monday',
-                                    room: 'H 444 SGW',
-                                    startTime: '1:45PM',
-                                    endTime: '3:00PM'
-                                },
-                                {
-                                    component: 'Tutorial',
-                                    section: 'SJ',
-                                    day: 'Monday',
-                                    room: 'H 666 SGW',
-                                    startTime: '3:30PM',
-                                    endTime: '6:00PM'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'Intro Comp.Sci 2',
-                            className: 'COMP 456',
-                            instructor: 'Dr Dok Tor',
-                            color: '#006280',
-                            startDate: new Date(2021,0, 13),
-                            endDate: new Date(2021,3, 20),
-                            components: [
-                                {
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    day: 'Tuesday',
-                                    room: 'H 234 SGW',
-                                    startTime: '2:45PM',
-                                    endTime: '5:00PM'
-                                },
-                                {
-                                    component: 'Tutorial',
-                                    section: 'SJ',
-                                    day: 'Friday',
-                                    room: 'H 666 SGW',
-                                    startTime: '9:30AM',
-                                    endTime: '11:45AM'
-                                },
-                                {
-                                    component: 'Laboratory',
-                                    section: 'SJ',
-                                    day: 'Wednesday',
-                                    room: 'H 666 SGW',
-                                    startTime: '7:30PM',
-                                    endTime: '10:00PM'
-                                }
-                            ]
-                        }
-                    ]}/>
+                    <WeeklySchedule/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
 
