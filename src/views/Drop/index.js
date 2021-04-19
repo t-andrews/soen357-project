@@ -1,6 +1,11 @@
 import React from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles, styled} from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 import {Paper} from "@material-ui/core";
+import CourseCard from "../../components/CoursesCard";
+import DropForm from "../../components/DropForm";
 
 const useStyles = makeStyles({
     root: {
@@ -15,18 +20,63 @@ const useStyles = makeStyles({
         width: '100%',
         height: '15px',
     },
+    card:{
+        width: '100%',
+        margin: '30px'
+    },
+    form:{
+        width: '100%',
+    }
 });
 
-export default function Drop() {
-    const classes = useStyles();
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
 
-    return(
+    return (
+        <div role="tab" hidden={value !== index} id={`tabs-${index}`}
+             aria-labelledby={`tabs-${index}`}{...other}
+        >
+            {value === index && (
+                <Box p={3}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+
+export default function SwapView() {
+    const classes = useStyles();
+    const [toggled] = React.useState(false);
+    const anchorRef = React.useRef(null);
+
+    const prevOpen = React.useRef(toggled);
+    React.useEffect(() => {
+        if (prevOpen.current && !toggled) {
+            anchorRef.current.focus();
+        }
+        prevOpen.current = toggled;
+    }, [toggled]);
+
+    return (
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <h1>Code Here</h1>
+                <Box display="flex" flexDirection="row" >
+                    <Box className={classes.card}>
+                         <CourseCard pt={2} forDelete={true}/>
+                    </Box>
+                    <Box m={1} p={1} className={classes.form}>
+                        <DropForm heading="Drop"/>
+                    </Box>
+                </Box>
             </div>
         </div>
-
     );
 }
