@@ -1,10 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import TextField from '@material-ui/core/TextField';
 import TextInput from "../../components/textInput";
-import Paper from '@material-ui/core/Paper';
 import SwapHorizontalCircleIcon from '@material-ui/icons/SwapHorizontalCircle';
-import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dropdown from "../../components/dropdown";

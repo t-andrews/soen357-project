@@ -3,10 +3,7 @@ import {makeStyles, styled} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import {Grid, Paper} from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import {Paper} from "@material-ui/core";
 import CourseCard from "../../components/CoursesCard";
 import Form from "../../components/Form";
 
@@ -22,19 +19,6 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         width: '100%',
         height: '15px',
-    },
-    tabs: {
-        height: '30px',
-        width: '480px',
-        color: 'black',
-        backgroundColor: '#b3b3b3'
-    },
-    indicator: {
-        top: '30px',
-        backgroundColor: '#912338',
-    },
-    expand: {
-        paddingTop: '5px'
     },
     card:{
         width: '60%',
@@ -67,30 +51,10 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-    return {
-        id: `schedule-tabs-${index}`,
-        'aria-controls': `schedule-tabs-${index}`,
-    };
-}
-
-const StyledTab = styled(Tab)({
-    minHeight: '30px',
-    padding: 0,
-    fontSize: '0.8em',
-    fontWeight: 'bold'
-});
-
 export default function SwapView() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-
     const [toggled] = React.useState(false);
     const anchorRef = React.useRef(null);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     const prevOpen = React.useRef(toggled);
     React.useEffect(() => {

@@ -10,12 +10,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import AdjustIcon from '@material-ui/icons/Adjust';
-import Checkbox from '@material-ui/core/Checkbox';
 
 
 const useRowStyles = makeStyles({
@@ -28,19 +26,15 @@ const useRowStyles = makeStyles({
     fontWeight: "900",
     fontSize: ""
   },
-  small:{
-      width:""
-  }
 });
 
-function createData(name,location, time, instructor,forDelete) {
-  forDelete = forDelete ?? false
+function createData(name,location, time, instructor) {
   return {
     name,
     location,
     time,
     instructor,
-    history: [
+    subSection: [
       {
         name: "S SX (Laboratory)",
         time: "We 4:15PM - 6:15PM ",
@@ -50,7 +44,6 @@ function createData(name,location, time, instructor,forDelete) {
       time: "We 4:15PM - 6:15PM ",
       room: 'FG 111 SGW' }
     ],
-    forDelete
   };
 }
 
@@ -68,7 +61,8 @@ function Row(props) {
           <IconButton>
             <AdjustIcon/>
           </IconButton>
-        </TableCell>:null}
+        </TableCell> 
+        : null}
         <TableCell component="th" scope="row">
           <span className={classes.course_name}>{row.name}</span>
           <br/>
@@ -95,7 +89,7 @@ function Row(props) {
             <Box margin={1}>
               <Table size="small" aria-label="purchases">
                 <TableBody>
-                  {row.history.map((historyRow) => (
+                  {row.subSection.map((historyRow) => (
                     <TableRow key={historyRow.name}>
                       <TableCell component="th" scope="row">
                         {historyRow.name}
@@ -119,19 +113,17 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
+    name: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    instructor: PropTypes.string.isRequired,
+    subSection: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired
+        name: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired,
+        room: PropTypes.string.isRequired
       })
     ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired
   }).isRequired
 };
 
