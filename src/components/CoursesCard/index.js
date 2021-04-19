@@ -14,6 +14,9 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import AdjustIcon from '@material-ui/icons/Adjust';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 const useRowStyles = makeStyles({
   root: {
@@ -30,7 +33,8 @@ const useRowStyles = makeStyles({
   }
 });
 
-function createData(name,location, time, instructor) {
+function createData(name,location, time, instructor,forDelete) {
+  forDelete = forDelete ?? false
   return {
     name,
     location,
@@ -45,7 +49,8 @@ function createData(name,location, time, instructor) {
       { name: "S S (Tutorial)", 
       time: "We 4:15PM - 6:15PM ",
       room: 'FG 111 SGW' }
-    ]
+    ],
+    forDelete
   };
 }
 
@@ -57,13 +62,6 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
         <TableCell component="th" scope="row">
           <span className={classes.course_name}>{row.name}</span>
           <br/>
@@ -74,6 +72,15 @@ function Row(props) {
           <br/>
           Room: {row.location}
         </TableCell>
+        <div  align="right" style={{width:"auto"}}>
+        <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </div>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -126,7 +133,7 @@ const rows = [
   createData("COMP 223 S - Databases",'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
   createData("COMP 323 S -Web Develop", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
   createData("COMP 423 S - Artificial Intel", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
-  createData("ENGR 133 S - Intro Calculus", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff')
+  createData("ENGR 133 S - Intro Calculus", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff',true)
 ];
 
 export default function CourseCard() {
