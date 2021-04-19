@@ -2,29 +2,12 @@ import React, {useEffect} from 'react';
 import {Grid} from "@material-ui/core";
 import { ScheduleComponent, Week, Inject } from '@syncfusion/ej2-react-schedule';
 import {ViewDirective, ViewsDirective} from "@syncfusion/ej2-react-schedule/src/schedule/views-directive";
-import {Internationalization, extend} from '@syncfusion/ej2-base';
+import {Internationalization} from '@syncfusion/ej2-base';
 import {makeStyles} from "@material-ui/core/styles";
-import * as Service from "../../services/service";
+import * as DateUtils from "../../services/dateUtils";
+
 
 let classes;
-
-function getDateWithTime(date, timeString) {
-    const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    const isPM = timeString.substr(-2) === 'PM';
-    const timeSection = timeString.substr(0, timeString.length - 2);
-    const arr = timeSection.split(':');
-    let hours = Number(arr[0]);
-    let minutes = Number(arr[1]);
-
-    if (isPM) {
-        hours += 12;
-    }
-
-    newDate.setHours(hours);
-    newDate.setMinutes(minutes);
-
-    return newDate;
-}
 
 const instance = new Internationalization();
 
@@ -72,30 +55,19 @@ function tooltipTemplate(props) {
 
 const msInWeek = 604800000.0;
 
-function buildDates(startDate, endDate, term) {
-    let yearEnd = term.substr(-4);
-    let yearStart = yearEnd;
-
-    if (term.includes('/')) {
-        yearStart = term.substr(-9, 4);
-    }
-
-    return { startDate: new Date(Date.parse(startDate + ' ' + yearStart)), endDate: new Date(Date.parse(endDate + ' ' + yearEnd)) }
-}
-
 function getFormattedCourses(courses) {
     const formattedCourses = [];
     courses.forEach(course => {
         course.sections.forEach(component => {
-            const { startDate, endDate } = buildDates(course.startDate, course.endDate, course.term)
+            const { startDate, endDate } = DateUtils.buildDates(course.startDate, course.endDate, course.term)
             const nbWeeks = (startDate.getMilliseconds() - endDate.getMilliseconds()) / msInWeek;
             formattedCourses.push({
                 Subject: `${course.courseName} - ${component.section}`,
                 Name: course.courseTitle,
                 Component: component.component,
                 Instructor: course.instructor,
-                StartTime: getDateWithTime(startDate, component.startTime),
-                EndTime: getDateWithTime(startDate, component.endTime),
+                StartTime: DateUtils.getDateWithTime(startDate, component.startTime),
+                EndTime: DateUtils.getDateWithTime(startDate, component.endTime),
                 RecurrenceRule: `FREQ=WEEKLY;INTERVAL=1;BYDAY=${component.days.map(d => d.substr(0, 2).toUpperCase()).join(',')};COUNT=${nbWeeks}`,
                 Room: component.location,
                 Color: course.color,
@@ -116,7 +88,7 @@ function dateHeaderTemplate(props) {
     return <div>{instance.formatDate(props.date, { skeleton: 'Ed' })}</div>;
 }
 
-export default function WeeklySchedule() {
+export default function WeeklySchedule(props) {
     classes = (makeStyles({
         outer: {
             display: 'table',
@@ -137,13 +109,11 @@ export default function WeeklySchedule() {
         }
     }))();
 
-    const [courses, setCourses] = React.useState(null);
+    const [courses, setCourses] = React.useState(getFormattedCourses(props.courses));
 
-    useEffect(async () => {
-        if (!courses) {
-            setCourses(getFormattedCourses(await Service.getEnrolledCourses() ?? []));
-        }
-    }, []);
+    useEffect(() => {
+        setCourses(getFormattedCourses(props.courses));
+    }, [props.courses]);
 
     return (
         <Grid container>

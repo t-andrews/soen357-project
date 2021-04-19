@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { enroll, drop, swap, getRegisteredCourses } from "../../services/service";
+import { enroll, drop, swap } from "../../services/service";
 import axios from "axios";
 
 //Example

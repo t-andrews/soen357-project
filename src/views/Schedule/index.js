@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles, styled} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import CourseList from "../../components/CourseList";
 import WeeklySchedule from "../../components/WeeklySchedule";
+import * as Service from "../../services/service";
 
 const useStyles = makeStyles({
     root: {
@@ -79,6 +80,14 @@ export default function ScheduleView() {
         setValue(newValue);
     };
 
+    const [courses, setCourses] = React.useState(null);
+
+    useEffect(async () => {
+        if (!courses) {
+            setCourses(await Service.getEnrolledCourses() ?? []);
+        }
+    }, []);
+
     const prevOpen = React.useRef(toggled);
     React.useEffect(() => {
         if (prevOpen.current && !toggled) {
@@ -103,128 +112,10 @@ export default function ScheduleView() {
                     </Grid>
                 </Grid>
                 <TabPanel value={value} index={0}>
-                    <CourseList courses={[
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#DB8300',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#00A251',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1235,
-                                    component: 'Laboratory',
-                                    section: 'SSJ',
-                                    daysTimes: 'Tu 3:45PM - 5:30PM',
-                                    room: 'H 911 SGW',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'waitlisted',
-                            units: '3.00',
-                            color: '#C63A3A',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1235,
-                                    component: 'Laboratory',
-                                    section: 'SSJ',
-                                    daysTimes: 'Tu 3:45PM - 5:30PM',
-                                    room: 'H 911 SGW',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#006280',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1234,
-                                    component: 'Laboratory',
-                                    section: 'SSX',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1234,
-                                    component: 'Tutorial',
-                                    section: 'SSX',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#9861A9',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        }
-                    ]}/>
+                    <CourseList courses={courses}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <WeeklySchedule/>
+                    <WeeklySchedule courses={courses}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
 
