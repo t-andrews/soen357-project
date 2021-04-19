@@ -7,6 +7,7 @@
       "endDate": "Apr 20",
       "description": "Testing strategies. Specification-based vs. code-based, black-box vs. white-box, functional vs. structural testing; unit, integration, system, acceptance, and regression testing. Verification vs. validation. Test planning, design and artifacts. Introduction to software reliability and quality assurance. Formal verification methods, oracles; static and dynamic program verification. Lectures: three hours per week. Tutorial: one hour per week.\nPrerequisite: SOEN 343 previously or concurrently",
       "instructor": "RODRIGO MORALES ALVARADO",
+      "term": "Winter 2021",
       "sections": [
         {
           "component": "Tutorial",
@@ -49,6 +50,7 @@
       "endDate": "Apr 20",
       "description": "The human side: I/O; memory; and information processing. Interaction: mental models; human error; interaction frameworks and paradigms. Direct manipulation. User interface design: principles; standards; and guidelines. User-centred design: standards and design rationale; heuristic evaluation; iterative design; and prototyping. Task-centred design. Rationalized design: usability engineering; dialogue notations; user models; diagrammatic notations; and textual notations. Evaluation: with the user; without the user; quantitative; and qualitative. Implementation support. Help and documentation. Lectures: three hours per week. Tutorial: one hour per week.",
       "instructor": "Marta Kersten-Oertel",
+      "term": "Winter 2021",
       "sections": [
         {
           "component": "Lecture",
@@ -83,6 +85,7 @@
       "endDate": "Apr 20",
       "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
       "instructor": "Essam Mansour",
+      "term": "Winter 2021",
       "sections": [
         {
           "component": "Lecture",
@@ -125,6 +128,7 @@
       "endDate": "Apr 20",
       "description": "Students work in teams to design and implement a software project from requirements provided by the coordinator. Each team will demonstrate the software and prepare adequate documentation for it. In addition, each student will write an individual report. Lectures: two hours per week. Tutorial: one hour per week. Laboratory: three hours per week.",
       "instructor": "Yann-Gael Gueheneuc",
+      "term": "Winter 2021",
       "sections": [
         {
           "component": "Lecture",

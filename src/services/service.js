@@ -1,24 +1,35 @@
-export const enroll = (courseList, courseToAdd) => {
-    if(!(courseToAdd.courseName in courseList)) {
-        courseList[courseToAdd.courseName] = courseToAdd
-        return courseList
-    }
-    else{
-        console.log("Already registered")
-    }
+import axios from "axios"
+
+
+export const addToCourseCart = (courseToAdd) => {
+    axios.post("http://localhost:5000/courseCart", courseToAdd).
+    then(res => {
+        console.log(res.data)
+    })
+}
+export const deleteFromCourseCart = (courseToDelete) => {
+    axios.delete("http://localhost:5000/courseCart/"+ courseToDelete.id).
+    then(res => {
+        console.log(res.data)
+    })
+}
+//Cant add multiple classes at once :(
+export const enroll = (courseToAdd) => {
+    axios.post("http://localhost:5000/register", courseToAdd).
+        then(res => {
+            console.log(res.data)
+    })
 
 };
 
-export const drop = (courseList, courseToDrop) => {
-    if((courseToDrop in courseList)){
-        delete courseList[courseToDrop]
-    }
-    return courseList
+export const drop = (courseToDrop) => {
+    axios.delete("http://localhost:5000/register/"+ courseToDrop.id).
+    then(res => {
+        console.log(res.data)
+    })
 };
 
-export const swap = (courseList, courseToAdd, courseToDrop) => {
-
-    courseList[courseToAdd.courseName] = courseToAdd
-    delete courseList[courseToDrop]
-    return courseList
+export const swap = (courseToAdd, courseToDrop) => {
+    drop(courseToDrop)
+    enroll(courseToAdd)
 };
