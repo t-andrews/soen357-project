@@ -61,8 +61,7 @@ function Row(props) {
           <IconButton>
             <AdjustIcon/>
           </IconButton>
-        </TableCell> 
-        : null}
+        </TableCell> : null}
         <TableCell component="th" scope="row">
           <span className={classes.course_name}>{row.name}</span>
           <br/>

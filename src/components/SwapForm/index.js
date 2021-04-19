@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import TextInput from "../../components/textInput";
+import TextInput from "../textInput";
 import SwapHorizontalCircleIcon from '@material-ui/icons/SwapHorizontalCircle';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import Dropdown from "../../components/dropdown";
+import Dropdown from "../dropdown";
 
 const useRowStyles = makeStyles({
   root: {
@@ -47,7 +47,7 @@ const useRowStyles = makeStyles({
   }
 });
 
-export default function Form(props) {
+export default function SwapForm(props) {
     const heading = props.heading
     const classes = useRowStyles();
     const rows = [{name:"a course",message:" Success "},{name:"a course",message:" Success "},{name:"a course",message:" Success "}]

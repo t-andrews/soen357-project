@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import {Paper} from "@material-ui/core";
 import CourseCard from "../../components/CoursesCard";
-import Form from "../../components/Form";
+import SwapForm from "../../components/SwapForm";
 
 const useStyles = makeStyles({
     root: {
@@ -21,11 +21,11 @@ const useStyles = makeStyles({
         height: '15px',
     },
     card:{
-        width: '60%',
+        width: '100%',
+        margin: '30px'
     },
     form:{
-        width: '70%',
-
+        width: '100%',
     }
 });
 
@@ -73,7 +73,7 @@ export default function SwapView() {
                          <CourseCard/>
                     </Box>
                     <Box m={1} p={1} className={classes.form}>
-                        <Form heading="Swap"/>
+                        <SwapForm heading="Swap"/>
                     </Box>
                 </Box>
             </div>
