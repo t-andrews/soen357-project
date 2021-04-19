@@ -2,10 +2,9 @@ import { FormControl,MenuItem,Select,InputLabel } from "@material-ui/core";
 
 export default function Dropdown() {
     return(
-        <FormControl variant="outlined" style={{width:"40%",marginLeft:"40%", marginTop:"5%", marginBottom:"5%"}}>
+        <FormControl variant="outlined" style={{width:"100%",marginLeft:"auto", marginTop:"5%", marginBottom:"5%"}}>
         <InputLabel id="">Select from course cart</InputLabel>
-        <Select
-        >
+        <Select>
           <MenuItem value="">
             <em>None</em>
           </MenuItem>

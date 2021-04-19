@@ -37,7 +37,7 @@ const useStyles = makeStyles({
         paddingTop: '5px'
     },
     card:{
-        width: '50%',
+        width: '60%',
     },
     form:{
         width: '70%',
@@ -109,7 +109,7 @@ export default function SwapView() {
                          <CourseCard/>
                     </Box>
                     <Box m={1} p={1} className={classes.form}>
-                        <Form/>
+                        <Form heading="Swap"/>
                     </Box>
                 </Box>
             </div>

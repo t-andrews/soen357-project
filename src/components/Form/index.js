@@ -50,42 +50,52 @@ const useRowStyles = makeStyles({
   }
 });
 
-export default function Form() {
+export default function Form(props) {
+    const heading = props.heading
     const classes = useRowStyles();
     const rows = [{name:"a course",message:" Success "},{name:"a course",message:" Success "},{name:"a course",message:" Success "}]
     return (
         <fieldset className={classes.small}>
             <legend className={classes.bigRed}>
-                Some word
+                {heading}
             </legend>
-            <Box className={classes.box1}>
-              <Box display="flex" flexDirection="row">
-                <Box className={classes.container} >
+            <table className={classes.box1} style={{ alignContent:"center",width:"100%"}}>
+              <tr>
+                <td>
                   <Box className={classes.boxH1}>Select classes to swap</Box>
-                  <Box className={classes.container}>
-                  <Paper component="select" >
-                      <Paper component="option" ></Paper>
-                      <option> Swap this class</option>
-                      <option> COMP 123 - INTRO</option>
-                      <option> 1 </option>
-                      <option> 1 </option>
-                  </Paper>
-                  </Box>
-                </Box>
+                </td>
+              </tr>
+              <tr>
+                <td> <Dropdown/></td>
+                <td></td>
+                <td>
                 <Box>
                   <span><strong>Search for a class</strong></span>
-                  <br/>
                   <TextInput/>
                 </Box>
-              </Box>
-              <Box style={{width:"100px",marginLeft:"30%"}}>
-                <strong>WITH</strong>
-              </Box>
-              <Box style={{width:"100px",marginLeft:"60%"}}>
-                <strong>OR</strong>
-              </Box>
-              <Dropdown m={3} className={classes.option}/>
-            </Box>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <strong>WITH</strong>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td><strong>OR</strong></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                <Dropdown/>
+                </td>
+              </tr>
+            </table>
+
             <Box style={{borderBottom: ' 2px solid #912338 '}}>
               <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Confirmation</h3>
               <table style={{marginLeft:"5%", alignContent:"center",width:"90%"}}>

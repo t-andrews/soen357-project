@@ -56,12 +56,19 @@ function createData(name,location, time, instructor,forDelete) {
 
 function Row(props) {
   const { row } = props;
+  const forDelete = props.forDelete ?? false
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
+        {forDelete ?         
+        <TableCell>
+          <IconButton>
+            <AdjustIcon/>
+          </IconButton>
+        </TableCell>:null}
         <TableCell component="th" scope="row">
           <span className={classes.course_name}>{row.name}</span>
           <br/>
@@ -133,17 +140,19 @@ const rows = [
   createData("COMP 223 S - Databases",'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
   createData("COMP 323 S -Web Develop", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
   createData("COMP 423 S - Artificial Intel", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
-  createData("ENGR 133 S - Intro Calculus", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff',true)
+  createData("ENGR 133 S - Intro Calculus", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff')
 ];
 
-export default function CourseCard() {
+export default function CourseCard(props) {
+  const forDelete = props.forDelete ?? false
+  console.log("Keys for delete: "+Object.keys(forDelete))
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead></TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.name} row={row} forDelete={forDelete} />
           ))}
         </TableBody>
       </Table>
