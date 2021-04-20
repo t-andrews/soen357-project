@@ -15,7 +15,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday", "Wednesday"],
+          "days": ["Monday", "Wednesday"]
         },
         {
           "component": "Tutorial",
