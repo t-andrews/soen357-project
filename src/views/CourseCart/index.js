@@ -4,11 +4,9 @@ import {
     makeStyles,
     Paper,
     Table,
-    TableBody, TableCell,
-    TableContainer,
-    TableHead,
-    TableRow, Tooltip,
-    withStyles
+    TableCell,
+    TableRow,
+    Grid, withStyles
 } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -37,37 +35,47 @@ const useStyles = makeStyles({
         float: 'left',
 
     },
-    classHeader: {
+    bigRed:{
+        fontSize:"Large",
+        color: "#912338",
+        fontWeight:"bold"
+    },
+    small:{
+        marginLeft: "30px",
+        border: '2px solid #912338',
+        borderRadius: '5px!important'
+    },
+    boxH1:{
+        textAlign:"left",
+        borderLeft: '2px solid #912338',
+        color: "#912338",
+        padding: "10px",
+        fontSize: "1.2rem",
+        fontWeight: 'bold'
+    },
+    smallTitle: {
         fontWeight: 'bold',
-        float: 'left'
-    },
-    left: {
-      float: 'left'
-    },
-    right: {
-        float: 'left'
-    },
-    table: {
-        maxWidth: 800,
-    },
-    card:{
-        width: '50%',
-    },
-    form:{
-        width: '50%',
+        paddingTop: '10px',
+        paddingBottom: '20px',
+        paddingLeft: '20px',
+        float: 'left',
 
+    },
+    courses: {
+        float: 'left',
+        fontSize: "1.2rem",
     }
 });
-const StyledTableCell = withStyles((theme) => ({
-    head: {
-        backgroundColor: '#808080' ,
-
+const ColorButton = withStyles((theme) => ({
+    root: {
+        float: 'right',
+        color: theme.palette.getContrastText('#912338'),
+        backgroundColor: '#912338',
+        '&:hover': {
+            backgroundColor: '#B3455A',
+        },
     },
-    body: {
-        fontSize: 14,
-    },
-}))(TableCell);
-
+}))(Button);
 export default function CourseCart() {
     const classes = useStyles();
     const courses = require("../../services/courseCart.json")
@@ -77,7 +85,8 @@ export default function CourseCart() {
             <Paper className={classes.paper} elevation={0}/>
             <Typography className={classes.title} variant='h5'>Course cart</Typography>
             <div className={classes.root}>
-                <div className={classes.card}>
+                <Grid container>
+                <Grid item xs={3} style={{maxWidth: '75%', minWidth: '915px'}}>
                     <Table>
                         {Object.keys(courses).map(key => (
                             <TableRow>
@@ -87,18 +96,49 @@ export default function CourseCart() {
                                 <TableCell>
                                     <Cart course={courses[key]}/>
                                 </TableCell>
-                                <TableCell>
-                                    <Button>
-                                        <DeleteIcon/>
-                                    </Button>
-                                </TableCell>
                             </TableRow>
                         ))
-
                         }
                     </Table>
+                </Grid>
+                <Grid item xs={5}>
+                    <fieldset className={classes.small}>
+                    <legend className={classes.bigRed}>
+                        Enroll
+                    </legend>
+                        <Box className={classes.boxH1}>Reviewing</Box>
+                        <Box> <Typography className={classes.smallTitle} >Course(s) that will be added:</Typography></Box>
+                        <br/>
+                        <br/>
+                        <Table>
+                            <TableRow>
+                                COMP 232 S -Databases
+                            </TableRow>
+                            <TableRow>
+                                COMP 232 S -Databases
+                            </TableRow>
+                        </Table>
+                        <ColorButton size="small" >
+                            Next
+                        </ColorButton>
+                        <br/>
+                        <br/>
+                        <Box style={{borderTop: ' 2px solid #912338 '}}>
+                            <br/>
+                            <Box className={classes.boxH1}>Summary</Box>
+                            <Table>
+                                <TableRow>
+                                    COMP 232 S -Databases - Enrolled Successfully
+                                </TableRow>
+                                <TableRow>
+                                    COMP 232 S -Databases - Enrolled Successfully
+                                </TableRow>
+                            </Table>
+                        </Box>
+                    </fieldset>
 
-                </div>
+                </Grid>
+                </Grid>
             </div>
         </div>
 

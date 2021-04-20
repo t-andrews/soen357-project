@@ -8,7 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import {Button} from "@material-ui/core";
 const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: "#808080",
@@ -105,6 +106,11 @@ export default function Cart(props) {
                             <br/>
                                 {course.lectureRoom}
                             </Typography>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            <Button>
+                            <DeleteIcon color="error"/>
+                            </Button>
                         </StyledTableCell>
                     </TableRow>
                 </TableHead>
