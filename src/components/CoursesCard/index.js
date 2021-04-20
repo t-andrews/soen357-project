@@ -24,15 +24,24 @@ const useRowStyles = makeStyles({
   },
   course_name:{
     fontWeight: "900",
-    fontSize: ""
+    fontSize: "20px"
+  },
+  bigRed:{
+    fontSize:"25px",
+    color: "#912338",
+    fontWeight:"bold",
+    textAlign:"left",
+    marginBottom:"20px",
+    marginTop:"-30px"
   },
 });
 
-function createData(name,location, time, instructor) {
+function createData(name,location, time, instructor,color) {
   return {
     name,
     location,
     time,
+    color,
     instructor,
     subSection: [
       {
@@ -54,8 +63,8 @@ function Row(props) {
   const classes = useRowStyles();
 
   return (
-    <React.Fragment>
-      <TableRow className={classes.root}>
+    <React.Fragment style={{borderColor:"red"}}>
+      <TableRow className={classes.root} style={{backgroundColor:row.color}}>
         {forDelete ?         
         <TableCell>
           <IconButton>
@@ -65,9 +74,9 @@ function Row(props) {
         <TableCell component="th" scope="row">
           <span className={classes.course_name}>{row.name}</span>
           <br/>
-          Instructor: {row.instructor}
+          <span style={{color:"white"}}>Instructor: {row.instructor}</span>
         </TableCell>
-        <TableCell align="right">
+        <TableCell align="right" style={{color:"white"}}>
           {row.time}
           <br/>
           Room: {row.location}
@@ -82,21 +91,21 @@ function Row(props) {
           </IconButton>
         </div>
       </TableRow>
-      <TableRow>
+      <TableRow style={{borderColor:row.color}}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Table size="small" aria-label="purchases">
                 <TableBody>
-                  {row.subSection.map((historyRow) => (
-                    <TableRow key={historyRow.name}>
+                  {row.subSection.map((subsection) => (
+                    <TableRow key={subsection.name}>
                       <TableCell component="th" scope="row">
-                        {historyRow.name}
+                        {subsection.name}
                       </TableCell>
                       <TableCell align="right">
-                        {historyRow.time}
+                        {subsection.time}
                         <br/>
-                        Room: {historyRow.room}
+                        Room: {subsection.room}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -127,26 +136,30 @@ Row.propTypes = {
 };
 
 const rows = [
-  createData("COMP 123 S - Intro Comp.Sci", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff' ),
-  createData("COMP 223 S - Databases",'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
-  createData("COMP 323 S -Web Develop", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
-  createData("COMP 423 S - Artificial Intel", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff'),
-  createData("ENGR 133 S - Intro Calculus", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff')
+  createData("COMP 123 S - Intro Comp.Sci", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff', '#E4B672' ),
+  createData("COMP 223 S - Databases",'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff','#16BA73'),
+  createData("COMP 323 S -Web Develop", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff','#D85E5E'),
+  createData("COMP 423 S - Artificial Intel", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff','#006280'),
+  createData("ENGR 133 S - Intro Calculus", 'H 444 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff','#9861A9')
 ];
 
 export default function CourseCard(props) {
   const forDelete = props.forDelete ?? false
-  console.log("Keys for delete: "+Object.keys(forDelete))
+  const classes = useRowStyles();
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead></TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} forDelete={forDelete} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <div className={classes.bigRed}>My Courses</div>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <Row key={row.name} row={row} forDelete={forDelete} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }

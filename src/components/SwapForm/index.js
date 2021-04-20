@@ -22,9 +22,10 @@ const useRowStyles = makeStyles({
       borderRadius: '5px!important'
   },
   bigRed:{
-    fontSize:"Large",
+    fontSize:"25px",
     color: "#912338",
-    fontWeight:"bold"
+    fontWeight:"bold",
+    fontFamily:"-webkit-pictograph"
   },
   boxH1:{
     textAlign:"left",
@@ -111,7 +112,7 @@ export default function SwapForm(props) {
                   <td>SOEN 357 U - UI Design</td>
                 </tr>
               </table>
-              <Button variant="contained" color="secondary" style={{marginRight:"-80%",marginTop:"2%",marginBottom:"2%"}}>
+              <Button variant="contained" style={{color:"white",backgroundColor:"#912338",marginRight:"-80%",marginTop:"2%",marginBottom:"2%"}}>
                 Confirm
               </Button>
             </Box>
