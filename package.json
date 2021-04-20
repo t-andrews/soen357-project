@@ -24,7 +24,7 @@
     "react-router-dom": "^5.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\"  \"npx json-server --watch src/services/db.json --port 5000\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
