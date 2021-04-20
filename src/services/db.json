@@ -73,43 +73,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": 3,
-      "courseName": "SOEN 345",
-      "courseTitle": "Testing",
-      "color": "#C63A3A",
-      "units": "3.00",
-      "startDate": "Jan 13",
-      "endDate": "Apr 20",
-      "description": "jweofwejofwifw",
-      "instructor": "Essam Mansour",
-      "term": "Winter 2021",
-      "status": "waitlisted",
-      "sections": [
-        {
-          "number": 3356,
-          "component": "Lecture",
-          "section": "S ",
-          "startTime": "1:15PM",
-          "endTime": "4:00PM",
-          "location": "H-345 SGW",
-          "days": [
-            "Monday", "Wednesday"
-          ]
-        },
-        {
-          "number": 3357,
-          "component": "Tutorial",
-          "section": "S SA",
-          "startTime": "8:45AM",
-          "endTime": "9:55AM",
-          "location": "H-345 SGW",
-          "days": [
-            "Tuesday"
-          ]
-        }
-      ]
     }
   ],
   "courseCart": []
