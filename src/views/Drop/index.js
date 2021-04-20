@@ -51,7 +51,7 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
 
-export default function SwapView() {
+export default function DropView() {
     const classes = useStyles();
     const [toggled] = React.useState(false);
     const anchorRef = React.useRef(null);
