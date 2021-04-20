@@ -1,3 +1,27 @@
+/* Schedule CSS */
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
+
+/* Overriding schedule styles */
+.e-schedule-table tbody .e-header-row .e-header-cells, .e-left-indent-wrap .e-schedule-table tbody tr .e-header-cells{
+  height: 35px;
+  font-size: 15px;
+}
+
+.e-appointment {
+  margin-left: 5px;
+}
+
+.e-recurrence-icon {
+  visibility: hidden;
+}
+
 .App {
   text-align: center;
 }
