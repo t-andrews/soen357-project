@@ -1,23 +1,30 @@
 import axios from "axios"
 
+const host = (process.env.SERVICE_HOST ?? "http://localhost:5000/")
+
 export const getEnrolledCourses = async () => {
-    return (await axios.get("http://localhost:5000/register")).data;
+    try {
+        return (await axios.get( host+ "register")).data;
+    } catch (err) {
+        console.log(err)
+        return [];
+    }
 }
 
 export const addToCourseCart = (courseToAdd) => {
-    axios.post("http://localhost:5000/courseCart", courseToAdd).then(res => {console.log(res.data)});
+    axios.post(host + "courseCart", courseToAdd).then(res => {console.log(res.data)});
 }
 
 export const deleteFromCourseCart = (courseToDelete) => {
-    axios.delete("http://localhost:5000/courseCart/"+ courseToDelete.id).then(res => {console.log(res.data)});
+    axios.delete(host + "courseCart/"+ courseToDelete.id).then(res => {console.log(res.data)});
 }
 //Cant add multiple classes at once :(
 export const enroll = (courseToAdd) => {
-    axios.post("http://localhost:5000/register", courseToAdd).then(res => {console.log(res.data)});
+    axios.post(host + "register", courseToAdd).then(res => {console.log(res.data)});
 };
 
 export const drop = (courseToDrop) => {
-    axios.delete("http://localhost:5000/register/"+ courseToDrop.id).then(res => {console.log(res.data)});
+    axios.delete(host + "register/"+ courseToDrop.id).then(res => {console.log(res.data)});
 };
 
 export const swap = (courseToAdd, courseToDrop) => {
