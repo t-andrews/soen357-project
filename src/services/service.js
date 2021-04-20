@@ -1,12 +1,12 @@
 import axios from "axios"
 
-const host = (process.env.SERVICE_HOST ?? "http://localhost:5000/")
+const host = `http://localhost:${process.env.PORT ?? 5000}/`;
 
 export const getEnrolledCourses = async () => {
     try {
-        return (await axios.get( host+ "register")).data;
-    } catch (err) {
-        console.log(err)
+        return (await axios.get(host + "register")).data;
+    } catch(err) {
+        console.log('EnrolledErr: ', err);
         return [];
     }
 }
