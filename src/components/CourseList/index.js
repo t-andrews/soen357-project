@@ -9,8 +9,6 @@ export default function CourseList(props) {
         setCourses(props.courses ?? []);
     }, [props.courses]);
 
-    console.log('list',courses)
-
     const { leftCourses, rightCourses } = (() => {
         const midIndex = Math.ceil(courses.length / 2);
         return { leftCourses: courses.slice(0, midIndex), rightCourses: courses.slice(midIndex) };

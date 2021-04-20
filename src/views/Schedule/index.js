@@ -82,10 +82,13 @@ export default function ScheduleView() {
 
     const [courses, setCourses] = React.useState(null);
 
-    useEffect(async () => {
-        if (!courses) {
-            setCourses(await Service.getEnrolledCourses() ?? []);
+    useEffect( () => {
+        async function fetchData() {
+            if (!courses) {
+                setCourses(await Service.getEnrolledCourses() ?? []);
+            }
         }
+        fetchData().then();
     }, []);
 
     const prevOpen = React.useRef(toggled);
@@ -104,21 +107,21 @@ export default function ScheduleView() {
                     <Grid item>
                         <AppBar className={classes.tabs} position="static">
                             <Tabs value={value} classes={{ indicator: classes.indicator }} onChange={handleChange}>
-                                <StyledTab label="Course List"/>
                                 <StyledTab label="Weekly Schedule"/>
+                                <StyledTab label="Course List"/>
                                 <StyledTab label="Schedule Builder"/>
                             </Tabs>
                         </AppBar>
                     </Grid>
                 </Grid>
                 <TabPanel value={value} index={0}>
-                    <CourseList courses={courses}/>
+                    <WeeklySchedule courses={courses ?? []}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <WeeklySchedule courses={courses}/>
+                    <CourseList courses={courses ?? []}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-
+                    Would redirect to schedule builder
                 </TabPanel>
             </div>
         </div>
