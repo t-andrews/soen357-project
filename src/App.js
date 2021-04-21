@@ -18,6 +18,10 @@ function App() {
                     <Switch>
                         <Route exact path="/" component={Tabs} />
                         <Route exact path="/test" component={Service} />
+                        <Route exact path="/reset" component={() => {
+                            localStorage.setItem("db", JSON.stringify(db_json));
+                            return "Courses have been reset";
+                        }} />
                     </Switch>
                 </Suspense>
             </Router>
