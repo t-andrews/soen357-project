@@ -13,7 +13,6 @@ import Typography from "@material-ui/core/Typography";
 import Cart from "../../components/Cart";
 import Checkbox from '@material-ui/core/Checkbox';
 import * as service from "../../services/service";
-import {deleteFromCourseCart} from "../../services/service";
 
 
 
@@ -72,12 +71,13 @@ const useStyles = makeStyles({
 });
 const ColorButton = withStyles((theme) => ({
     root: {
-        float: 'right',
-        color: theme.palette.getContrastText('#912338'),
         backgroundColor: '#912338',
+        float: "right",
+        marginBottom: "10px",
+        color: 'white',
         '&:hover': {
-            backgroundColor: '#B3455A',
-        },
+            backgroundColor: '#a4283f'
+        }
     },
 }))(Button);
 const getClassInfo = (course) => {
@@ -115,8 +115,11 @@ export default function CourseCart() {
         console.log(confirm)
         await setConfirm(true)
         await setCourses(service.getCourseCart())
+        await setEnrolledCourses(courses)
+        await setCheckedCourses([])
     }
     const [checkedCourses, setCheckedCourses] = useState([])
+    const [enrolledCourses, setEnrolledCourses] = useState([])
     const handleChange = (event, course) => {
         if(event.target.checked) {
             setCheckedCourses([...checkedCourses, course])
@@ -166,7 +169,7 @@ export default function CourseCart() {
                             ))}
                         </Table>
                         <br/>
-                        <ColorButton onClick={() => confirmClasses(checkedCourses)} size="small" >
+                        <ColorButton disabled={courses.length === 0 || checkedCourses.length === 0} onClick={() => confirmClasses(checkedCourses)} size="small" >
                             Next
                         </ColorButton>
                         <br/>
@@ -177,7 +180,7 @@ export default function CourseCart() {
                             <Box className={classes.boxH1}>Summary</Box>
                             <Table>
                                 <Table>
-                                    {checkedCourses.map(course => (
+                                    {enrolledCourses.map(course => (
                                         <TableRow align ="left">
                                             <TableCell>{getClassInfo(course).courseName + " "+getClassInfo(course).section + "-"+ getClassInfo(course).courseTitle}</TableCell>
                                             <TableCell>Enrolled Successfully</TableCell>

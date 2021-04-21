@@ -47,7 +47,7 @@ const useStyles = makeStyles({
     },
     classTitle: {
         fontWeight: 'bold',
-        fontSize: 15
+        fontSize: 18,
     },
     classHeader: {
         color: 'white'
@@ -170,7 +170,6 @@ export default function Cart(props) {
                 <TableRow>
                     <StyledTableCell>
                         <Typography className={classes.classTitle}>{course.title}</Typography>
-                        <br/>
                         <Typography className={classes.classHeader}
                                     variant='h7'>Intructor: {course.instructor}</Typography>
                     </StyledTableCell>
