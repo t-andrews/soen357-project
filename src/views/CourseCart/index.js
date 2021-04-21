@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Cart from "../../components/Cart";
 import Checkbox from '@material-ui/core/Checkbox';
 import * as service from "../../services/service";
+import {deleteFromCourseCart} from "../../services/service";
 
 
 
@@ -110,13 +111,13 @@ export default function CourseCart() {
 
     const confirmClasses = async (courses) => {
         service.enroll(courses)
+        courses.forEach(course => service.deleteFromCourseCart(course))
         console.log(confirm)
         await setConfirm(true)
+        await setCourses(service.getCourseCart())
     }
-    const [checked, setChecked] = React.useState(true);
     const [checkedCourses, setCheckedCourses] = useState([])
     const handleChange = (event, course) => {
-        setChecked(false)
         if(event.target.checked) {
             setCheckedCourses([...checkedCourses, course])
         } else {

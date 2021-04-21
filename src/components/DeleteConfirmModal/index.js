@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -78,9 +78,10 @@ const extractInfo = (course) => {
 export default function DeleteConfirmModal(props) {
     const course = extractInfo(props.course)
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-
+    const [value, setValue] = useState(0);
+    const [removed, setRemoved] = useState(extractInfo(props.course))
     const handleChange = (event, newValue) => {
+        setRemoved(extractInfo(props.course))
         deleteFromCourseCart(props.course)
         window.dispatchEvent(new Event('resetCart'))
         setValue(1);
@@ -106,7 +107,7 @@ export default function DeleteConfirmModal(props) {
             <TabPanel value={value} index={1}>
                 <Grid container direction='column' spacing={3}>
                 <Grid item>
-                    <Typography>Deleted Successfully </Typography>
+                    <Typography>{removed.name} {removed.lectureSection} - {removed.title} Deleted Successfully </Typography>
                 </Grid>
                 </Grid>
             </TabPanel>
