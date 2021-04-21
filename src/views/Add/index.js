@@ -40,7 +40,7 @@ const useStyles = makeStyles({
         paddingBottom: '30px'
     },
     legend: {
-        border: '1px solid #b3b3b3',
+        border: 'none',
     },
     searchBox: {
         border: '2px solid #912338',
