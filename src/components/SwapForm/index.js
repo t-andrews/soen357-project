@@ -76,7 +76,7 @@ export default function SwapForm(props) {
               <tr>
                 <td></td>
                 <td>
-                  <strong>WITH</strong>
+                  <span style={{width:20}}><strong>WITH</strong> </span>
                 </td>
                 <td></td>
               </tr>

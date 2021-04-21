@@ -24,7 +24,8 @@ const useRowStyles = makeStyles({
   },
   course_name:{
     fontWeight: "650",
-    fontSize: "20px"
+    fontSize: "large",
+    fontFamily:"-webkit-pictograph"
   },
   bigRed:{
     fontSize:"25px",
@@ -34,6 +35,9 @@ const useRowStyles = makeStyles({
     marginBottom:"20px",
     marginTop:"-30px"
   },
+  footer:{
+    marginBottom:"1rem"
+  }
 });
 
 function createData(name,location, time, instructor,color) {
@@ -63,7 +67,7 @@ function Row(props) {
   const classes = useRowStyles();
 
   return (
-    <React.Fragment style={{borderColor:"red"}}>
+    <React.Fragment style={{marginBottom:"10%"}}>
       <TableRow className={classes.root} style={{backgroundColor:row.color}}>
         {forDelete ?         
         <TableCell>
@@ -115,6 +119,7 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
+      <div className={classes.footer}></div>
     </React.Fragment>
   );
 }
