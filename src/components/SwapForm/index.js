@@ -13,7 +13,7 @@ const useRowStyles = makeStyles({
     },
   },
   course_name:{
-    fontWeight: "900",
+    fontWeight: "700",
     fontSize: ""
   },
   small:{
@@ -64,7 +64,7 @@ export default function SwapForm(props) {
                 </td>
               </tr>
               <tr>
-                <td> <Dropdown/></td>
+                <td> <Dropdown label="Choose from course list" options={["Course 1","Course 2","Course 3"]}/></td>
                 <td></td>
                 <td>
                 <Box>
@@ -89,7 +89,7 @@ export default function SwapForm(props) {
                 <td></td>
                 <td></td>
                 <td>
-                <Dropdown/>
+                <Dropdown label = "Choose from course cart" options={["Course 1","Course 2","Course 3"]}/>
                 </td>
               </tr>
             </table>
