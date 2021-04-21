@@ -1,8 +1,23 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, ButtonGroup, Checkbox, FormControlLabel, FormGroup, Grid, InputBase, Paper, Popover, TextField, withStyles} from "@material-ui/core";
+import {
+    Button,
+    ButtonGroup,
+    Checkbox,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    FormControlLabel,
+    FormGroup,
+    Grid,
+    InputBase,
+    Paper,
+    Popover,
+    TextField,
+    withStyles
+} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import {Cancel, CheckCircle, ExpandLess, ExpandMore, PauseCircleFilled, Search} from "@material-ui/icons";
+import SearchResultsShell from "../../components/SearchResultsShell";
+import ModalContent from "../../components/AddModalContent";
 
 const useStyles = makeStyles({
     root: {
@@ -31,6 +46,12 @@ const useStyles = makeStyles({
         borderRadius: '5px!important',
         width: '49.5%',
         minHeight: '600px'
+    },
+    resultsBox: {
+        borderRadius: '5px!important',
+        width: '49.5%',
+        minHeight: '600px',
+        backgroundColor: '#f2f2f2'
     },
     search: {
         position: 'relative',
@@ -122,6 +143,16 @@ export default function Add() {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
 
+    const [openModal, setOpenModal] = React.useState(false);
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
+
     return(
         <div>
             <Paper className={classes.paper} elevation={0}/>
@@ -130,7 +161,7 @@ export default function Add() {
                 <Grid container direction='row' spacing={3} justify='flex-end' style={{paddingRight: '25px', paddingBottom: '30px'}}>
                     <Grid item className={classes.legend}>
                         <CheckCircle style={{color: 'green'}}/>
-                        Enrolled
+                        Open
                     </Grid>
                     <Grid item className={classes.legend}>
                         <Cancel style={{color: 'red'}}/>
@@ -180,7 +211,7 @@ export default function Add() {
                                     <Grid item style={{width: '100%'}}>
                                         <Grid container direction='row' spacing={2} justify='space-evenly'>
                                             <Grid item style={{paddingTop: '25px'}}>
-                                                <Grid container direction='column' spacing={9} alignItems='flex-start'>
+                                                <Grid container direction='column' spacing={8} alignItems='flex-start'>
                                                     <Grid item>
                                                         <Typography style={{fontWeight: 'bold'}}>Enter Subject</Typography>
                                                     </Grid>
@@ -242,36 +273,34 @@ export default function Add() {
                                                     <Grid item>
                                                         <FormGroup row>
                                                             <FormControlLabel
+                                                                control={<BurgundyCheckbox checked={state.Sunday} onChange={handleChange} name="Sunday" />}
+                                                                label="Sun"
+                                                            />
+                                                            <FormControlLabel
                                                                 control={<BurgundyCheckbox checked={state.Monday} onChange={handleChange} name="Monday" />}
-                                                                label="Monday"
+                                                                label="Mon"
                                                             />
                                                             <FormControlLabel
                                                                 control={<BurgundyCheckbox checked={state.Tuesday} onChange={handleChange} name="Tuesday" />}
-                                                                label="Tuesday"
+                                                                label="Tue"
                                                             />
                                                             <FormControlLabel
                                                                 control={<BurgundyCheckbox checked={state.Wednesday} onChange={handleChange} name="Wednesday" />}
-                                                                label="Wednesday"
+                                                                label="Wed"
                                                             />
                                                         </FormGroup>
                                                         <FormGroup row>
                                                             <FormControlLabel
                                                                 control={<BurgundyCheckbox checked={state.Thursday} onChange={handleChange} name="Thursday" />}
-                                                                label="Thursday"
+                                                                label="Thu"
                                                             />
                                                             <FormControlLabel
                                                                 control={<BurgundyCheckbox checked={state.Friday} onChange={handleChange} name="Friday" />}
-                                                                label="Friday"
+                                                                label="Fri"
                                                             />
-                                                        </FormGroup>
-                                                        <FormGroup row>
                                                             <FormControlLabel
                                                                 control={<BurgundyCheckbox checked={state.Saturday} onChange={handleChange} name="Saturday" />}
-                                                                label="Saturday"
-                                                            />
-                                                            <FormControlLabel
-                                                                control={<BurgundyCheckbox checked={state.Sunday} onChange={handleChange} name="Sunday" />}
-                                                                label="Sunday"
+                                                                label="Sat"
                                                             />
                                                         </FormGroup>
                                                     </Grid>
@@ -326,8 +355,21 @@ export default function Add() {
                             </Grid>
                         </form>
                     </Grid>
-                    <Grid item className={classes.searchBox}>
-                        Two
+                    <Grid item className={classes.resultsBox}>
+                        <Grid container direction='column' spacing={3} alignItems='flex-end'>
+                            <Grid item>
+                                <SearchResultsShell />
+                            </Grid>
+                            <Grid item>
+                                <Button className={classes.button} variant='contained' onClick={handleOpenModal}>Add</Button>
+                                <Dialog open={openModal} onClose={handleCloseModal} aria-labelledby='Add_Modal' aria-describedby='Confirm_Changes?'>
+                                    <DialogTitle id='Modal_Title'>{'Confirmation'}</DialogTitle>
+                                    <DialogContent>
+                                        <ModalContent />
+                                    </DialogContent>
+                                </Dialog>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </div>
