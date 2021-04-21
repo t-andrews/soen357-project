@@ -23,7 +23,7 @@ const useRowStyles = makeStyles({
     },
   },
   course_name:{
-    fontWeight: "900",
+    fontWeight: "650",
     fontSize: "20px"
   },
   bigRed:{
