@@ -14,9 +14,14 @@ export function getCourseCart () {
     return getDb().courseCart;
 }
 
+function appendUniqueName(course) {
+    course.uniqueName = `${course.courseName} ${course.sections.find(s => s.component === 'Lecture').section}`;
+    return course;
+}
+
 export function addToCourseCart(courseToAdd) {
     const _db = getDb();
-    _db.courseCart.push({...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture')}`});
+    _db.courseCart.push(appendUniqueName(courseToAdd));
     updateDb(_db);
 }
 
@@ -28,17 +33,17 @@ export function deleteFromCourseCart(courseToDelete) {
 
 export function enroll(coursesToAdd) {
     const _db = getDb();
-    _db.register.push.apply(_db.register, coursesToAdd);
+    _db.register.push.apply(_db.register, coursesToAdd.map(c => appendUniqueName(c)));
     updateDb(_db);
 }
 
-export function drop(courseToDrop) {
+export function drop(coursesToDrop) {
     const _db = getDb();
-    _db.register = _db.register.filter(c => c.uniqueName !== courseToDrop.uniqueName);
+    _db.register = _db.register.filter(c => !coursesToDrop.some(cd => cd.uniqueName === c.uniqueName));
     updateDb(_db);
 }
 
 export function swap(courseToAdd, courseToDrop) {
     drop(courseToDrop)
-    enroll([{...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture')}`}])
+    enroll([appendUniqueName(courseToAdd)])
 }

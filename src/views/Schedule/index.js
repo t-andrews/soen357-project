@@ -83,12 +83,9 @@ export default function ScheduleView() {
     const [courses, setCourses] = React.useState(Service.getEnrolledCourses());
 
     useEffect( () => {
-        async function fetchData() {
-            if (!courses) {
-                setCourses(Service.getEnrolledCourses() ?? []);
-            }
+        if (!courses) {
+            setCourses(Service.getEnrolledCourses() ?? []);
         }
-        fetchData().then();
     }, []);
 
     const prevOpen = React.useRef(toggled);
