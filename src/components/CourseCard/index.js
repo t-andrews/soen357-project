@@ -13,7 +13,9 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 const useRowStyles = makeStyles({
     course_name:{
-        fontWeight: "900"
+        color: 'black',
+        fontWeight: "900",
+        fontSize: '18px'
     },
 });
 
@@ -26,12 +28,12 @@ export default function CourseCard(props) {
     return (
         <Table>
             <TableRow style={{backgroundColor: course.color}}>
-                <TableCell component="th" scope="row">
+                <TableCell style={{color: 'white'}} component="th" scope="row">
                     <span className={classes.course_name}> {course.uniqueName} - {course.courseTitle}</span>
                     <br/>
                     Instructor: {course.instructor}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell style={{color: 'white'}} align="right">
                     {lectureSection.days.map(d => d.substr(0, 2)).join('')}
                     {' '}
                     {lectureSection.startTime} - {lectureSection.endTime}
