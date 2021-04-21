@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import {CheckCircle, RemoveCircle} from "@material-ui/icons";
+import * as DateUtils from "../../services/dateUtils";
+import dateformat from "dateformat";
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -74,11 +76,13 @@ export default function DetailedCourse(props) {
         }
     })();
 
+    const { startDate, endDate } = DateUtils.buildDates(course.startDate, course.endDate, course.term)
+
     return (
         <TableContainer className={classes.table} component={Paper}>
             <Typography className={classes.title} variant="h7" id="tableTitle" component="div">
                 <div className={classes.className}>
-                    {course.name}
+                    {course.courseName} - {course.courseTitle}
                 </div>
                 {
                     course.status === 'enrolled' ? <Tooltip title={'Enrolled'}><CheckCircle className={classes.status} style={{ color: "lightGreen" }}/></Tooltip>
@@ -109,10 +113,14 @@ export default function DetailedCourse(props) {
                             <StyledTableCell>{row.number}</StyledTableCell>
                             <StyledTableCell>{row.component}</StyledTableCell>
                             <StyledTableCell>{row.section}</StyledTableCell>
-                            <StyledTableCell>{row.daysTimes}</StyledTableCell>
-                            <StyledTableCell>{row.room}</StyledTableCell>
-                            <StyledTableCell>{row.instructor}</StyledTableCell>
-                            <StyledTableCell>{row.startEndDates}</StyledTableCell>
+                            <StyledTableCell>
+                                {row.days.map(d => d.substr(0, 2)).join('')}
+                                {' '}
+                                {row.startTime} - {row.endTime}
+                            </StyledTableCell>
+                            <StyledTableCell>{row.location}</StyledTableCell>
+                            <StyledTableCell>{course.instructor}</StyledTableCell>
+                            <StyledTableCell>{dateformat(startDate, 'mm/dd/yyyy')} - {dateformat(endDate, 'mm/dd/yyyy')}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
