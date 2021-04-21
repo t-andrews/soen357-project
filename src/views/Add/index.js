@@ -91,6 +91,10 @@ const useStyles = makeStyles({
         '&:hover': {
             backgroundColor: '#a4283f'
         }
+    },
+    modal: {
+        width: '50%',
+        height: '35%'
     }
 });
 
@@ -362,8 +366,9 @@ export default function Add() {
                             </Grid>
                             <Grid item>
                                 <Button className={classes.button} variant='contained' onClick={handleOpenModal}>Add</Button>
-                                <Dialog open={openModal} onClose={handleCloseModal} aria-labelledby='Add_Modal' aria-describedby='Confirm_Changes?'>
-                                    <DialogTitle id='Modal_Title'>{'Confirmation'}</DialogTitle>
+                                <Dialog classes={{ paper: classes.modal}} open={openModal} onClose={handleCloseModal}
+                                        aria-labelledby='Add_Modal' aria-describedby='Confirm_Changes?'>
+                                    <DialogTitle id='Modal_Title' style={{backgroundColor: '#912338', color: 'white'}}>{'Confirmation'}</DialogTitle>
                                     <DialogContent>
                                         <ModalContent />
                                     </DialogContent>

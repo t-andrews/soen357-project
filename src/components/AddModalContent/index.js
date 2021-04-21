@@ -56,8 +56,11 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#a4283f'
         },
-        marginTop: '30px',
-        marginLeft: '160px'
+        marginTop: '70px',
+        marginLeft: '240px'
+    },
+    indicator: {
+        backgroundColor: '#912338',
     }
 }));
 
@@ -71,7 +74,7 @@ export default function ModalContent() {
 
     return (
         <div className={classes.root}>
-            <Tabs className={classes.tabs} orientation="vertical" value={value} >
+            <Tabs className={classes.tabs} classes={{ indicator: classes.indicator }} orientation="vertical" value={value} >
                 <Tab label="Reviewing" {...a11yProps(0)} />
                 <Tab label="Summary" {...a11yProps(1)} />
             </Tabs>
@@ -88,7 +91,29 @@ export default function ModalContent() {
                 <Button className={classes.button} variant='contained' onClick={handleChange}>Confirm</Button>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                <Grid container direction='column' spacing={3}>
+                    <Grid item>
+                        <Grid container direction='row' spacing={2}>
+                            <Grid item>
+                                <Typography>SOEN 357 Y - UI Design</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography>Added Successfully</Typography>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                    <Grid item>
+                        <Grid container direction='row' spacing={2}>
+                            <Grid item>
+                                <Typography>SOEN 363 Y - Databases</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography>Added Successfully</Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </TabPanel>
         </div>
     );

@@ -161,7 +161,7 @@ function Row(props) {
                                                     <BurgundyCheckbox />
                                                     {subsection.name}
                                                     {
-                                                        subsection.status === 'open' ? <Tooltip title={'Open'}><CheckCircle style={{ color: "green", marginLeft: '10px', marginRight: '261px' }}/></Tooltip>
+                                                        subsection.status === 'open' ? <Tooltip title={'Open'}><CheckCircle style={{ color: "green", marginLeft: '10px', marginRight: '236px'}}/></Tooltip>
                                                             : (
                                                                 subsection.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled style={{ color: "#FFB300", marginLeft: '10px' }}/></Tooltip>
                                                                     : (
