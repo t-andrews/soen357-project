@@ -36,15 +36,6 @@ const useRowStyles = makeStyles({
     }
 });
 
-const BurgundyRadio = withStyles({
-    root: {
-        '&$checked': {
-            color: '#912338',
-        },
-    },
-    checked: {},
-})((props) => <Radio color="default" {...props} />);
-
 const BurgundyCheckbox = withStyles({
     root: {
         '&$checked': {
@@ -115,19 +106,12 @@ function Row(props) {
     const { row } = props;
     const classes = useRowStyles();
 
-    const [value, setValue] = React.useState(false);
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
-
     return (
         <FormControl className={classes.courseCard}>
-            <RadioGroup value={value} onChange={handleChange}>
                 <TableContainer className={classes.root}>
                     <TableRow style={{backgroundColor: row.color}}>
                         <TableCell>
-                            <FormControlLabel control={<BurgundyRadio />} value={row.value}/>
+                            <FormControlLabel control={<BurgundyCheckbox />} value={row.value}/>
                         </TableCell>
                         <TableCell component="th" scope="row">
                             <span className={classes.course_name}>{row.name}</span>
@@ -184,7 +168,6 @@ function Row(props) {
                         </TableCell>
                     </TableRow>
                 </TableContainer>
-            </RadioGroup>
         </FormControl>
     );
 }

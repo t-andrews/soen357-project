@@ -95,8 +95,8 @@ const useStyles = makeStyles({
         }
     },
     modal: {
-        width: '50%',
-        height: '35%'
+        width: '800px',
+        height: '350px'
     }
 });
 
