@@ -25,7 +25,6 @@ const useRowStyles = makeStyles({
   course_name:{
     fontWeight: "650",
     fontSize: "large",
-    fontFamily:"-webkit-pictograph"
   },
   bigRed:{
     fontSize:"25px",
