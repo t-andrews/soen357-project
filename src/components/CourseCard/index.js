@@ -28,7 +28,7 @@ export default function CourseCard(props) {
     return (
         <Table>
             <TableRow style={{backgroundColor: course.color}}>
-                <TableCell style={{color: 'white'}} component="th" scope="row">
+                <TableCell style={{color: 'white'}}>
                     <span className={classes.course_name}> {course.uniqueName} - {course.courseTitle}</span>
                     <br/>
                     Instructor: {course.instructor}
@@ -38,7 +38,7 @@ export default function CourseCard(props) {
                     {' '}
                     {lectureSection.startTime} - {lectureSection.endTime}
                     <br/>
-                    Room: {course.location}
+                    Room: {lectureSection.location}
                 </TableCell>
                 <div align="right" style={{width:"auto"}}>
                     <IconButton
