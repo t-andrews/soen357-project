@@ -1,62 +1,78 @@
 import React, {useEffect, useState} from "react";
-import { enroll, drop, swap, getRegisteredCourses } from "../../services/service";
-import axios from "axios";
+import * as Service from "../../services/service";
 
 //Example
-export default function Test(){
+export default function Test() {
     const courseToAdd = {
-        "courseName": "SOEN 123",
-        "courseTitle": "Data Systems for Software Engineers",
+        "courseName": "SOEN 345",
+        "courseTitle": "Testing",
+        "color": "#C63A3A",
+        "units": "3.00",
         "startDate": "Jan 13",
         "endDate": "Apr 20",
-        "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+        "description": "jweofwejofwifw",
         "instructor": "Essam Mansour",
         "term": "Winter 2021",
+        "status": "waitlisted",
         "sections": [
             {
+                "number": 3356,
                 "component": "Lecture",
-                "section": "S ",
+                "section": "S",
                 "startTime": "1:15PM",
                 "endTime": "4:00PM",
                 "location": "H-345 SGW",
-                "days": ["Monday, Wednesday"]
+                "days": [
+                    "Monday", "Wednesday"
+                ]
             },
             {
+                "number": 3357,
                 "component": "Tutorial",
                 "section": "S SA",
                 "startTime": "8:45AM",
-                "endTime": "9:35PM",
+                "endTime": "9:55AM",
                 "location": "H-345 SGW",
-                "days": ["Monday"]
+                "days": [
+                    "Tuesday"
+                ]
             }
         ]
     }
     //once added there will be id associated
     const courseToDrop = {
-        "id" : 4,
-        "courseName": "SOEN 123",
-        "courseTitle": "Data Systems for Software Engineers",
+        "courseName": "SOEN 345",
+        "courseTitle": "Testing",
+        "color": "#C63A3A",
+        "units": "3.00",
         "startDate": "Jan 13",
         "endDate": "Apr 20",
-        "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+        "description": "jweofwejofwifw",
         "instructor": "Essam Mansour",
         "term": "Winter 2021",
+        "status": "waitlisted",
         "sections": [
             {
+                "number": 3356,
                 "component": "Lecture",
-                "section": "S ",
+                "section": "S",
                 "startTime": "1:15PM",
                 "endTime": "4:00PM",
                 "location": "H-345 SGW",
-                "days": ["Monday, Wednesday"]
+                "days": [
+                    "Monday", "Wednesday"
+                ]
             },
             {
+                "number": 3357,
                 "component": "Tutorial",
                 "section": "S SA",
                 "startTime": "8:45AM",
-                "endTime": "9:35PM",
+                "endTime": "9:55AM",
                 "location": "H-345 SGW",
-                "days": ["Monday"]
+                "days": [
+                    "Tuesday"
+                ]
             }
         ]
     }
@@ -64,58 +80,59 @@ export default function Test(){
     const courseToSwapIn = {
         "courseName": "SOEN 456",
         "courseTitle": "Testing",
+        "color": "#A25100",
+        "units": "3.00",
         "startDate": "Jan 13",
         "endDate": "Apr 20",
         "description": "jweofwejofwifw",
         "instructor": "Essam Mansour",
         "term": "Winter 2021",
+        "status": "waitlisted",
         "sections": [
             {
+                "number": 3356,
                 "component": "Lecture",
-                "section": "S ",
+                "section": "J",
                 "startTime": "1:15PM",
                 "endTime": "4:00PM",
                 "location": "H-345 SGW",
-                "days": ["Monday, Wednesday"],
+                "days": [
+                    "Monday", "Wednesday"
+                ]
             },
             {
+                "number": 3357,
                 "component": "Tutorial",
-                "section": "S SA",
+                "section": "J SA",
                 "startTime": "8:45AM",
-                "endTime": "9:35PM",
+                "endTime": "9:55AM",
                 "location": "H-345 SGW",
-                "days": ["Monday"]
+                "days": [
+                    "Tuesday"
+                ]
             }
         ]
-
     }
 
-    const [courses, setCourses] = useState([]);
-    useEffect(() => {
-        axios.get("http://localhost:5000/register")
-            .then(result => setCourses(result.data));
-    }, [])
-
-    const enrollClass = (courseToAdd) => {
-        enroll(courseToAdd)
-        console.log(courses)
+    const enrollClass = () => {
+        Service.enroll([courseToAdd]);
+        console.log(Service.getEnrolledCourses())
     }
-    const dropClass = (courseToDrop) => {
-        drop(courseToDrop)
-        console.log(courses)
+    const dropClass = () => {
+        Service.drop(courseToDrop);
+        console.log(Service.getEnrolledCourses())
 
     }
-    const swapClasses = (courseToSwap, courseToDrop) => {
-        swap(courseToSwap, courseToDrop)
-        console.log(courses)
+    const swapClasses = () => {
+        Service.swap(courseToSwapIn, courseToDrop);
+        console.log(Service.getEnrolledCourses())
     }
 
     return (
       <div>
-          {/*enroll -> drop -> enroll -> swap */}
-          <button onClick={() => enrollClass(courseToAdd)}>Enroll SOEN 123</button>
-          <button onClick={() => dropClass(courseToDrop)}>Drop SOEN123</button>
-          <button onClick={() => swapClasses(courseToSwapIn,courseToDrop)}>Swap SOEN123 for SOEN456</button>
+          <button onClick={() => enrollClass()}>Enroll SOEN 345</button>
+          <button onClick={() => dropClass()}>Drop SOEN 345</button>
+          <button onClick={() => swapClasses()}>Swap SOEN 345 for SOEN 456</button>
 
       </div>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles, styled} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +8,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import CourseList from "../../components/CourseList";
+import WeeklySchedule from "../../components/WeeklySchedule";
+import * as Service from "../../services/service";
 
 const useStyles = makeStyles({
     root: {
@@ -15,6 +17,7 @@ const useStyles = makeStyles({
         border: '2px solid #912338',
         borderRadius: '5px!important',
         minHeight: '700px',
+        minWidth: '1100px',
         padding: '10px'
     },
     paper: {
@@ -59,13 +62,6 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-    return {
-        id: `schedule-tabs-${index}`,
-        'aria-controls': `schedule-tabs-${index}`,
-    };
-}
-
 const StyledTab = styled(Tab)({
     minHeight: '30px',
     padding: 0,
@@ -84,6 +80,17 @@ export default function ScheduleView() {
         setValue(newValue);
     };
 
+    const [courses, setCourses] = React.useState(Service.getEnrolledCourses());
+
+    useEffect( () => {
+        async function fetchData() {
+            if (!courses) {
+                setCourses(Service.getEnrolledCourses() ?? []);
+            }
+        }
+        fetchData().then();
+    }, []);
+
     const prevOpen = React.useRef(toggled);
     React.useEffect(() => {
         if (prevOpen.current && !toggled) {
@@ -100,143 +107,21 @@ export default function ScheduleView() {
                     <Grid item>
                         <AppBar className={classes.tabs} position="static">
                             <Tabs value={value} classes={{ indicator: classes.indicator }} onChange={handleChange}>
-                                <StyledTab classes={{wrapper: classes.tab}} label="Course List"{...a11yProps(0)}/>
-                                <StyledTab classes={{wrapper: classes.tab}} label="Weekly Schedule"{...a11yProps(1)}/>
-                                <StyledTab classes={{wrapper: classes.tab}} label="Schedule Builder"{...a11yProps(2)}/>
+                                <StyledTab label="Weekly Schedule"/>
+                                <StyledTab label="Course List"/>
+                                <StyledTab label="Schedule Builder"/>
                             </Tabs>
                         </AppBar>
                     </Grid>
                 </Grid>
                 <TabPanel value={value} index={0}>
-                    <CourseList courses={[
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#DB8300',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#00A251',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1235,
-                                    component: 'Laboratory',
-                                    section: 'SSJ',
-                                    daysTimes: 'Tu 3:45PM - 5:30PM',
-                                    room: 'H 911 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'waitlisted',
-                            units: '3.00',
-                            color: '#C63A3A',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1235,
-                                    component: 'Laboratory',
-                                    section: 'SSJ',
-                                    daysTimes: 'Tu 3:45PM - 5:30PM',
-                                    room: 'H 911 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#006280',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1234,
-                                    component: 'Laboratory',
-                                    section: 'SSX',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                },
-                                {
-                                    number: 1234,
-                                    component: 'Tutorial',
-                                    section: 'SSX',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'COMP 123 - Intro Comp.Sci',
-                            status: 'enrolled',
-                            units: '3.00',
-                            color: '#9861A9',
-                            sections: [
-                                {
-                                    number: 1234,
-                                    component: 'Lecture',
-                                    section: 'S',
-                                    daysTimes: 'MoWe 10:15AM - 11:30AM',
-                                    room: 'H 444 SGW',
-                                    instructor: 'Dr Instructor',
-                                    startEndDates: '09/07/2021 - 12/06/2021'
-                                }
-                            ]
-                        }
-                    ]}/>
+                    <WeeklySchedule courses={courses ?? []}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-
+                    <CourseList courses={courses ?? []}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-
+                    Would redirect to schedule builder
                 </TabPanel>
             </div>
         </div>
