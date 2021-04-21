@@ -11,7 +11,7 @@ import {
     InputBase,
     Paper,
     Popover,
-    TextField,
+    TextField, Tooltip,
     withStyles
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -97,6 +97,11 @@ const useStyles = makeStyles({
     modal: {
         width: '800px',
         height: '350px'
+    },
+    tooltip: {
+        '&:hover': {
+            backgroundColor: '#c8c8c8'
+        }
     }
 });
 
@@ -203,141 +208,143 @@ export default function Add() {
                                             </Popover>
                                         </div>
                                     </Grid>
-                                    <Grid item style={{width: '100%'}}>
+                                    <Tooltip title={'For Visual Purposes ONLY'} className={classes.tooltip} placement={'top-start'}>
                                         <Grid item style={{width: '100%'}}>
-                                            <Grid container direction='row' spacing={2} justify='space-evenly'>
-                                                <Grid item style={{paddingTop: '25px'}}>
-                                                    <Grid container direction='column' spacing={8} alignItems='flex-start'>
-                                                        <Grid item>
-                                                            <Typography style={{fontWeight: 'bold'}}>Enter Subject</Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Typography style={{fontWeight: 'bold'}}>Course Number</Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Typography style={{fontWeight: 'bold'}}>Course Level</Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Typography style={{fontWeight: 'bold'}}>Days of Week</Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Typography style={{fontWeight: 'bold'}}>Class Times</Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Typography style={{fontWeight: 'bold'}}>Instructor Last Name</Typography>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Grid container direction='column' spacing={3} alignItems='flex-start'>
-                                                        <Grid item>
-                                                            <CustomTextField variant='outlined'/>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <CustomTextField variant='outlined'/>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <FormGroup row>
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.L200} onChange={handleChange} name="L200" />}
-                                                                    label="200"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.L300} onChange={handleChange} name="L300" />}
-                                                                    label="300"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.L400} onChange={handleChange} name="L400" />}
-                                                                    label="400"
-                                                                />
-                                                            </FormGroup>
-                                                            <FormGroup row>
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.L500} onChange={handleChange} name="L500" />}
-                                                                    label="500"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.L600} onChange={handleChange} name="L600" />}
-                                                                    label="600"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.L700} onChange={handleChange} name="L700" />}
-                                                                    label="700"
-                                                                />
-                                                            </FormGroup>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <FormGroup row>
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.Sunday} onChange={handleChange} name="Sunday" />}
-                                                                    label="Sun"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.Monday} onChange={handleChange} name="Monday" />}
-                                                                    label="Mon"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.Tuesday} onChange={handleChange} name="Tuesday" />}
-                                                                    label="Tue"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.Wednesday} onChange={handleChange} name="Wednesday" />}
-                                                                    label="Wed"
-                                                                />
-                                                            </FormGroup>
-                                                            <FormGroup row>
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.Thursday} onChange={handleChange} name="Thursday" />}
-                                                                    label="Thu"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.Friday} onChange={handleChange} name="Friday" />}
-                                                                    label="Fri"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={<BurgundyCheckbox checked={state.Saturday} onChange={handleChange} name="Saturday" />}
-                                                                    label="Sat"
-                                                                />
-                                                            </FormGroup>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Grid container direction={'row'} spacing={3}>
-                                                                <Grid item>
-                                                                    <form className={classes.timeContainer} noValidate>
-                                                                        <TextField id="time" label="From" type="time" defaultValue="08:00"
-                                                                                   className={classes.timeField}
-                                                                                   InputLabelProps={{
-                                                                                       shrink: true,
-                                                                                   }}
-                                                                                   inputProps={{
-                                                                                       step: 300,
-                                                                                   }}
-                                                                        />
-                                                                    </form>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <form className={classes.timeContainer} noValidate>
-                                                                        <TextField id="time" label="To" type="time" defaultValue="23:00"
-                                                                                   className={classes.timeField}
-                                                                                   InputLabelProps={{
-                                                                                       shrink: true,
-                                                                                   }}
-                                                                                   inputProps={{
-                                                                                       step: 300,
-                                                                                   }}
-                                                                        />
-                                                                    </form>
-                                                                </Grid>
+                                            <Grid item style={{width: '100%'}}>
+                                                <Grid container direction='row' spacing={2} justify='space-evenly'>
+                                                    <Grid item style={{paddingTop: '25px'}}>
+                                                        <Grid container direction='column' spacing={8} alignItems='flex-start'>
+                                                            <Grid item>
+                                                                <Typography style={{fontWeight: 'bold'}}>Enter Subject</Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography style={{fontWeight: 'bold'}}>Course Number</Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography style={{fontWeight: 'bold'}}>Course Level</Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography style={{fontWeight: 'bold'}}>Days of Week</Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography style={{fontWeight: 'bold'}}>Class Times</Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography style={{fontWeight: 'bold'}}>Instructor Last Name</Typography>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item>
-                                                            <CustomTextField variant='outlined'/>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Grid container direction='column' spacing={3} alignItems='flex-start'>
+                                                            <Grid item>
+                                                                <CustomTextField variant='outlined'/>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <CustomTextField variant='outlined'/>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <FormGroup row>
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.L200} onChange={handleChange} name="L200" />}
+                                                                        label="200"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.L300} onChange={handleChange} name="L300" />}
+                                                                        label="300"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.L400} onChange={handleChange} name="L400" />}
+                                                                        label="400"
+                                                                    />
+                                                                </FormGroup>
+                                                                <FormGroup row>
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.L500} onChange={handleChange} name="L500" />}
+                                                                        label="500"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.L600} onChange={handleChange} name="L600" />}
+                                                                        label="600"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.L700} onChange={handleChange} name="L700" />}
+                                                                        label="700"
+                                                                    />
+                                                                </FormGroup>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <FormGroup row>
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.Sunday} onChange={handleChange} name="Sunday" />}
+                                                                        label="Sun"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.Monday} onChange={handleChange} name="Monday" />}
+                                                                        label="Mon"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.Tuesday} onChange={handleChange} name="Tuesday" />}
+                                                                        label="Tue"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.Wednesday} onChange={handleChange} name="Wednesday" />}
+                                                                        label="Wed"
+                                                                    />
+                                                                </FormGroup>
+                                                                <FormGroup row>
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.Thursday} onChange={handleChange} name="Thursday" />}
+                                                                        label="Thu"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.Friday} onChange={handleChange} name="Friday" />}
+                                                                        label="Fri"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        control={<BurgundyCheckbox checked={state.Saturday} onChange={handleChange} name="Saturday" />}
+                                                                        label="Sat"
+                                                                    />
+                                                                </FormGroup>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Grid container direction={'row'} spacing={3}>
+                                                                    <Grid item>
+                                                                        <form className={classes.timeContainer} noValidate>
+                                                                            <TextField id="time" label="From" type="time" defaultValue="08:00"
+                                                                                       className={classes.timeField}
+                                                                                       InputLabelProps={{
+                                                                                           shrink: true,
+                                                                                       }}
+                                                                                       inputProps={{
+                                                                                           step: 300,
+                                                                                       }}
+                                                                            />
+                                                                        </form>
+                                                                    </Grid>
+                                                                    <Grid item>
+                                                                        <form className={classes.timeContainer} noValidate>
+                                                                            <TextField id="time" label="To" type="time" defaultValue="23:00"
+                                                                                       className={classes.timeField}
+                                                                                       InputLabelProps={{
+                                                                                           shrink: true,
+                                                                                       }}
+                                                                                       inputProps={{
+                                                                                           step: 300,
+                                                                                       }}
+                                                                            />
+                                                                        </form>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <CustomTextField variant='outlined'/>
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
+                                    </Tooltip>
                                     <Grid item style={{width: '100%'}}>
                                         <Grid container direction='row' justify='space-between'>
                                             <Grid item>
