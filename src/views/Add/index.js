@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         flexGrow: 1,
         border: '2px solid #912338',
         borderRadius: '5px!important',
-        minHeight: '950px',
+        minHeight: '850px',
         padding: '10px'
     },
     paper: {
@@ -36,7 +36,8 @@ const useStyles = makeStyles({
         color: '#912338',
         fontWeight: 'bold',
         textAlign: 'left',
-        fontSize: 'x-large'
+        fontSize: 'x-large',
+        paddingBottom: '30px'
     },
     legend: {
         border: '1px solid #b3b3b3',
