@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import {Paper} from "@material-ui/core";
-import CourseCard from "../../components/CoursesCard";
+import CourseCard from "../../components/CourseCard";
 import SwapForm from "../../components/SwapForm";
 
 const useStyles = makeStyles({

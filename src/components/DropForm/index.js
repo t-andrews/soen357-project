@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from '@material-ui/core/Button';
 
-
 const useRowStyles = makeStyles({
   root: {
     "& > *": {
@@ -10,11 +9,9 @@ const useRowStyles = makeStyles({
     },
   },
   course_name:{
-    fontWeight: "900",
-    fontSize: ""
+    fontWeight: "900"
   },
   small:{
-      width:"",
       border: '2px solid #912338',
       borderRadius: '5px!important'
   },
@@ -39,8 +36,17 @@ const useRowStyles = makeStyles({
     fontFamily:"Arial",
     padding: "3rem"
   },
-  box1:{
-    borderBottom: ' 2px solid #912338 '
+    button: {
+        backgroundColor: '#912338',
+        float: "right",
+        marginBottom: "10px",
+        color: 'white',
+        '&:hover': {
+            backgroundColor: '#a4283f'
+        }
+    },
+  box1: {
+      borderBottom: ' 2px solid #912338 '
   }
 });
 
@@ -48,41 +54,5 @@ export default function DropForm(props) {
     const heading = props.heading
     const classes = useRowStyles();
     const rows = [{name:"a course",message:" Success "},{name:"a course",message:" Success "},{name:"a course",message:" Success "}]
-    return (
-        <fieldset className={classes.small}>
-            <legend className={classes.bigRed}>
-                {heading}
-            </legend>
-            <table className={classes.box1} style={{width:"100%"}}>
-              <tr>
-                <td>
-                  <Box className={classes.boxH1}>Reviewing</Box>
-                </td>
-              </tr>
-              <tr>
-                <td style={{  textAlign:"left", paddingLeft:"15px"}}><strong>Course(s) that will be dropped</strong></td>
-              </tr>
-              <tr>
-                <td style={{  textAlign:"left", paddingLeft:"25px"}} >Sample 1</td>
-              </tr>
-              <tr>
-                <td style={{  textAlign:"left", paddingLeft:"25px"}} >Sample 2</td>
-              </tr>
-              <Button variant="contained" color="secondary" style={{marginRight:"-80%",marginTop:"2%",marginBottom:"2%"}}>
-                Confirm
-              </Button>
-            </table>
-            <Box>
-              <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Summary</h3>
-              <table style={{marginLeft:"5%", alignContent:"left",width:"90%"}}>
-              {rows.map((row) => (
-                <tr>
-                  <th>{row.name}</th>
-                  <td>{row.message}</td>
-                </tr>
-          ))}
-              </table>
-            </Box>
-        </fieldset>
-    );
+    return null;
 }

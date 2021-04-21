@@ -40,5 +40,5 @@ export function drop(courseToDrop) {
 
 export function swap(courseToAdd, courseToDrop) {
     drop(courseToDrop)
-    enroll([{...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture')}`}])
+    enroll([{...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture').section}`}])
 }

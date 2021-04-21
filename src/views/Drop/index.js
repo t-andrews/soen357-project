@@ -1,11 +1,11 @@
 import React from 'react';
-import {makeStyles, styled} from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
+import {makeStyles} from "@material-ui/core/styles";
+import {Grid, Paper} from "@material-ui/core";
+import CourseCard from "../../components/CourseCard";
+import * as Service from "../../services/service";
 import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
-import {Paper} from "@material-ui/core";
-import CourseCard from "../../components/CoursesCard";
-import DropForm from "../../components/DropForm";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
     root: {
@@ -13,43 +13,70 @@ const useStyles = makeStyles({
         border: '2px solid #912338',
         borderRadius: '5px!important',
         minHeight: '700px',
-        padding: '10px'
+        padding: '10px',
+        minWidth: '1200px',
     },
     paper: {
         backgroundColor: 'white',
         width: '100%',
-        height: '15px',
+        height: '15px'
     },
-    card:{
-        width: '100%',
-        margin: '30px'
+    title: {
+        color: '#912338',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        fontSize: 'x-large',
+        paddingBottom: '30px'
     },
-    form:{
-        width: '100%',
+    card: {
+        minWidth: "600px",
+        width: "50%"
+    },
+    form: {
+        minWidth: "500px",
+        width: "50%",
+    },
+    course_name: {
+        fontWeight: "900"
+    },
+    small: {
+        border: '2px solid #912338',
+        borderRadius: '5px!important'
+    },
+    bigRed: {
+        fontSize:"Large",
+        color: "#912338",
+        fontWeight:"bold"
+    },
+    boxH1: {
+        textAlign:"left",
+        borderLeft: '2px solid #912338',
+        color: "#912338",
+        padding: "10px",
+        fontSize: "1.2rem"
+    },
+    container: {
+        width: "50%"
+    },
+    option: {
+        width: "50%",
+        height: "50px",
+        fontFamily:"Arial",
+        padding: "3rem"
+    },
+    button: {
+        backgroundColor: '#912338',
+        float: "right",
+        marginBottom: "10px",
+        color: 'white',
+        '&:hover': {
+            backgroundColor: '#a4283f'
+        }
+    },
+    box1: {
+        borderBottom: ' 2px solid #912338 '
     }
 });
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div role="tab" hidden={value !== index} id={`tabs-${index}`}
-             aria-labelledby={`tabs-${index}`}{...other}
-        >
-            {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
-};
 
 export default function DropView() {
     const classes = useStyles();
@@ -64,18 +91,49 @@ export default function DropView() {
         prevOpen.current = toggled;
     }, [toggled]);
 
+    const [courses,] = React.useState(Service.getEnrolledCourses());
+
     return (
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <Box display="flex" flexDirection="row" >
-                    <Box className={classes.card}>
-                         <CourseCard pt={2} forDelete={true}/>
-                    </Box>
-                    <Box m={1} p={1} className={classes.form}>
-                        <DropForm heading="Drop"/>
-                    </Box>
-                </Box>
+                <Typography className={classes.title}>Class Search</Typography>
+                <Grid justify="space-evenly" spacing={5} container>
+                    <Grid item className={classes.card}>
+                        {courses.map(c => <CourseCard style={{}} course={c}/>)}
+                    </Grid>
+                    <Grid item className={classes.form}>
+                        <div>
+                            <fieldset className={classes.small}>
+                                <legend className={classes.bigRed}>
+                                    Drop
+                                </legend>
+                                <table className={classes.box1} style={{width:"100%"}}>
+                                    <tr>
+                                        <td>
+                                            <Box className={classes.boxH1}>Reviewing</Box>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign:"left", paddingLeft:"15px"}}><strong>Course(s) that will be dropped</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign:"left", paddingLeft:"25px"}} >Sample 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign:"left", paddingLeft:"25px"}} >Sample 2</td>
+                                    </tr>
+                                    <Button className={classes.button} variant='contained'>Confirm</Button>
+                                </table>
+                                <Box>
+                                    <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Summary</h3>
+                                    <table style={{marginLeft:"5%", alignContent:"left",width:"90%"}}>
+                                    </table>
+                                </Box>
+                            </fieldset>
+                        </div>
+                    </Grid>
+                </Grid>
             </div>
         </div>
     );
