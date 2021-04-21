@@ -22,7 +22,7 @@ export function addToCourseCart(courseToAdd) {
 
 export function deleteFromCourseCart(courseToDelete) {
     const _db = getDb();
-    _db.courseCart = _db.courseCart.filter(c => c.id !== courseToDelete.id);
+    _db.courseCart = _db.courseCart.filter(c => c.uniqueName !== courseToDelete.uniqueName);
     updateDb(_db);
 }
 
