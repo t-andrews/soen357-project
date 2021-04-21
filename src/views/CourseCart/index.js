@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button,
     makeStyles,
@@ -11,8 +11,11 @@ import {
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Cart from "../../components/Cart";
-import Radio from '@material-ui/core/Radio';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from '@material-ui/core/Checkbox';
+import * as service from "../../services/service";
+
+
+
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
@@ -76,10 +79,54 @@ const ColorButton = withStyles((theme) => ({
         },
     },
 }))(Button);
+const getClassInfo = (course) => {
+
+    let lectureSection = ""
+    course.sections.forEach(section => {
+        if(section.component === "Lecture") {
+            lectureSection = section.section
+        }
+    });
+
+    const info = {
+        "courseName": course.courseName,
+        "section": lectureSection,
+        "courseTitle": course.courseTitle
+    }
+    return info
+}
 export default function CourseCart() {
     const classes = useStyles();
-    const courses = require("../../services/courseCart.json")
+    const [courses, setCourses] = useState(service.getCourseCart())
+    const [confirm, setConfirm] = useState(false)
+    useEffect(() => {
 
+        window.addEventListener('resetCart', () => setCourses(service.getCourseCart()));
+
+        return () => {
+            window.removeEventListener('resetCart',() => setCourses(service.getCourseCart()) );
+        };
+    }, []);
+
+    const confirmClasses = async (courses) => {
+        service.enroll(courses)
+        console.log(confirm)
+        await setConfirm(true)
+    }
+    const [checked, setChecked] = React.useState(true);
+    const [checkedCourses, setCheckedCourses] = useState([])
+    const handleChange = (event, course) => {
+        setChecked(false)
+        if(event.target.checked) {
+            setCheckedCourses([...checkedCourses, course])
+        } else {
+            const filteredCourses = checkedCourses.filter(
+                (filterValue) => filterValue.uniqueName != course.uniqueName
+            );
+            setCheckedCourses(filteredCourses)
+        }
+        console.log(checkedCourses)
+    }
     return(
         <div>
             <Paper className={classes.paper} elevation={0}/>
@@ -88,13 +135,13 @@ export default function CourseCart() {
                 <Grid container>
                 <Grid item xs={3} style={{maxWidth: '75%', minWidth: '915px'}}>
                     <Table>
-                        {Object.keys(courses).map(key => (
+                        {courses.map(course => (
                             <TableRow>
                                 <TableCell>
-                                    <Radio/>
+                                    <Checkbox onChange={(event) => handleChange(event,course)} color='default'/>
                                 </TableCell>
                                 <TableCell>
-                                    <Cart course={courses[key]}/>
+                                    <Cart course={course}/>
                                 </TableCell>
                             </TableRow>
                         ))
@@ -111,32 +158,34 @@ export default function CourseCart() {
                         <br/>
                         <br/>
                         <Table>
-                            <TableRow>
-                                COMP 232 S -Databases
-                            </TableRow>
-                            <TableRow>
-                                COMP 232 S -Databases
-                            </TableRow>
+                            {checkedCourses.map(course => (
+                                <TableRow align ="left">
+                                    <TableCell> {getClassInfo(course).courseName + " "+getClassInfo(course).section + "-"+ getClassInfo(course).courseTitle}</TableCell>
+                                </TableRow>
+                            ))}
                         </Table>
-                        <ColorButton size="small" >
+                        <br/>
+                        <ColorButton onClick={() => confirmClasses(checkedCourses)} size="small" >
                             Next
                         </ColorButton>
                         <br/>
                         <br/>
+                        { confirm ?  (
                         <Box style={{borderTop: ' 2px solid #912338 '}}>
                             <br/>
                             <Box className={classes.boxH1}>Summary</Box>
                             <Table>
-                                <TableRow>
-                                    COMP 232 S -Databases - Enrolled Successfully
-                                </TableRow>
-                                <TableRow>
-                                    COMP 232 S -Databases - Enrolled Successfully
-                                </TableRow>
+                                <Table>
+                                    {checkedCourses.map(course => (
+                                        <TableRow align ="left">
+                                            <TableCell>{getClassInfo(course).courseName + " "+getClassInfo(course).section + "-"+ getClassInfo(course).courseTitle}</TableCell>
+                                            <TableCell>Enrolled Successfully</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </Table>
                             </Table>
-                        </Box>
+                        </Box>) : null}
                     </fieldset>
-
                 </Grid>
                 </Grid>
             </div>
