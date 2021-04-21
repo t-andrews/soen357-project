@@ -4,7 +4,6 @@ import * as Service from "../../services/service";
 //Example
 export default function Test() {
     const courseToAdd = {
-        "id": 3,
         "courseName": "SOEN 345",
         "courseTitle": "Testing",
         "color": "#C63A3A",
@@ -19,7 +18,7 @@ export default function Test() {
             {
                 "number": 3356,
                 "component": "Lecture",
-                "section": "S ",
+                "section": "S",
                 "startTime": "1:15PM",
                 "endTime": "4:00PM",
                 "location": "H-345 SGW",
@@ -42,7 +41,6 @@ export default function Test() {
     }
     //once added there will be id associated
     const courseToDrop = {
-        "id": 3,
         "courseName": "SOEN 345",
         "courseTitle": "Testing",
         "color": "#C63A3A",
@@ -57,7 +55,7 @@ export default function Test() {
             {
                 "number": 3356,
                 "component": "Lecture",
-                "section": "S ",
+                "section": "S",
                 "startTime": "1:15PM",
                 "endTime": "4:00PM",
                 "location": "H-345 SGW",
@@ -80,10 +78,9 @@ export default function Test() {
     }
 
     const courseToSwapIn = {
-        "id": 5,
         "courseName": "SOEN 456",
         "courseTitle": "Testing",
-        "color": "#C63A3A",
+        "color": "#A25100",
         "units": "3.00",
         "startDate": "Jan 13",
         "endDate": "Apr 20",
@@ -95,7 +92,7 @@ export default function Test() {
             {
                 "number": 3356,
                 "component": "Lecture",
-                "section": "S ",
+                "section": "J",
                 "startTime": "1:15PM",
                 "endTime": "4:00PM",
                 "location": "H-345 SGW",
@@ -106,7 +103,7 @@ export default function Test() {
             {
                 "number": 3357,
                 "component": "Tutorial",
-                "section": "S SA",
+                "section": "J SA",
                 "startTime": "8:45AM",
                 "endTime": "9:55AM",
                 "location": "H-345 SGW",
@@ -117,23 +114,18 @@ export default function Test() {
         ]
     }
 
-    const [courses, setCourses] = useState(Service.getDb());
-
     const enrollClass = () => {
         Service.enroll([courseToAdd]);
-        setCourses(Service.getDb());
         console.log(Service.getEnrolledCourses())
     }
     const dropClass = () => {
         Service.drop(courseToDrop);
-        setCourses(Service.getDb());
-        console.log(Service.getCourseCart())
+        console.log(Service.getEnrolledCourses())
 
     }
     const swapClasses = () => {
         Service.swap(courseToSwapIn, courseToDrop);
-        setCourses(Service.getCourseCart());
-        console.log(Service.getCourseCart())
+        console.log(Service.getEnrolledCourses())
     }
 
     return (

@@ -16,7 +16,7 @@ export function getCourseCart () {
 
 export function addToCourseCart(courseToAdd) {
     const _db = getDb();
-    _db.courseCart.push(courseToAdd);
+    _db.courseCart.push({...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture')}`});
     updateDb(_db);
 }
 
@@ -34,11 +34,11 @@ export function enroll(coursesToAdd) {
 
 export function drop(courseToDrop) {
     const _db = getDb();
-    _db.register = _db.register.filter(c => c.id !== courseToDrop.id);
+    _db.register = _db.register.filter(c => c.uniqueName !== courseToDrop.uniqueName);
     updateDb(_db);
 }
 
 export function swap(courseToAdd, courseToDrop) {
     drop(courseToDrop)
-    enroll(courseToAdd)
+    enroll([{...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture')}`}])
 }
