@@ -67,10 +67,8 @@ const useStyles = makeStyles({
     courses: {
         float: 'left',
         fontSize: "1.2rem",
-    }
-});
-const ColorButton = withStyles((theme) => ({
-    root: {
+    },
+    button: {
         backgroundColor: '#912338',
         float: "right",
         marginBottom: "10px",
@@ -78,8 +76,9 @@ const ColorButton = withStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#a4283f'
         }
-    },
-}))(Button);
+    }
+});
+
 const getClassInfo = (course) => {
 
     let lectureSection = ""
@@ -169,9 +168,9 @@ export default function CourseCart() {
                             ))}
                         </Table>
                         <br/>
-                        <ColorButton disabled={courses.length === 0 || checkedCourses.length === 0} onClick={() => confirmClasses(checkedCourses)} size="small" >
+                        <Button className={classes.button} disabled={courses.length === 0 || checkedCourses.length === 0} onClick={() => confirmClasses(checkedCourses)} variant='contained' >
                             Next
-                        </ColorButton>
+                        </Button>
                         <br/>
                         <br/>
                         { confirm ?  (
