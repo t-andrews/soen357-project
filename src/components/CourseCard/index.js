@@ -51,7 +51,6 @@ export default function CourseCard(props) {
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>
                             <Table size="small" aria-label="dropCourses">
                                 <TableBody>
                                     {course.sections.filter(s => s.component !== "Lecture").map(section => (
@@ -70,7 +69,6 @@ export default function CourseCard(props) {
                                     ))}
                                 </TableBody>
                             </Table>
-                        </Box>
                     </Collapse>
                 </TableCell>
             </TableRow>

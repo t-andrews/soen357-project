@@ -1,6 +1,6 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Grid, Paper} from "@material-ui/core";
+import {Checkbox, Grid, Paper, withStyles} from "@material-ui/core";
 import CourseCard from "../../components/CourseCard";
 import * as Service from "../../services/service";
 import Typography from "@material-ui/core/Typography";
@@ -29,6 +29,7 @@ const useStyles = makeStyles({
         paddingBottom: '30px'
     },
     card: {
+        marginTop: "15px",
         minWidth: "600px",
         width: "50%"
     },
@@ -78,29 +79,67 @@ const useStyles = makeStyles({
     }
 });
 
+const BurgundyCheckbox = withStyles({
+    root: {
+        '&$checked': {
+            color: '#912338',
+        },
+    },
+    checked: {},
+})(Checkbox);
+
 export default function DropView() {
     const classes = useStyles();
-    const [toggled] = React.useState(false);
-    const anchorRef = React.useRef(null);
 
-    const prevOpen = React.useRef(toggled);
-    React.useEffect(() => {
-        if (prevOpen.current && !toggled) {
-            anchorRef.current.focus();
+    const [courses, setCourses] = React.useState(Service.getEnrolledCourses());
+    const [checked, setChecked] = React.useState(courses.map(() => false));
+    const [confirm, setConfirm] = React.useState(false);
+    const [removedCourses, setRemovedCourses] = React.useState([]);
+
+    async function handleCheckedChange(event, index) {
+        checked[index] = event.target.checked;
+        setChecked([...checked]);
+    }
+
+    async function handleConfirm() {
+        const removed = [];
+
+        for (let i = 0; i < checked.length; i++) {
+            if (checked[i] === true) {
+                removed.push(courses[i]);
+            }
         }
-        prevOpen.current = toggled;
-    }, [toggled]);
 
-    const [courses,] = React.useState(Service.getEnrolledCourses());
+        if (removed.length <= 0) {
+            return;
+        }
+
+        Service.drop(removed);
+        await setCourses(Service.getEnrolledCourses());
+        await setRemovedCourses(removed);
+        await setChecked([...courses.map(() => false)]);
+        await setConfirm(true);
+    }
 
     return (
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <Typography className={classes.title}>Class Search</Typography>
+                <Typography className={classes.title}>Class Drop</Typography>
                 <Grid justify="space-evenly" spacing={5} container>
                     <Grid item className={classes.card}>
-                        {courses.map(c => <CourseCard style={{}} course={c}/>)}
+                        {
+                            courses.map(c => {
+                                return (
+                                    <div style={{marginBottom: "10px", display: "inline-flex", width: "100%"}} >
+                                        <div style={{marginRight: "10px"}}>
+                                            <BurgundyCheckbox checked={checked[courses.indexOf(c)]} onClick={evt => handleCheckedChange(evt, courses.indexOf(c))}/>
+                                        </div>
+                                        <CourseCard course={c}/>
+                                    </div>
+                                )
+                            })
+                        }
                     </Grid>
                     <Grid item className={classes.form}>
                         <div>
@@ -109,27 +148,28 @@ export default function DropView() {
                                     Drop
                                 </legend>
                                 <table className={classes.box1} style={{width:"100%"}}>
-                                    <tr>
-                                        <td>
-                                            <Box className={classes.boxH1}>Reviewing</Box>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{ textAlign:"left", paddingLeft:"15px"}}><strong>Course(s) that will be dropped</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{ textAlign:"left", paddingLeft:"25px"}} >Sample 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{ textAlign:"left", paddingLeft:"25px"}} >Sample 2</td>
-                                    </tr>
-                                    <Button className={classes.button} variant='contained'>Confirm</Button>
+                                    <Box className={classes.boxH1}>Reviewing</Box>
+                                    <div style={{ textAlign:"left", paddingLeft:"15px"}}><strong>Course (s) that will be dropped</strong></div>
+
+                                    { courses.map(c => checked[courses.indexOf(c)] === true ? <div style={{ textAlign:"left", paddingLeft:"15px"}}>{c.uniqueName} - {c.courseTitle}</div> : null) }
+
+                                    <Button className={classes.button} variant='contained' onClick={handleConfirm}>Confirm</Button>
                                 </table>
-                                <Box>
-                                    <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Summary</h3>
-                                    <table style={{marginLeft:"5%", alignContent:"left",width:"90%"}}>
-                                    </table>
-                                </Box>
+                                {
+                                    confirm ? (
+                                        <Box>
+                                            <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Summary</h3>
+
+                                            { removedCourses.map(c => (
+                                                <div style={{ textAlign:"left", paddingLeft:"15px"}}>
+                                                    {c.uniqueName} - {c.courseTitle}
+                                                    <div style={{ float:"right"}}>Dropped successfully</div>
+                                                </div>
+                                            )) }
+
+                                        </Box>
+                                    ) : null
+                                }
                             </fieldset>
                         </div>
                     </Grid>
