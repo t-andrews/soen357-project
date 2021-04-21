@@ -162,20 +162,6 @@ export default function Add() {
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
                 <Typography className={classes.title}>Class Search</Typography>
-                <Grid container direction='row' spacing={3} justify='flex-end' style={{paddingRight: '25px', paddingBottom: '30px'}}>
-                    <Grid item className={classes.legend}>
-                        <CheckCircle style={{color: 'green'}}/>
-                        Open
-                    </Grid>
-                    <Grid item className={classes.legend}>
-                        <Cancel style={{color: 'red'}}/>
-                        Closed
-                    </Grid>
-                    <Grid item className={classes.legend}>
-                        <PauseCircleFilled style={{color: 'orange'}}/>
-                        Wait list
-                    </Grid>
-                </Grid>
                 <Grid container direction='row' spacing={5} justify='space-between' style={{paddingLeft: '25px', paddingRight: '25px'}}>
                     <Grid item className={classes.searchBox}>
                         <form>
@@ -360,6 +346,20 @@ export default function Add() {
                         </form>
                     </Grid>
                     <Grid item className={classes.resultsBox}>
+                        <Grid container direction='row' spacing={3} justify='flex-end' style={{padding: '15px'}}>
+                            <Grid item className={classes.legend}>
+                                <CheckCircle style={{color: 'green'}}/>
+                                Open
+                            </Grid>
+                            <Grid item className={classes.legend}>
+                                <Cancel style={{color: 'red'}}/>
+                                Closed
+                            </Grid>
+                            <Grid item className={classes.legend}>
+                                <PauseCircleFilled style={{color: 'orange'}}/>
+                                Wait list
+                            </Grid>
+                        </Grid>
                         <Grid container direction='column' spacing={3} alignItems='flex-end'>
                             <Grid item>
                                 <SearchResultsShell />
