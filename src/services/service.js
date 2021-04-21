@@ -1,26 +1,44 @@
-import axios from "axios"
-
-export const getEnrolledCourses = async () => {
-    return (await axios.get("http://localhost:5000/register")).data;
+export function updateDb(newValue) {
+    localStorage.setItem("db", JSON.stringify(newValue));
 }
 
-export const addToCourseCart = (courseToAdd) => {
-    axios.post("http://localhost:5000/courseCart", courseToAdd).then(res => {console.log(res.data)});
+export function getDb() {
+    return JSON.parse(localStorage.getItem("db"));
 }
 
-export const deleteFromCourseCart = (courseToDelete) => {
-    axios.delete("http://localhost:5000/courseCart/"+ courseToDelete.id).then(res => {console.log(res.data)});
+export function getEnrolledCourses () {
+    return getDb().register;
 }
-//Cant add multiple classes at once :(
-export const enroll = (courseToAdd) => {
-    axios.post("http://localhost:5000/register", courseToAdd).then(res => {console.log(res.data)});
-};
 
-export const drop = (courseToDrop) => {
-    axios.delete("http://localhost:5000/register/"+ courseToDrop.id).then(res => {console.log(res.data)});
-};
+export function getCourseCart () {
+    return getDb().courseCart;
+}
 
-export const swap = (courseToAdd, courseToDrop) => {
+export function addToCourseCart(courseToAdd) {
+    const _db = getDb();
+    _db.courseCart.push({...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture')}`});
+    updateDb(_db);
+}
+
+export function deleteFromCourseCart(courseToDelete) {
+    const _db = getDb();
+    _db.courseCart = _db.courseCart.filter(c => c.uniqueName !== courseToDelete.uniqueName);
+    updateDb(_db);
+}
+
+export function enroll(coursesToAdd) {
+    const _db = getDb();
+    _db.register.push.apply(_db.register, coursesToAdd);
+    updateDb(_db);
+}
+
+export function drop(courseToDrop) {
+    const _db = getDb();
+    _db.register = _db.register.filter(c => c.uniqueName !== courseToDrop.uniqueName);
+    updateDb(_db);
+}
+
+export function swap(courseToAdd, courseToDrop) {
     drop(courseToDrop)
-    enroll(courseToAdd)
-};
+    enroll([{...courseToAdd, uniqueName: `${courseToAdd.courseName} ${courseToAdd.sections.find(s => s.component === 'Lecture')}`}])
+}
