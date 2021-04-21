@@ -129,7 +129,9 @@ export default function DropView() {
                 <Grid justify="space-evenly" spacing={5} container>
                     <Grid item className={classes.card}>
                         {
-                            courses.map(c => {
+                            courses.length === 0 ?
+                                <h3>You are not enrolled to any classes this semester</h3>
+                                : courses.map(c => {
                                 return (
                                     <div style={{marginBottom: "10px", display: "inline-flex", width: "100%"}} >
                                         <div style={{marginRight: "10px"}}>
@@ -153,7 +155,7 @@ export default function DropView() {
 
                                     { courses.map(c => checked[courses.indexOf(c)] === true ? <div style={{ textAlign:"left", paddingLeft:"15px"}}>{c.uniqueName} - {c.courseTitle}</div> : null) }
 
-                                    <Button className={classes.button} variant='contained' onClick={handleConfirm}>Confirm</Button>
+                                    <Button disabled={courses.length === 0 || !checked.some(c => c === true)} className={classes.button} variant='contained' onClick={handleConfirm}>Confirm</Button>
                                 </table>
                                 {
                                     confirm ? (
