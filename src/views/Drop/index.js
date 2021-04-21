@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         borderRadius: '5px!important',
         minHeight: '700px',
         padding: '10px',
-        minWidth: '1200px',
+        minWidth: '1300px',
     },
     paper: {
         backgroundColor: 'white',
@@ -30,11 +30,11 @@ const useStyles = makeStyles({
     },
     card: {
         marginTop: "15px",
-        minWidth: "600px",
+        minWidth: "700px",
         width: "50%"
     },
     form: {
-        minWidth: "500px",
+        minWidth: "300px",
         width: "50%",
     },
     course_name: {
