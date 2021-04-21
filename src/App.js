@@ -4,7 +4,8 @@ import './App.css';
 import db_json from "./services/db.json";
 
 const Tabs = lazy(() => import("./components/Tabs"));
-const Service = lazy( () => import("./components/Test"))
+const Service = lazy( () => import("./components/Test"));
+
 function App() {
     if (!localStorage.getItem("db")) {
         localStorage.setItem("db", JSON.stringify(db_json));
