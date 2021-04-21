@@ -151,7 +151,8 @@ export default function DropView() {
                                 </legend>
                                 <table className={classes.box1} style={{width:"100%"}}>
                                     <Box className={classes.boxH1}>Reviewing</Box>
-                                    <div style={{ textAlign:"left", paddingLeft:"15px"}}><strong>Course (s) that will be dropped</strong></div>
+                                    <div style={{ textAlign:"left", paddingLeft:"15px"}}><strong>Course(s) that will be dropped</strong></div>
+                                    <br/>
 
                                     { courses.map(c => checked[courses.indexOf(c)] === true ? <div style={{ textAlign:"left", paddingLeft:"15px"}}>{c.uniqueName} - {c.courseTitle}</div> : null) }
 
