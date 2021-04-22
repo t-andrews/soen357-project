@@ -62,47 +62,44 @@ const useRowStyles = makeStyles({
 export default function SwapForm(props) {
     const courses  = props.courses;
     const cart = props.cart;
-    const [courseToAdd,setcourseToAdd]  = React.useState(null);
-    const [courseToDrop, setcourseToDrop] = React.useState(null);
+    const [courseToAdd, setCourseToAdd]  = React.useState(null);
+    const [courseToDrop, setCourseToDrop] = React.useState(null);
     const [confirm, setConfirm] = React.useState(false);
     const [confirmAdd, setConfirmAdd] = React.useState(null);
     const [confirmDrop, setConfirmDrop] = React.useState(null);
     const heading = props.heading
     const classes = useRowStyles();
-    const rows = []
 
     useEffect(() => {
-      window.addEventListener("drop",(event)=>{
+      window.addEventListener("drop",event => {
         const val = event.detail == "" ? null : event.detail
-        setcourseToDrop(val);
+        setCourseToDrop(val);
       })
       return () => {
-        window.removeEventListener("drop",(event)=>{
-        
-        })
+        window.removeEventListener("drop", () => {})
       }
     })
     
     useEffect(() => {
       window.addEventListener("add",(event)=>{
         const val = event.detail == "" ? null : event.detail
-        setcourseToAdd(val);
+        setCourseToAdd(val);
       })
       return () => {
-        window.removeEventListener("add",(event)=>{
-          
-        })
+        window.removeEventListener("add",()=>{})
       }
     })
 
-    const handleConfirm = (courseToAdd,courseToDrop) => {
+    const handleConfirm = () => {
       // set confirm
       setConfirmAdd(courseToAdd)
       setConfirmDrop(courseToDrop)
-      //reset value
-      setcourseToAdd(null)
-      setcourseToDrop(null)
+      console.log('courseToAdd', courseToAdd)
+      console.log('courseToDrop', courseToDrop)
       Service.swap(courseToAdd, courseToDrop)
+      //reset value
+      setCourseToAdd(null)
+      setCourseToDrop(null)
       setConfirm(true)
       window.dispatchEvent(new Event("swap"))
     }
@@ -167,7 +164,7 @@ export default function SwapForm(props) {
                   <td> {courseToAdd ? courseToAdd.uniqueName : ""} </td>
                 </tr>
                             <Button className ={classes.button} disabled={courseToAdd == null || courseToDrop == null} 
-              onClick={ () => handleConfirm(courseToAdd,courseToDrop)} 
+              onClick={ () => handleConfirm(courseToAdd,courseToDrop)}
               variant="contained" 
               >
                 Confirm

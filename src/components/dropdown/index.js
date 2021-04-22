@@ -4,7 +4,6 @@ export default function Dropdown(props) {
     const options = props.options ?? ["Empty cart"]
     const type = props.type
     const handleChange = (event) => {
-      console.log("******Test " + event.target.value)
       window.dispatchEvent(new CustomEvent(type, {detail:event.target.value}))
     };
 
