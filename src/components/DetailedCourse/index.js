@@ -33,7 +33,8 @@ export default function DetailedCourse(props) {
 
     const StyledTableCell = withStyles((theme) => ({
         root: {
-            padding: '3px 10px 10px 3px'
+            padding: '3px 10px 10px 3px',
+            backgroundColor: "white"
         },
         head: {
             backgroundColor: lightColor,
@@ -53,7 +54,8 @@ export default function DetailedCourse(props) {
     const classes = makeStyles({
         table: {
             maxWidth: "96%",
-            border: `2px solid ${course.color}`
+            border: `2px solid ${course.color}`,
+            backgroundColor: course.color,
         },
         title: {
             backgroundColor: course.color,
@@ -98,7 +100,6 @@ export default function DetailedCourse(props) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Class Nbr</StyledTableCell>
                         <StyledTableCell>Component</StyledTableCell>
                         <StyledTableCell>Section</StyledTableCell>
                         <StyledTableCell>Days & Times</StyledTableCell>
@@ -110,7 +111,6 @@ export default function DetailedCourse(props) {
                 <TableBody>
                     {course.sections.map(row => (
                         <StyledTableRow key={`${row.component}-${row.number}`}>
-                            <StyledTableCell>{row.number}</StyledTableCell>
                             <StyledTableCell>{row.component}</StyledTableCell>
                             <StyledTableCell>{row.section}</StyledTableCell>
                             <StyledTableCell>
