@@ -102,12 +102,14 @@ export default function CourseCart() {
     const [enrolledCourses, setEnrolledCourses] = useState([])
     const [courses, setCourses] = useState(service.getCourseCart())
     const [confirm, setConfirm] = useState(false)
+    const [updateCheckbox, setUpdateCheckbox] = useState(0)
 
     useEffect(() => {
-        window.addEventListener('resetCart', () => {
+        window.addEventListener('resetCart', async () => {
             (Array.from(document.getElementsByClassName('checkbox-find')) ?? []).forEach( c => c.checked = false)
-            setCourses(service.getCourseCart())
-            setCheckedCourses([])
+            await setCourses(service.getCourseCart())
+            await setCheckedCourses([])
+            await setUpdateCheckbox(updateCheckbox + 1)
         });
         return () => {
             window.removeEventListener('resetCart',() => setCourses(service.getCourseCart()) );
@@ -146,7 +148,7 @@ export default function CourseCart() {
                                 : courses.map(course => (
                                     <TableRow className={classes.row}>
                                         <TableCell style={{borderBottom:"none"}}>
-                                            <Checkbox className={"checkbox-find"} onChange={(event) => handleChange(event,course)} color='default'/>
+                                            <Checkbox key={updateCheckbox} className={"checkbox-find"} onChange={(event) => handleChange(event,course)} color='default'/>
                                         </TableCell>
                                         <TableCell style={{borderBottom:"none"}}>
                                             <Cart course={course}/>

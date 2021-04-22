@@ -160,5 +160,13 @@
         }
       ]
     }
-  ]
+  ],
+  "colors": {
+    "#9861A9": false,
+    "#006280": false,
+    "#C63A3A": false,
+    "#00A251": false,
+    "#DB8300": false,
+    "#6897BB": false
+  }
 }
