@@ -66,7 +66,7 @@
           "startTime": "11:45AM",
           "endTime": "12:45PM",
           "location": "H-345 SGW",
-          "days": ["Friday"],
+          "days": ["Friday"]
         },
         {
           "component": "Tutorial",
@@ -93,7 +93,7 @@
           "startTime": "1:15PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday, Wednesday"],
+          "days": ["Monday, Wednesday"]
         },
         {
           "component": "Tutorial",

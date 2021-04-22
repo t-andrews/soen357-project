@@ -2,22 +2,23 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {
     Button,
-    ButtonGroup,
     Checkbox,
     Dialog, DialogContent, DialogTitle,
     FormControlLabel,
     FormGroup,
     Grid,
-    InputBase,
+    InputBase, List, ListItem,
     Paper,
-    Popover,
     TextField, Tooltip,
     withStyles
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import {Cancel, CheckCircle, ExpandLess, ExpandMore, PauseCircleFilled, Search} from "@material-ui/icons";
+import {Cancel, CheckCircle, PauseCircleFilled, Search} from "@material-ui/icons";
 import SearchResultsShell from "../../components/SearchResultsShell";
 import ModalContent from "../../components/AddModalContent";
+import * as AllCourses from "../../services/allCourses.json";
+import SelectSearch, {fuzzySearch} from "react-select-search";
+import '../../Search.css';
 
 const useStyles = makeStyles({
     root: {
@@ -55,30 +56,10 @@ const useStyles = makeStyles({
         minHeight: '600px',
         backgroundColor: '#f2f2f2'
     },
-    search: {
-        position: 'relative',
-        marginLeft: '35%',
-        width: '30%',
-        height: '50px',
-        backgroundColor: '#f2f2f2',
-        '&:hover': {
-            backgroundColor: '#e6e6e6'
-        },
-    },
     inputInput: {
         padding: '16px',
         paddingLeft: '5px',
         width: '15ch',
-    },
-    select: {
-      paddingTop: '20px'
-    },
-    dropdown: {
-        textTransform: 'unset'
-    },
-    icon: {
-        paddingTop: '5px',
-        paddingLeft: '5px'
     },
     timeContainer: {
         display: 'flex',
@@ -121,7 +102,6 @@ const CustomTextField = withStyles({
     },
 })(TextField);
 
-
 const BurgundyCheckbox = withStyles({
     root: {
         '&$checked': {
@@ -133,22 +113,13 @@ const BurgundyCheckbox = withStyles({
 
 export default function Add() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+
     const [state, setState] = React.useState({
         L200: false, L300: false, L400: false, L500: false, L600: false, L700: false, L800: false,
         Sunday: false, Monday: false, Tuesday: false, Wednesday: false, Thursday: false, Friday: false, Saturday: false,
     });
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'semester-popover' : undefined;
+    const [selectedCourse, setSelectedCourse] = React.useState({});
 
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
@@ -164,6 +135,8 @@ export default function Add() {
         setOpenModal(false);
     };
 
+    const courses = AllCourses.courses.map(c => ({name: c.courseName, value: c.courseName}));
+
     return(
         <div>
             <Paper className={classes.paper} elevation={0}/>
@@ -178,34 +151,12 @@ export default function Add() {
                             <form>
                                 <Grid container direction='column' spacing={5} alignItems='center'>
                                     <Grid item style={{borderBottom: '2px solid #912338', width: '98%'}}>
-                                        <div className={classes.search}>
-                                            <InputBase placeholder="Search" classes={{ input: classes.inputInput }}
-                                                       inputProps={{ 'aria-label': 'search' }} startAdornment={<Search />}
+                                        <div>
+                                            <SelectSearch placeholder="Search" options={courses}
+                                                          search={true} filterOptions={fuzzySearch}
+                                                          emptyMessage={"Course Not Found"}
+                                                          value={selectedCourse.name} onChange={(event) => setSelectedCourse(event)}
                                             />
-                                        </div>
-                                        <div className={classes.select}>
-                                            <Button className={classes.dropdown} onClick={handleClick} variant='outlined'>
-                                                <Grid container direction='row' justify='space-between' alignItems='center'>
-                                                    <Grid item>Select from Course Cart</Grid>
-                                                    <Grid item className={classes.icon}>{open ? <ExpandLess /> : <ExpandMore />}</Grid>
-                                                </Grid>
-                                            </Button>
-                                            <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose}
-                                                     anchorOrigin={{
-                                                         vertical: 'bottom',
-                                                         horizontal: 'center',
-                                                     }}
-                                                     transformOrigin={{
-                                                         vertical: 'top',
-                                                         horizontal: 'center',
-                                                     }}
-                                            >
-                                                <ButtonGroup style={{width: '220px'}} orientation='vertical'>
-                                                    <Button>Course 1</Button>
-                                                    <Button>Course 2</Button>
-                                                    <Button>Course 3</Button>
-                                                </ButtonGroup>
-                                            </Popover>
                                         </div>
                                     </Grid>
                                     <Tooltip title={'For Visual Purposes ONLY'} className={classes.tooltip} placement={'top-start'}>
