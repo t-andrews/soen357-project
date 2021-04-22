@@ -9,26 +9,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from '@material-ui/icons/Close';
-import {Button} from "@material-ui/core";
+import {Button, IconButton} from "@material-ui/core";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 
 import DeleteConfirmModal from "../DeleteConfirmModal";
 
-const styles = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-        backgroundColor:"#554D4D",
-        color: "white",
-        width: "500px"
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
+
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -46,6 +32,7 @@ const useStyles = makeStyles({
         minWidth: 700,
     },
     classTitle: {
+        width: 400,
         fontWeight: 'bold',
         fontSize: 18,
     },
@@ -80,6 +67,9 @@ const useStyles = makeStyles({
     modal: {
         width: '50%',
         height: '35%'
+    },
+    button: {
+
     }
 });
 const extractDay = (days) => {
@@ -133,16 +123,6 @@ const extractInfo = (course) => {
     }
     return info
 }
-const ColorButton = withStyles((theme) => ({
-    root: {
-        float: 'right',
-        color: theme.palette.getContrastText('#912338'),
-        backgroundColor: '#912338',
-        '&:hover': {
-            backgroundColor: '#B3455A',
-        },
-    },
-}))(Button);
 
 export default function Cart(props) {
     const [open, setOpen] = useState(false)
@@ -167,7 +147,7 @@ export default function Cart(props) {
         </Dialog>
         <Table className={classes.table} aria-label="customized table">
             <TableHead>
-                <TableRow>
+                <TableRow style={{backgroundColor: "#808080"}}>
                     <StyledTableCell>
                         <Typography className={classes.classTitle}>{course.title}</Typography>
                         <Typography className={classes.classHeader}
@@ -180,11 +160,16 @@ export default function Cart(props) {
                             {course.lectureRoom}
                         </Typography>
                     </StyledTableCell>
-                    <StyledTableCell align="right">
-                        <Button className={classes.button} onClick={popModal}>
-                            <CloseIcon onClick={popModal} className={classes.icon}/>
-                        </Button>
-                    </StyledTableCell>
+                    <div align={"right"}><IconButton size={"small"} className={classes.button} onClick={popModal}>
+                        <CloseIcon onClick={popModal} className={classes.icon}/>
+                    </IconButton>
+                    </div>
+                    {/*<StyledTableCell><IconButton className={classes.button} onClick={popModal}>*/}
+                    {/*    <CloseIcon onClick={popModal} className={classes.icon}/>*/}
+                    {/*</IconButton>*/}
+                    {/*</StyledTableCell>*/}
+
+
                 </TableRow>
             </TableHead>
             <TableBody>

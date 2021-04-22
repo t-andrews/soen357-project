@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
     Button,
     makeStyles,
@@ -76,7 +76,8 @@ const useStyles = makeStyles({
         '&:hover': {
             backgroundColor: '#a4283f'
         }
-    }
+    },
+
 });
 
 const getClassInfo = (course) => {
@@ -97,17 +98,22 @@ const getClassInfo = (course) => {
 }
 export default function CourseCart() {
     const classes = useStyles();
+    const [checkedCourses, setCheckedCourses] = useState([])
+    const [enrolledCourses, setEnrolledCourses] = useState([])
     const [courses, setCourses] = useState(service.getCourseCart())
     const [confirm, setConfirm] = useState(false)
+
     useEffect(() => {
 
-        window.addEventListener('resetCart', () => setCourses(service.getCourseCart()));
-
+        window.addEventListener('resetCart', () => {
+            (document.getElementsByClassName('checkbox-find') ?? []).forEach( c => console.log(c))
+            setCourses(service.getCourseCart())
+            setCheckedCourses([])
+        });
         return () => {
             window.removeEventListener('resetCart',() => setCourses(service.getCourseCart()) );
         };
     }, []);
-
     const confirmClasses = async (courses) => {
         service.enroll(courses)
         courses.forEach(course => service.deleteFromCourseCart(course))
@@ -117,8 +123,6 @@ export default function CourseCart() {
         await setEnrolledCourses(courses)
         await setCheckedCourses([])
     }
-    const [checkedCourses, setCheckedCourses] = useState([])
-    const [enrolledCourses, setEnrolledCourses] = useState([])
     const handleChange = (event, course) => {
         if(event.target.checked) {
             setCheckedCourses([...checkedCourses, course])
@@ -139,11 +143,11 @@ export default function CourseCart() {
                 <Grid item xs={3} style={{maxWidth: '75%', minWidth: '915px'}}>
                     <Table>
                         {courses.map(course => (
-                            <TableRow>
-                                <TableCell>
-                                    <Checkbox onChange={(event) => handleChange(event,course)} color='default'/>
+                            <TableRow className={classes.row}>
+                                <TableCell style={{borderBottom:"none"}}>
+                                    <Checkbox class={"checkbox-find"} onChange={(event) => handleChange(event,course)} color='default'/>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell style={{borderBottom:"none"}}>
                                     <Cart course={course}/>
                                 </TableCell>
                             </TableRow>
