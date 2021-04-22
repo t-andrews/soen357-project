@@ -65,8 +65,11 @@ export default function SwapForm(props) {
     const [courseToAdd,setcourseToAdd]  = React.useState(null);
     const [courseToDrop, setcourseToDrop] = React.useState(null);
     const [confirm, setConfirm] = React.useState(false);
+    const [confirmAdd, setConfirmAdd] = React.useState(null);
+    const [confirmDrop, setConfirmDrop] = React.useState(null);
     const heading = props.heading
     const classes = useRowStyles();
+    const rows = []
 
     useEffect(() => {
       window.addEventListener("drop",(event)=>{
@@ -93,6 +96,12 @@ export default function SwapForm(props) {
     })
 
     const handleConfirm = (courseToAdd,courseToDrop) => {
+      // set confirm
+      setConfirmAdd(courseToAdd)
+      setConfirmDrop(courseToDrop)
+      //reset value
+      setcourseToAdd(null)
+      setcourseToDrop(null)
       Service.swap(courseToAdd, courseToDrop)
       setConfirm(true)
       window.dispatchEvent(new Event("swap"))
@@ -170,11 +179,11 @@ export default function SwapForm(props) {
                 <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Summary</h3>
                 <table style={{marginLeft:"5%", alignContent:"center",width:"90%"}}>
                   <tr>
-                    <th>{courseToDrop.uniqueName}</th>
+                    <th>{confirmDrop.uniqueName}</th>
                     <td>Dropped successfully</td>
                   </tr>
                   <tr>
-                    <th>{courseToAdd.uniqueName}</th>
+                    <th>{confirmAdd.uniqueName}</th>
                     <td>Enrolled successfully</td>
                   </tr>
                 </table>
