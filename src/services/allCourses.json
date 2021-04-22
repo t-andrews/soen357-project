@@ -18,7 +18,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday", "Wednesday"],
+          "days": ["Tuesday", "Thursday"],
           "sections": [
             {
               "status": "open",
@@ -61,7 +61,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Tuesday", "Thursday"],
+          "days": ["Monday", "Wednesday"],
           "sections": [
             {
               "status": "closed",
@@ -80,8 +80,8 @@
               "time": "Mo 8:45AM - 9:50AM",
               "startTime": "8:45AM",
               "endTime": "9:50AM",
-              "location": "H-345 SGW",
-              "days": ["Wednesday"]
+              "location": "H-645 SGW",
+              "days": ["Monday"]
             },
             {
               "status": "closed",
@@ -90,7 +90,7 @@
               "time": "Mo 8:45AM - 9:50AM",
               "startTime": "8:45AM",
               "endTime": "9:50AM",
-              "location": "H-345 SGW",
+              "location": "H-811 SGW",
               "days": ["Friday"]
             }
           ]
@@ -104,7 +104,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Wednesday", "Friday"],
+          "days": ["Thursday", "Friday"],
           "sections": [
             {
               "status": "closed",
@@ -121,10 +121,10 @@
               "component": "Tutorial",
               "section": "C CB",
               "time": "Mo 8:45AM - 9:50AM",
-              "startTime": "8:45AM",
-              "endTime": "9:50AM",
+              "startTime": "6:45AM",
+              "endTime": "8:15AM",
               "location": "H-345 SGW",
-              "days": ["Wednesday"]
+              "days": ["Tuesday"]
             },
             {
               "status": "open",
@@ -134,7 +134,7 @@
               "startTime": "8:45AM",
               "endTime": "9:50AM",
               "location": "H-345 SGW",
-              "days": ["Friday"]
+              "days": ["Thursday"]
             }
           ]
         }
@@ -158,7 +158,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday", "Wednesday"],
+          "days": ["Tuesday", "Wednesday"],
           "sections": [
             {
               "status": "wait",
@@ -168,7 +168,7 @@
               "startTime": "8:45AM",
               "endTime": "9:50AM",
               "location": "H-345 SGW",
-              "days": ["Monday"]
+              "days": ["Friday"]
             },
             {
               "status": "open",
@@ -178,17 +178,17 @@
               "startTime": "8:45AM",
               "endTime": "9:50AM",
               "location": "H-345 SGW",
-              "days": ["Wednesday"]
+              "days": ["Tuesday"]
             },
             {
               "status": "closed",
               "component": "Laboratory",
               "section": "S SC",
               "time": "Mo 8:45AM - 9:50AM",
-              "startTime": "8:45AM",
-              "endTime": "9:50AM",
+              "startTime": "1:15PM",
+              "endTime": "3:00AM",
               "location": "H-345 SGW",
-              "days": ["Friday"]
+              "days": ["Monday"]
             }
           ]
         },
@@ -201,7 +201,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Tuesday", "Thursday"],
+          "days": ["Monday", "Thursday"],
           "sections": [
             {
               "status": "closed",
@@ -211,7 +211,7 @@
               "startTime": "8:45AM",
               "endTime": "9:50AM",
               "location": "H-345 SGW",
-              "days": ["Monday"]
+              "days": ["Thursday"]
             },
             {
               "status": "open",
@@ -231,7 +231,7 @@
               "startTime": "8:45AM",
               "endTime": "9:50AM",
               "location": "H-345 SGW",
-              "days": ["Friday"]
+              "days": ["Tuesday"]
             }
           ]
         },
@@ -298,7 +298,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday", "Wednesday"],
+          "days": ["Thursday"],
           "sections": [
             {
               "status": "wait",
@@ -341,7 +341,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Tuesday", "Thursday"],
+          "days": ["Tuesday"],
           "sections": [
             {
               "status": "closed",
@@ -381,10 +381,10 @@
           "section": "C",
           "instructor": "Ken Kaneki",
           "time": "WeFr 2:45PM - 4:00PM",
-          "startTime": "2:45PM",
-          "endTime": "4:00PM",
+          "startTime": "1:45PM",
+          "endTime": "3:00PM",
           "location": "H-345 SGW",
-          "days": ["Wednesday", "Friday"],
+          "days": ["Tuesday"],
           "sections": [
             {
               "status": "open",
@@ -436,10 +436,10 @@
           "section": "S",
           "instructor": "Essam Mansour",
           "time": "MoWe 2:45PM - 4:00PM",
-          "startTime": "2:45PM",
-          "endTime": "4:00PM",
+          "startTime": "7:45PM",
+          "endTime": "9:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday", "Wednesday"],
+          "days": ["Tuesday", "Thursday"],
           "sections": [
             {
               "status": "wait",
@@ -482,7 +482,7 @@
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Tuesday", "Thursday"],
+          "days": ["Wednesday", "Friday"],
           "sections": [
             {
               "status": "closed",
@@ -522,8 +522,8 @@
           "section": "C",
           "instructor": "Ken Kaneki",
           "time": "WeFr 2:45PM - 4:00PM",
-          "startTime": "2:45PM",
-          "endTime": "4:00PM",
+          "startTime": "4:45PM",
+          "endTime": "6:00PM",
           "location": "H-345 SGW",
           "days": ["Wednesday", "Friday"],
           "sections": [

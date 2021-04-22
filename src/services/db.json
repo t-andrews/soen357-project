@@ -39,11 +39,11 @@
           "number": 1235,
           "component": "Laboratory",
           "section": "S SA",
-          "startTime": "8:45AM",
-          "endTime": "10:55AM",
+          "startTime": "8:45PM",
+          "endTime": "10:00PM",
           "location": "H-345 SGW",
           "days": [
-            "Wednesday"
+            "Thursday"
           ]
         }
       ]
@@ -129,7 +129,7 @@
           "endTime": "7:00PM",
           "location": "H-345 SGW",
           "days": [
-            "Monday", "Wednesday"
+            "Thursday"
           ]
         }
       ]

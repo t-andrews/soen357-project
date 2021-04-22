@@ -145,17 +145,17 @@ export default function SimpleTabs() {
                                 <StyledTab classes={{wrapper: classes.iconWrapper}} label="Add"
                                      icon={<Add style={{paddingRight: '5px'}}/>} {...a11yProps(1)}
                                 />
+                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Course Cart"
+                                           icon={<ShoppingCartOutlined style={{paddingRight: '5px'}}/>} {...a11yProps(2)}
+                                />
                                 <StyledTab classes={{wrapper: classes.iconWrapper}} label="Swap"
-                                     icon={<SwapHoriz style={{paddingRight: '5px'}}/>} {...a11yProps(2)}
+                                     icon={<SwapHoriz style={{paddingRight: '5px'}}/>} {...a11yProps(3)}
                                 />
                                 <StyledTab classes={{wrapper: classes.iconWrapper}} label="Drop"
-                                     icon={<RemoveCircleOutline style={{paddingRight: '5px'}}/>} {...a11yProps(3)}
+                                     icon={<RemoveCircleOutline style={{paddingRight: '5px'}}/>} {...a11yProps(4)}
                                 />
                                 <StyledTab classes={{wrapper: classes.iconWrapper}} label="Schedule"
-                                     icon={<DateRange style={{paddingRight: '5px'}}/>} {...a11yProps(4)}
-                                />
-                                <StyledTab classes={{wrapper: classes.iconWrapper}} label="Course Cart"
-                                     icon={<ShoppingCartOutlined style={{paddingRight: '5px'}}/>} {...a11yProps(5)}
+                                     icon={<DateRange style={{paddingRight: '5px'}}/>} {...a11yProps(5)}
                                 />
                             </Tabs>
                         </AppBar>
@@ -221,16 +221,16 @@ export default function SimpleTabs() {
                     <AddView />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <SwapView />
+                    <CourseCartView />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    <DropView />
+                    <SwapView />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                    <ScheduleView />
+                    <DropView />
                 </TabPanel>
                 <TabPanel value={value} index={5}>
-                    <CourseCartView />
+                    <ScheduleView />
                 </TabPanel>
             </div>
         </div>
