@@ -140,16 +140,20 @@ export default function CourseCart() {
                 <Grid container>
                 <Grid item xs={3} style={{maxWidth: '75%', minWidth: '915px'}}>
                     <Table>
-                        {courses.map(course => (
-                            <TableRow className={classes.row}>
-                                <TableCell style={{borderBottom:"none"}}>
-                                    <Checkbox className={"checkbox-find"} onChange={(event) => handleChange(event,course)} color='default'/>
-                                </TableCell>
-                                <TableCell style={{borderBottom:"none"}}>
-                                    <Cart course={course}/>
-                                </TableCell>
-                            </TableRow>
-                        ))
+                        {
+                            courses.length === 0 ?
+                                <h3>Your course cart is empty for this semester</h3>
+                                : courses.map(course => (
+                                    <TableRow className={classes.row}>
+                                        <TableCell style={{borderBottom:"none"}}>
+                                            <Checkbox className={"checkbox-find"} onChange={(event) => handleChange(event,course)} color='default'/>
+                                        </TableCell>
+                                        <TableCell style={{borderBottom:"none"}}>
+                                            <Cart course={course}/>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+
                         }
                     </Table>
                 </Grid>

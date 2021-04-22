@@ -189,7 +189,7 @@ export default function SimpleTabs() {
                     <Grid item style={{paddingTop: '9px'}}>
                         <Button onClick={handleClick} variant='outlined'>
                             <Grid container direction='row' justify='space-between' alignItems='center'>
-                                <Grid item>Semester</Grid>
+                                <Grid item>Winter 2021</Grid>
                                 <Grid item className={classes.expand}>{open ? <ExpandLess /> : <ExpandMore />}</Grid>
                             </Grid>
                         </Button>
