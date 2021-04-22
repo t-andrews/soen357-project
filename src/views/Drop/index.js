@@ -1,6 +1,6 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Checkbox, Grid, Paper, withStyles} from "@material-ui/core";
+import {Checkbox, FormControlLabel, Grid, Paper, withStyles} from "@material-ui/core";
 import CourseCard from "../../components/CourseCard";
 import * as Service from "../../services/service";
 import Typography from "@material-ui/core/Typography";
@@ -93,12 +93,21 @@ export default function DropView() {
 
     const [courses, setCourses] = React.useState(Service.getEnrolledCourses());
     const [checked, setChecked] = React.useState(courses.map(() => false));
+    const [selectAll, setSelectAll] = React.useState(false);
     const [confirm, setConfirm] = React.useState(false);
     const [removedCourses, setRemovedCourses] = React.useState([]);
 
     async function handleCheckedChange(event, index) {
         checked[index] = event.target.checked;
         setChecked([...checked]);
+        if (event.target.checked === false) {
+            setSelectAll(false);
+        }
+    }
+
+    async function handleSelectAll(event) {
+        setSelectAll(event.target.checked);
+        setChecked([...checked.map(() => event.target.checked)]);
     }
 
     async function handleConfirm() {
@@ -125,22 +134,40 @@ export default function DropView() {
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <Typography className={classes.title}>Class Drop</Typography>
+                <Typography className={classes.title}>Course Drop</Typography>
                 <Grid justify="space-evenly" spacing={5} container>
                     <Grid item className={classes.card}>
                         {
                             courses.length === 0 ?
                                 <h3>You are not enrolled to any classes this semester</h3>
-                                : courses.map(c => {
-                                return (
-                                    <div style={{marginBottom: "10px", display: "inline-flex", width: "100%"}} >
-                                        <div style={{marginRight: "10px"}}>
-                                            <BurgundyCheckbox checked={checked[courses.indexOf(c)]} onClick={evt => handleCheckedChange(evt, courses.indexOf(c))}/>
+                                : (
+                                    <div align="left">
+                                        <div>
+                                            <FormControlLabel
+                                                control={<BurgundyCheckbox checked={selectAll === true || checked.every(check => check === true)} onClick={handleSelectAll}/>}
+                                                label="All"
+                                            />
                                         </div>
-                                        <CourseCard course={c}/>
+                                        <br/>
+                                        {
+                                            courses.map(c => {
+                                                return (
+                                                    <div>
+                                                        <div style={{marginBottom: "10px", display: "inline-flex", width: "100%"}} >
+                                                            <div style={{marginRight: "10px"}}>
+                                                                <FormControlLabel
+                                                                    control={<BurgundyCheckbox checked={checked[courses.indexOf(c)]} onClick={evt => handleCheckedChange(evt, courses.indexOf(c))}/>}
+                                                                    label=""
+                                                                />
+                                                            </div>
+                                                            <CourseCard course={c}/>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 )
-                            })
                         }
                     </Grid>
                     <Grid item className={classes.form}>

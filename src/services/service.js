@@ -27,23 +27,47 @@ export function addToCourseCart(courseToAdd) {
 
 export function deleteFromCourseCart(courseToDelete) {
     const _db = getDb();
+    console.log('course cart: ', _db.courseCart)
     _db.courseCart = _db.courseCart.filter(c => c.uniqueName !== courseToDelete.uniqueName);
     updateDb(_db);
 }
 
-export function enroll(coursesToAdd) {
+function assignColor(course) {
     const _db = getDb();
-    _db.register.push.apply(_db.register, coursesToAdd.map(c => appendUniqueName(c)));
+    for (const prop in _db.colors) {
+        if (_db.colors.hasOwnProperty(prop) && _db.colors[prop] === false) {
+            course.color = prop;
+            _db.colors[prop] = true;
+            break;
+        }
+    }
+
+    updateDb(_db);
+    return course;
+}
+
+function freeColor(color) {
+    const _db = getDb();
+    _db.colors[color] = false;
+    updateDb(_db);
+}
+
+export function enroll(coursesToAdd) {
+    const courses = coursesToAdd.map(c => assignColor(appendUniqueName(c)));
+    const _db = getDb();
+    _db.register.push.apply(_db.register, courses);
     updateDb(_db);
 }
 
 export function drop(coursesToDrop) {
+    coursesToDrop.forEach(c=> freeColor(c.color));
     const _db = getDb();
     _db.register = _db.register.filter(c => !coursesToDrop.some(cd => cd.uniqueName === c.uniqueName));
     updateDb(_db);
 }
 
 export function swap(courseToAdd, courseToDrop) {
-    drop(courseToDrop)
-    enroll([appendUniqueName(courseToAdd)])
+    deleteFromCourseCart(courseToAdd);
+    drop([courseToDrop]);
+    enroll([courseToAdd]);
 }
