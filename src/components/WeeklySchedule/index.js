@@ -232,7 +232,7 @@ export default function WeeklySchedule(props) {
 
     return (
         <Grid container>
-            <Grid item xs={9} style={{maxWidth: '75%', minWidth: '915px'}}>
+            <Grid item xs={9} style={{maxWidth: props.width ?? "75%", minWidth: '915px'}}>
                 <ScheduleComponent
                     border="2px solid #912338"
                     minHeight="600px"
@@ -251,7 +251,7 @@ export default function WeeklySchedule(props) {
                     <Inject services={[Week]}/>
                 </ScheduleComponent>
             </Grid>
-            <Grid item xs={3}>
+            {props.filter ? <Grid item xs={3}>
                 <fieldset className={classes.small}>
                     <legend className={classes.bigRed}>
                         Filter
@@ -298,7 +298,7 @@ export default function WeeklySchedule(props) {
                         Clear
                     </ColorButton>
                 </fieldset>
-            </Grid>
+            </Grid> : null}
         </Grid>
     );
 }
