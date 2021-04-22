@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import * as Service from "../../services/service";
 
-//Example
 export default function Test() {
     const courseToAdd = {
         "courseName": "SOEN 345",
         "courseTitle": "Testing",
-        "color": "#C63A3A",
         "units": "3.00",
         "startDate": "Jan 13",
         "endDate": "Apr 20",
@@ -80,7 +78,6 @@ export default function Test() {
     const courseToSwapIn = {
         "courseName": "SOEN 456",
         "courseTitle": "Testing",
-        "color": "#A25100",
         "units": "3.00",
         "startDate": "Jan 13",
         "endDate": "Apr 20",
