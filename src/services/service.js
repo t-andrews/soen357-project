@@ -27,7 +27,6 @@ export function addToCourseCart(courseToAdd) {
 
 export function deleteFromCourseCart(courseToDelete) {
     const _db = getDb();
-    console.log('course cart: ', _db.courseCart)
     _db.courseCart = _db.courseCart.filter(c => c.uniqueName !== courseToDelete.uniqueName);
     updateDb(_db);
 }

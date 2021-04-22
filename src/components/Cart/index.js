@@ -32,7 +32,7 @@ const useStyles = makeStyles({
         minWidth: 700,
     },
     classTitle: {
-        width: 400,
+        width: 500,
         fontWeight: 'bold',
         fontSize: 18,
     },
@@ -79,55 +79,12 @@ const extractDay = (days) => {
     )
     return extractedDay
 }
-const extractInfo = (course) => {
-    let lectureTime = ""
-    let lectureRoom = ""
-    let tutorialTime = ""
-    let tutorialRoom = ""
-    let tutorialSection = ""
-    let labTime = ""
-    let labRoom = ""
-    let labSection = ""
-    let lectureSection = ""
-    course.sections.forEach(section => {
-        if(section.component === "Lecture") {
-            lectureTime = extractDay(section.days) + " " + section.startTime + "-" + section.endTime
-            lectureRoom = section.location
-            lectureSection = section.section
-        }
-        else if(section.component === "Tutorial") {
-            tutorialTime = extractDay(section.days) + " " + section.startTime + "-" + section.endTime
-            tutorialRoom = section.location
-            tutorialSection = section.section
-        }
-        else {
-            labTime = extractDay(section.days) + " " + section.startTime + "-" + section.endTime
-            labRoom = section.location
-            labSection = section.section
-        }
-    })
-    const info = {
-        "title": course.courseName + " " +course.courseTitle,
-        "name": course.courseName,
-        "titleOnly": course.courseTitle,
-        "instructor": course.instructor,
-        "lectureTime": lectureTime,
-        "lectureRoom": lectureRoom,
-        "tutorialTime": tutorialTime,
-        "tutorialRoom": tutorialRoom,
-        "tutorialSection": tutorialSection,
-        "labTime": labTime,
-        "labRoom": labRoom,
-        "labSection": labSection,
-        "lectureSection": lectureSection
-    }
-    return info
-}
 
 export default function Cart(props) {
     const [open, setOpen] = useState(false)
     const classes = useStyles();
-    const course = extractInfo(props.course);
+    const course = props.course;
+    const lectureSection = course.sections.find(s => s.component === "Lecture");
     const popModal = () => {
         setOpen(true)
     }
@@ -147,53 +104,40 @@ export default function Cart(props) {
         </Dialog>
         <Table className={classes.table} aria-label="customized table">
             <TableHead>
-                <TableRow style={{backgroundColor: "#808080"}}>
+                <TableRow justify="space-evenly" style={{backgroundColor: "#808080"}}>
                     <StyledTableCell>
-                        <Typography className={classes.classTitle}>{course.title}</Typography>
+                        <Typography className={classes.classTitle}>{course.uniqueName} - {course.courseTitle}</Typography>
                         <Typography className={classes.classHeader}
                                     variant='h7'>Intructor: {course.instructor}</Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
                         <Typography className={classes.classHeader} variant='h7'>
-                            {course.lectureTime}
+                            {extractDay(lectureSection.days) + " " + lectureSection.startTime + "-" + lectureSection.endTime}
                             <br/>
-                            {course.lectureRoom}
+                            {lectureSection.location}
                         </Typography>
                     </StyledTableCell>
                     <div align={"right"}><IconButton size={"small"} className={classes.button} onClick={popModal}>
                         <CloseIcon onClick={popModal} className={classes.icon}/>
                     </IconButton>
                     </div>
-                    {/*<StyledTableCell><IconButton className={classes.button} onClick={popModal}>*/}
-                    {/*    <CloseIcon onClick={popModal} className={classes.icon}/>*/}
-                    {/*</IconButton>*/}
-                    {/*</StyledTableCell>*/}
-
-
                 </TableRow>
             </TableHead>
             <TableBody>
-                <TableRow>
-                    <StyledTableCell component="th" scope="row">
-                        {course.tutorialSection} (Tutorial)
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                        {course.tutorialTime}
-                        <br/>
-                        {course.tutorialRoom}
-                    </StyledTableCell>
-                </TableRow>
-                {course.labRoom ?
-                    <TableRow>
-                        <StyledTableCell component="th" scope="row">
-                            {course.labSection} (Laboratory)
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                            {course.labTime}
-                            <br/>
-                            {course.labRoom}
-                        </StyledTableCell>
-                    </TableRow> : null}
+                {
+                    course.sections.filter(s => s.component !== "Lecture").map(section => (
+                        <TableRow>
+                            <StyledTableCell component="th" scope="row">
+                                {section.section} ({section.component})
+                            </StyledTableCell>
+                            <StyledTableCell align="right">
+                                {extractDay(section.days) + " " + section.startTime + "-" + section.endTime}
+                                <br/>
+                                {section.location}
+                            </StyledTableCell>
+                        </TableRow>
+                    ))
+                }
             </TableBody>
         </Table>
     </TableContainer>

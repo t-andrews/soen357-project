@@ -27,10 +27,7 @@ import TableCell from "@material-ui/core/TableCell";
 import Box from "@material-ui/core/Box";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import PropTypes from "prop-types";
 import TableHead from "@material-ui/core/TableHead";
-import {appendUniqueName} from "../../services/service";
-import * as Service from "../../services/service";
 
 const useStyles = makeStyles({
     root: {
@@ -173,32 +170,46 @@ export default function Add() {
     });
     const [checkedCourses, setCheckedCourses] = React.useState([]);
 
-    const handleCheck = (event, course) => {
-        const uniqueCourse = Service.appendUniqueName(course);
+    async function handleCheck (event, lecture) {
+        const uniqueCourse = {
+            ...lecture,
+            uniqueName: `${selectedCourse.courseName} ${lecture.section}`,
+            courseName: selectedCourse.courseName,
+            courseTitle: selectedCourse.courseTitle,
+            units: selectedCourse.units,
+            startDate: selectedCourse.startDate,
+            endDate: selectedCourse.endDate,
+            description: selectedCourse.description,
+            term: selectedCourse.term
+        };
         uniqueCourse.sections = [];
 
-        if(event.target.checked) {
-            setCheckedCourses([...checkedCourses, uniqueCourse])
+        if (event.target.checked) {
+            checkedCourses.push(uniqueCourse);
+            await setCheckedCourses([...checkedCourses])
         } else {
             const filteredCourses = checkedCourses.filter(
-                (filterValue) => filterValue.uniqueName != uniqueCourse.uniqueName
+                (filterValue) => filterValue.uniqueName !== uniqueCourse.uniqueName
             );
-            setCheckedCourses(filteredCourses)
+            await setCheckedCourses([...filteredCourses])
         }
     }
 
-    const handleCheckSection = (event, section, lectureSection) => {
-        if(event.target.checked) {
-            const updatedCourses = checkedCourses;
-            const index = updatedCourses.findIndex(c => c.section === lectureSection)
+    async function handleCheckSection (event, section, lectureSection) {
+        const index = checkedCourses.findIndex(c => c.section === lectureSection);
+        let changedLecture = checkedCourses[index];
 
-            setCheckedCourses([...checkedCourses])
-        } else {
-            const filteredCourses = checkedCourses.filter(
-                (filterValue) => filterValue.uniqueName != uniqueCourse.uniqueName
-            );
-            setCheckedCourses(filteredCourses)
+        if (!changedLecture) {
+            return;
         }
+
+        if (event.target.checked) {
+            changedLecture.sections.push(section);
+        } else {
+            changedLecture.sections = changedLecture.sections.filter(s => s.section !== section.section);
+        }
+        checkedCourses[index] = changedLecture;
+        await setCheckedCourses([...checkedCourses]);
     }
 
     const handleChange = (event) => {
@@ -213,17 +224,17 @@ export default function Add() {
         setOpenModal(false);
     };
 
-    const handleSearch = async () => {
-        await setSelectedCourse(AllCourses.courses.find(c => c.courseName === searchString));
-        console.log(searchString);
+    const handleSearch = async (value) => {
+        await setSearchString(value)
+        await setSelectedCourse(AllCourses.courses.find(c => c.courseName === value));
     }
 
     return(
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <Typography className={classes.title}>Class Search</Typography>
-                <Grid container direction='row' spacing={5} justify='space-between' style={{paddingLeft: '25px', paddingRight: '25px'}}>
+                <Typography className={classes.title}>Add Courses to Cart</Typography>
+                <Grid container direction='row' spacing={1} justify='space-between' style={{paddingLeft: '25px', paddingRight: '25px'}}>
                     <fieldset className={classes.searchBox}>
                         <legend>
                             <Typography style={{color: '#912338'}} variant='h4'>Search</Typography>
@@ -236,7 +247,7 @@ export default function Add() {
                                             <SelectSearch placeholder="Search" options={courses}
                                                           search={true} filterOptions={fuzzySearch}
                                                           emptyMessage={"Course Not Found"}
-                                                          value={searchString} onChange={(event) => setSearchString(event)}
+                                                          value={searchString} onChange={handleSearch}
                                             />
                                         </div>
                                     </Grid>
@@ -375,26 +386,31 @@ export default function Add() {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Tooltip>
-                                    <Grid item style={{width: '100%'}}>
-                                        <Grid container direction='row' justify='space-between'>
-                                            <Tooltip title={'For Visual Purposes ONLY'} className={classes.tooltip}>
-                                                <Grid item>
-                                                    <Button className={classes.button} variant='contained'>Clear</Button>
+                                            <Grid item style={{width: '100%'}}>
+                                                <Grid container direction='row' justify='space-between'>
+                                                    <Grid item>
+                                                        <Button disabled={true} className={classes.button} variant='contained'>Clear</Button>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Button disabled={true} className={classes.button} variant='contained'>Search</Button>
+                                                    </Grid>
                                                 </Grid>
-                                            </Tooltip>
-                                            <Grid item>
-                                                <Button className={classes.button} variant='contained' onClick={handleSearch}>Search</Button>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
+                                    </Tooltip>
                                 </Grid>
                             </form>
                         </Grid>
                     </fieldset>
                     <Grid item className={classes.resultsBox}>
-                        <Grid container direction='row' spacing={3} justify='flex-end' style={{padding: '15px'}}>
+                        <Grid container direction='row' spacing={3} justify="center" style={{padding: '15px'}}>
+                            <Grid item style={{ marginRight: "100px" }}>
+                                <Button
+                                    disabled={checkedCourses.length <= 0} className={classes.button}
+                                    variant='contained' onClick={handleOpenModal}>
+                                    Add
+                                </Button>
+                            </Grid>
                             <Grid item className={classes.legend}>
                                 <CheckCircle style={{color: 'green'}}/>
                                 Open
@@ -440,7 +456,7 @@ export default function Add() {
                                                                             <TableContainer className={rowStyles.root}>
                                                                                 <TableRow style={{backgroundColor: '#6e6e6e'}}>
                                                                                     <TableCell>
-                                                                                        <FormControlLabel control={<BurgundyCheckbox onChange={event => handleCheck(event, lecture)} />} value={lecture.value}/>
+                                                                                        <BurgundyCheckbox onClick={event => handleCheck(event, lecture)} />
                                                                                     </TableCell>
                                                                                     <TableCell component="th" scope="row">
                                                                                         <span className={rowStyles.course_name}>{selectedCourse.courseName} {lecture.section} - {selectedCourse.courseTitle}</span>
@@ -468,26 +484,26 @@ export default function Add() {
                                                                                         <Box margin={1}>
                                                                                             <Table size="small" aria-label="purchases">
                                                                                                 <TableBody>
-                                                                                                    {lecture.sections.map((sections) => (
-                                                                                                        <TableRow key={sections.section}>
+                                                                                                    {lecture.sections.map((section) => (
+                                                                                                        <TableRow key={section.section}>
                                                                                                             <TableCell component="th" scope="row">
-                                                                                                                <BurgundyCheckbox />
-                                                                                                                {sections.section}, ({sections.component})
+                                                                                                                <BurgundyCheckbox disabled={checkedCourses.findIndex(c => c.section === lecture.section) === -1} onClick={event => handleCheckSection(event, section, lecture.section)}/>
+                                                                                                                {section.section}, ({section.component})
                                                                                                                 {
-                                                                                                                    sections.status === 'open' ? <Tooltip title={'Open'}><CheckCircle style={{ color: "green", marginLeft: '10px', marginRight: '275px'}}/></Tooltip>
+                                                                                                                    section.status === 'open' ? <Tooltip title={'Open'}><CheckCircle style={{ color: "green", marginLeft: '10px', marginRight: '275px'}}/></Tooltip>
                                                                                                                         : (
-                                                                                                                            sections.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled style={{ color: "#FFB300", marginLeft: '10px' }}/></Tooltip>
+                                                                                                                            section.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled style={{ color: "#FFB300", marginLeft: '10px' }}/></Tooltip>
                                                                                                                                 : (
-                                                                                                                                    sections.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel style={{ color: "red", marginLeft: '10px' }}/></Tooltip>
+                                                                                                                                    section.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel style={{ color: "red", marginLeft: '10px' }}/></Tooltip>
                                                                                                                                         : (null)
                                                                                                                                 )
                                                                                                                         )
                                                                                                                 }
                                                                                                             </TableCell>
                                                                                                             <TableCell align="right">
-                                                                                                                {sections.time}
+                                                                                                                {section.time}
                                                                                                                 <br/>
-                                                                                                                Room: {sections.location}
+                                                                                                                Room: {section.location}
                                                                                                             </TableCell>
                                                                                                         </TableRow>
                                                                                                     ))}
@@ -510,12 +526,11 @@ export default function Add() {
                                 </div>
                             </Grid>
                             <Grid item>
-                                <Button className={classes.button} variant='contained' onClick={handleOpenModal}>Add</Button>
                                 <Dialog classes={{ paper: classes.modal}} open={openModal} onClose={handleCloseModal}
                                         aria-labelledby='Add_Modal' aria-describedby='Confirm_Changes?'>
                                     <DialogTitle id='Modal_Title' style={{backgroundColor: '#912338', color: 'white'}}>{'Confirmation'}</DialogTitle>
                                     <DialogContent>
-                                        <ModalContent />
+                                        <ModalContent courses={checkedCourses}/>
                                     </DialogContent>
                                 </Dialog>
                             </Grid>
