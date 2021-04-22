@@ -108,7 +108,7 @@ export default function SwapForm(props) {
     }
 
     return (
-        <fieldset className={classes.small}>
+        <fieldset className={classes.small} style={{marginTop:"30px"}}>
             <legend className={classes.bigRed}>
                 {heading}
             </legend>
