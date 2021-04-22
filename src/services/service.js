@@ -14,7 +14,7 @@ export function getCourseCart () {
     return getDb().courseCart;
 }
 
-function appendUniqueName(course) {
+export function appendUniqueName(course) {
     course.uniqueName = `${course.courseName} ${course.sections.find(s => s.component === 'Lecture').section}`;
     return course;
 }
@@ -27,7 +27,6 @@ export function addToCourseCart(courseToAdd) {
 
 export function deleteFromCourseCart(courseToDelete) {
     const _db = getDb();
-    console.log('course cart: ', _db.courseCart)
     _db.courseCart = _db.courseCart.filter(c => c.uniqueName !== courseToDelete.uniqueName);
     updateDb(_db);
 }

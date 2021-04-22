@@ -132,7 +132,6 @@ export default function CourseCart() {
             );
             setCheckedCourses(filteredCourses)
         }
-        console.log(checkedCourses)
     }
     return(
         <div>

@@ -3,169 +3,563 @@
     {
       "courseName": "SOEN 345",
       "courseTitle": "Software Testing, Verification and Quality Assurance",
+      "units": "3.00",
       "startDate": "Jan 13",
       "endDate": "Apr 20",
       "description": "Testing strategies. Specification-based vs. code-based, black-box vs. white-box, functional vs. structural testing; unit, integration, system, acceptance, and regression testing. Verification vs. validation. Test planning, design and artifacts. Introduction to software reliability and quality assurance. Formal verification methods, oracles; static and dynamic program verification. Lectures: three hours per week. Tutorial: one hour per week.\nPrerequisite: SOEN 343 previously or concurrently",
-      "instructor": "RODRIGO MORALES ALVARADO",
       "term": "Winter 2021",
-      "sections": [
+      "lectures": [
         {
-          "component": "Tutorial",
+          "status": "open",
+          "component": "Lecture",
           "section": "S",
+          "instructor": "RODRIGO MORALES ALVARADO",
+          "time": "MoWe 2:45PM - 4:00PM",
           "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday", "Wednesday"]
+          "days": ["Monday", "Wednesday"],
+          "sections": [
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "S SA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "wait",
+              "component": "Tutorial",
+              "section": "S SB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "S SC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "S SA",
-          "startTime": "8:45AM",
-          "endTime": "9:35AM",
+          "status": "wait",
+          "component": "Lecture",
+          "section": "B",
+          "instructor": "Gojo Satoru",
+          "time": "TuTh 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday"]
+          "days": ["Tuesday", "Thursday"],
+          "sections": [
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "B BA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "B BB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "B BC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "S SB",
-          "startTime": "8:45AM",
-          "endTime": "9:35AM",
+          "status": "wait",
+          "component": "Lecture",
+          "section": "C",
+          "instructor": "Ken Kaneki",
+          "time": "WeFr 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Wednesday"]
-        },
-        {
-          "component": "Tutorial",
-          "section": "S SC",
-          "startTime": "8:45AM",
-          "endTime": "9:35AM",
-          "location": "H-345 SGW",
-          "days": ["Wednesday"]
+          "days": ["Wednesday", "Friday"],
+          "sections": [
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "C CA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "C CB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "open",
+              "component": "Laboratory",
+              "section": "C CC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         }
       ]
     },
     {
       "courseName": "SOEN 357",
       "courseTitle": "User Interface Design",
+      "units": "3.00",
       "startDate": "Jan 13",
       "endDate": "Apr 20",
       "description": "The human side: I/O; memory; and information processing. Interaction: mental models; human error; interaction frameworks and paradigms. Direct manipulation. User interface design: principles; standards; and guidelines. User-centred design: standards and design rationale; heuristic evaluation; iterative design; and prototyping. Task-centred design. Rationalized design: usability engineering; dialogue notations; user models; diagrammatic notations; and textual notations. Evaluation: with the user; without the user; quantitative; and qualitative. Implementation support. Help and documentation. Lectures: three hours per week. Tutorial: one hour per week.",
-      "instructor": "Marta Kersten-Oertel",
       "term": "Winter 2021",
-      "sections": [
+      "lectures": [
         {
+          "status": "open",
           "component": "Lecture",
-          "section": "V",
-          "startTime": "1:15PM",
+          "section": "S",
+          "instructor": "Marta Kersten-Oertel",
+          "time": "MoWe 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Friday"]
+          "days": ["Monday", "Wednesday"],
+          "sections": [
+            {
+              "status": "wait",
+              "component": "Tutorial",
+              "section": "S SA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "S SB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "S SC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "V VA",
-          "startTime": "11:45AM",
-          "endTime": "12:45PM",
+          "status": "closed",
+          "component": "Lecture",
+          "section": "B",
+          "instructor": "Gojo Satoru",
+          "time": "TuTh 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Friday"],
+          "days": ["Tuesday", "Thursday"],
+          "sections": [
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "B BA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "B BB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "wait",
+              "component": "Laboratory",
+              "section": "B BC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "V VB",
-          "startTime": "11:45AM",
-          "endTime": "12:45PM",
+          "status": "open",
+          "component": "Lecture",
+          "section": "C",
+          "instructor": "Ken Kaneki",
+          "time": "WeFr 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Wednesday"]
+          "days": ["Wednesday", "Friday"],
+          "sections": [
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "C CA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "wait",
+              "component": "Tutorial",
+              "section": "C CB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "C CC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         }
       ]
     },
     {
       "courseName": "SOEN 363",
       "courseTitle": "Data Systems for Software Engineers",
+      "units": "3.00",
       "startDate": "Jan 13",
       "endDate": "Apr 20",
       "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
-      "instructor": "Essam Mansour",
       "term": "Winter 2021",
-      "sections": [
+      "lectures": [
         {
+          "status": "open",
           "component": "Lecture",
-          "section": "S ",
-          "startTime": "1:15PM",
+          "section": "S",
+          "instructor": "Essam Mansour",
+          "time": "MoWe 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
           "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday, Wednesday"],
+          "days": ["Monday", "Wednesday"],
+          "sections": [
+            {
+              "status": "wait",
+              "component": "Tutorial",
+              "section": "S SA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "S SB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "S SC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "S SA",
-          "startTime": "8:45AM",
-          "endTime": "9:35PM",
+          "status": "closed",
+          "component": "Lecture",
+          "section": "B",
+          "instructor": "Gojo Satoru",
+          "time": "TuTh 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Monday"]
+          "days": ["Tuesday", "Thursday"],
+          "sections": [
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "B BA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "B BB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "B BC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "S SB",
-          "startTime": "11:45AM",
-          "endTime": "12:45PM",
+          "status": "open",
+          "component": "Lecture",
+          "section": "C",
+          "instructor": "Ken Kaneki",
+          "time": "WeFr 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": ["Wednesday"]
-        },
-        {
-          "component": "Tutorial",
-          "section": "S SC",
-          "startTime": "11:45AM",
-          "endTime": "12:45PM",
-          "location": "H-345 SGW",
-          "days": ["Friday"]
+          "days": ["Wednesday", "Friday"],
+          "sections": [
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "C CA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "wait",
+              "component": "Tutorial",
+              "section": "C CB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "C CC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         }
       ]
     },
     {
       "courseName": "SOEN 390",
       "courseTitle": "Software Engineering Project",
+      "units": "3.00",
       "startDate": "Jan 13",
       "endDate": "Apr 20",
       "description": "Students work in teams to design and implement a software project from requirements provided by the coordinator. Each team will demonstrate the software and prepare adequate documentation for it. In addition, each student will write an individual report. Lectures: two hours per week. Tutorial: one hour per week. Laboratory: three hours per week.",
       "instructor": "Yann-Gael Gueheneuc",
       "term": "Winter 2021",
-      "sections": [
+      "lectures": [
         {
+          "status": "open",
           "component": "Lecture",
-          "section": "U",
-          "startTime": "",
-          "endTime": "",
-          "location": "REMOTE",
-          "days": []
+          "section": "S",
+          "instructor": "Essam Mansour",
+          "time": "MoWe 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
+          "location": "H-345 SGW",
+          "days": ["Monday", "Wednesday"],
+          "sections": [
+            {
+              "status": "wait",
+              "component": "Tutorial",
+              "section": "S SA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "S SB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "S SC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "U UA",
-          "startTime": "6:15AM",
-          "endTime": "7:05PM",
+          "status": "closed",
+          "component": "Lecture",
+          "section": "B",
+          "instructor": "Gojo Satoru",
+          "time": "TuTh 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": "Monday"
+          "days": ["Tuesday", "Thursday"],
+          "sections": [
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "B BA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "closed",
+              "component": "Tutorial",
+              "section": "B BB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "B BC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         },
         {
-          "component": "Tutorial",
-          "section": "U UB",
-          "startTime": "6:15AM",
-          "endTime": "7:05PM",
+          "status": "open",
+          "component": "Lecture",
+          "section": "C",
+          "instructor": "Ken Kaneki",
+          "time": "WeFr 2:45PM - 4:00PM",
+          "startTime": "2:45PM",
+          "endTime": "4:00PM",
           "location": "H-345 SGW",
-          "days": "Wednesday"
-        },
-        {
-          "component": "Tutorial",
-          "section": "U UC",
-          "startTime": "6:15AM",
-          "endTime": "7:05PM",
-          "location": "H-345 SGW",
-          "days": "Friday"
+          "days": ["Wednesday", "Friday"],
+          "sections": [
+            {
+              "status": "open",
+              "component": "Tutorial",
+              "section": "C CA",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Monday"]
+            },
+            {
+              "status": "wait",
+              "component": "Tutorial",
+              "section": "C CB",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Wednesday"]
+            },
+            {
+              "status": "closed",
+              "component": "Laboratory",
+              "section": "C CC",
+              "time": "Mo 8:45AM - 9:50AM",
+              "startTime": "8:45AM",
+              "endTime": "9:50AM",
+              "location": "H-345 SGW",
+              "days": ["Friday"]
+            }
+          ]
         }
       ]
     }
-
   ]
-
-
 }

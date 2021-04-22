@@ -2,22 +2,32 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {
     Button,
-    ButtonGroup,
     Checkbox,
-    Dialog, DialogContent, DialogTitle,
+    Dialog, DialogContent, DialogTitle, FormControl,
     FormControlLabel,
     FormGroup,
     Grid,
-    InputBase,
     Paper,
-    Popover,
     TextField, Tooltip,
     withStyles
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import {Cancel, CheckCircle, ExpandLess, ExpandMore, PauseCircleFilled, Search} from "@material-ui/icons";
-import SearchResultsShell from "../../components/SearchResultsShell";
+import {Cancel, CheckCircle, PauseCircleFilled, Search} from "@material-ui/icons";
 import ModalContent from "../../components/AddModalContent";
+import * as AllCourses from "../../services/allCourses.json";
+import SelectSearch, {fuzzySearch} from "react-select-search";
+import '../../Search.css';
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import Box from "@material-ui/core/Box";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableHead from "@material-ui/core/TableHead";
 
 const useStyles = makeStyles({
     root: {
@@ -31,6 +41,9 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         width: '100%',
         height: '15px',
+    },
+    paperList: {
+        border: '1px solid black'
     },
     title: {
         color: '#912338',
@@ -55,30 +68,10 @@ const useStyles = makeStyles({
         minHeight: '600px',
         backgroundColor: '#f2f2f2'
     },
-    search: {
-        position: 'relative',
-        marginLeft: '35%',
-        width: '30%',
-        height: '50px',
-        backgroundColor: '#f2f2f2',
-        '&:hover': {
-            backgroundColor: '#e6e6e6'
-        },
-    },
     inputInput: {
         padding: '16px',
         paddingLeft: '5px',
         width: '15ch',
-    },
-    select: {
-      paddingTop: '20px'
-    },
-    dropdown: {
-        textTransform: 'unset'
-    },
-    icon: {
-        paddingTop: '5px',
-        paddingLeft: '5px'
     },
     timeContainer: {
         display: 'flex',
@@ -105,6 +98,37 @@ const useStyles = makeStyles({
     }
 });
 
+const useAccordionStyles = makeStyles({
+    root: {
+        width: '100%',
+    },
+    accordion: {
+        backgroundColor: '#6e6e6e'
+    },
+    headerFont: {
+        color: 'white',
+        fontWeight: 'bold',
+    }
+});
+
+const useRowStyles = makeStyles({
+    root: {
+        width: '100%'
+    },
+    courseCard: {
+        width: '100%'
+    },
+    course_name:{
+        fontWeight: "bold",
+        fontSize: "20px"
+    },
+    status: {
+        stroke: 'white',
+        strokeWidth: 2,
+        marginLeft: '10px'
+    }
+});
+
 const CustomTextField = withStyles({
     root: {
         '& .MuiOutlinedInput-root': {
@@ -121,7 +145,6 @@ const CustomTextField = withStyles({
     },
 })(TextField);
 
-
 const BurgundyCheckbox = withStyles({
     root: {
         '&$checked': {
@@ -131,30 +154,67 @@ const BurgundyCheckbox = withStyles({
     checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
+
 export default function Add() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const accordionClasses = useAccordionStyles();
+    const rowStyles = useRowStyles();
+
+    const courses = AllCourses.courses.map(c => ({name: c.courseName, value: c.courseName}));
+    const [selectedCourse, setSelectedCourse] = React.useState(null);
+    const [searchString, setSearchString] = React.useState('');
+    const [openModal, setOpenModal] = React.useState(false);
     const [state, setState] = React.useState({
         L200: false, L300: false, L400: false, L500: false, L600: false, L700: false, L800: false,
         Sunday: false, Monday: false, Tuesday: false, Wednesday: false, Thursday: false, Friday: false, Saturday: false,
     });
+    const [checkedCourses, setCheckedCourses] = React.useState([]);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    async function handleCheck (event, lecture) {
+        const uniqueCourse = {
+            ...lecture,
+            uniqueName: `${selectedCourse.courseName} ${lecture.section}`,
+            courseName: selectedCourse.courseName,
+            courseTitle: selectedCourse.courseTitle,
+            units: selectedCourse.units,
+            startDate: selectedCourse.startDate,
+            endDate: selectedCourse.endDate,
+            description: selectedCourse.description,
+            term: selectedCourse.term
+        };
+        uniqueCourse.sections = [];
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+        if (event.target.checked) {
+            checkedCourses.push(uniqueCourse);
+            await setCheckedCourses([...checkedCourses])
+        } else {
+            const filteredCourses = checkedCourses.filter(
+                (filterValue) => filterValue.uniqueName !== uniqueCourse.uniqueName
+            );
+            await setCheckedCourses([...filteredCourses])
+        }
+    }
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'semester-popover' : undefined;
+    async function handleCheckSection (event, section, lectureSection) {
+        const index = checkedCourses.findIndex(c => c.section === lectureSection);
+        let changedLecture = checkedCourses[index];
+
+        if (!changedLecture) {
+            return;
+        }
+
+        if (event.target.checked) {
+            changedLecture.sections.push(section);
+        } else {
+            changedLecture.sections = changedLecture.sections.filter(s => s.section !== section.section);
+        }
+        checkedCourses[index] = changedLecture;
+        await setCheckedCourses([...checkedCourses]);
+    }
 
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-
-    const [openModal, setOpenModal] = React.useState(false);
 
     const handleOpenModal = () => {
         setOpenModal(true);
@@ -164,12 +224,17 @@ export default function Add() {
         setOpenModal(false);
     };
 
+    const handleSearch = async (value) => {
+        await setSearchString(value)
+        await setSelectedCourse(AllCourses.courses.find(c => c.courseName === value));
+    }
+
     return(
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <Typography className={classes.title}>Class Search</Typography>
-                <Grid container direction='row' spacing={5} justify='space-between' style={{paddingLeft: '25px', paddingRight: '25px'}}>
+                <Typography className={classes.title}>Add Courses to Cart</Typography>
+                <Grid container direction='row' spacing={1} justify='space-between' style={{paddingLeft: '25px', paddingRight: '25px'}}>
                     <fieldset className={classes.searchBox}>
                         <legend>
                             <Typography style={{color: '#912338'}} variant='h4'>Search</Typography>
@@ -178,34 +243,12 @@ export default function Add() {
                             <form>
                                 <Grid container direction='column' spacing={5} alignItems='center'>
                                     <Grid item style={{borderBottom: '2px solid #912338', width: '98%'}}>
-                                        <div className={classes.search}>
-                                            <InputBase placeholder="Search" classes={{ input: classes.inputInput }}
-                                                       inputProps={{ 'aria-label': 'search' }} startAdornment={<Search />}
+                                        <div>
+                                            <SelectSearch placeholder="Search" options={courses}
+                                                          search={true} filterOptions={fuzzySearch}
+                                                          emptyMessage={"Course Not Found"}
+                                                          value={searchString} onChange={handleSearch}
                                             />
-                                        </div>
-                                        <div className={classes.select}>
-                                            <Button className={classes.dropdown} onClick={handleClick} variant='outlined'>
-                                                <Grid container direction='row' justify='space-between' alignItems='center'>
-                                                    <Grid item>Select from Course Cart</Grid>
-                                                    <Grid item className={classes.icon}>{open ? <ExpandLess /> : <ExpandMore />}</Grid>
-                                                </Grid>
-                                            </Button>
-                                            <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose}
-                                                     anchorOrigin={{
-                                                         vertical: 'bottom',
-                                                         horizontal: 'center',
-                                                     }}
-                                                     transformOrigin={{
-                                                         vertical: 'top',
-                                                         horizontal: 'center',
-                                                     }}
-                                            >
-                                                <ButtonGroup style={{width: '220px'}} orientation='vertical'>
-                                                    <Button>Course 1</Button>
-                                                    <Button>Course 2</Button>
-                                                    <Button>Course 3</Button>
-                                                </ButtonGroup>
-                                            </Popover>
                                         </div>
                                     </Grid>
                                     <Tooltip title={'For Visual Purposes ONLY'} className={classes.tooltip} placement={'top-start'}>
@@ -343,24 +386,31 @@ export default function Add() {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
+                                            <Grid item style={{width: '100%'}}>
+                                                <Grid container direction='row' justify='space-between'>
+                                                    <Grid item>
+                                                        <Button disabled={true} className={classes.button} variant='contained'>Clear</Button>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Button disabled={true} className={classes.button} variant='contained'>Search</Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                     </Tooltip>
-                                    <Grid item style={{width: '100%'}}>
-                                        <Grid container direction='row' justify='space-between'>
-                                            <Grid item>
-                                                <Button className={classes.button} variant='contained'>Clear</Button>
-                                            </Grid>
-                                            <Grid item>
-                                                <Button className={classes.button} variant='contained'>Search</Button>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
                                 </Grid>
                             </form>
                         </Grid>
                     </fieldset>
                     <Grid item className={classes.resultsBox}>
-                        <Grid container direction='row' spacing={3} justify='flex-end' style={{padding: '15px'}}>
+                        <Grid container direction='row' spacing={3} justify="center" style={{padding: '15px'}}>
+                            <Grid item style={{ marginRight: "100px" }}>
+                                <Button
+                                    disabled={checkedCourses.length <= 0} className={classes.button}
+                                    variant='contained' onClick={handleOpenModal}>
+                                    Add
+                                </Button>
+                            </Grid>
                             <Grid item className={classes.legend}>
                                 <CheckCircle style={{color: 'green'}}/>
                                 Open
@@ -376,15 +426,111 @@ export default function Add() {
                         </Grid>
                         <Grid container direction='column' spacing={3} alignItems='flex-end'>
                             <Grid item>
-                                <SearchResultsShell />
+                                <div className={accordionClasses.root}>
+                                    {selectedCourse ?
+                                        <Accordion className={accordionClasses.accordion}>
+                                            <AccordionSummary expandIcon={<ExpandMoreIcon/>} aria-label="Expand"
+                                                              aria-controls="additional-actions1-content"
+                                                              id="additional-actions1-header"
+                                            >
+                                                <Grid container direction='row' justify='space-between'
+                                                      className={accordionClasses.headerFont}>
+                                                    <Grid item>
+                                                        <Typography
+                                                            variant='h5'>{selectedCourse.courseName} - {selectedCourse.courseTitle}</Typography>
+                                                    </Grid>
+                                                    <Grid item style={{marginLeft: '1%'}}>
+                                                        <Typography variant='h5'>{selectedCourse.units}</Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <div>
+                                                    <Paper className={classes.paperList} variant='outlined'>
+                                                        <TableContainer>
+                                                            <Table>
+                                                                <TableHead/>
+                                                                <TableBody>
+                                                                    {selectedCourse.lectures ? selectedCourse.lectures.map((lecture) => (
+                                                                        <FormControl className={rowStyles.courseCard}>
+                                                                            <TableContainer className={rowStyles.root}>
+                                                                                <TableRow style={{backgroundColor: '#6e6e6e'}}>
+                                                                                    <TableCell>
+                                                                                        <BurgundyCheckbox onClick={event => handleCheck(event, lecture)} />
+                                                                                    </TableCell>
+                                                                                    <TableCell component="th" scope="row">
+                                                                                        <span className={rowStyles.course_name}>{selectedCourse.courseName} {lecture.section} - {selectedCourse.courseTitle}</span>
+                                                                                        {
+                                                                                            lecture.status === 'open' ? <Tooltip title={'Open'}><CheckCircle className={rowStyles.status} style={{ color: "green" }}/></Tooltip>
+                                                                                                : (
+                                                                                                    lecture.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled className={rowStyles.status} style={{ color: "#FFB300" }}/></Tooltip>
+                                                                                                        : (
+                                                                                                            lecture.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel className={rowStyles.status} style={{ color: "red" }}/></Tooltip>
+                                                                                                                : (null)
+                                                                                                        )
+                                                                                                )
+                                                                                        }
+                                                                                        <br/>
+                                                                                        <span style={{color:"white"}}>Instructor: {lecture.instructor}</span>
+                                                                                    </TableCell>
+                                                                                    <TableCell align="right" style={{color:"white"}}>
+                                                                                        {lecture.time}
+                                                                                        <br/>
+                                                                                        Room: {lecture.location}
+                                                                                    </TableCell>
+                                                                                </TableRow>
+                                                                                <TableRow style={{borderColor: '#6e6e6e'}}>
+                                                                                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                                                                                        <Box margin={1}>
+                                                                                            <Table size="small" aria-label="purchases">
+                                                                                                <TableBody>
+                                                                                                    {lecture.sections.map((section) => (
+                                                                                                        <TableRow key={section.section}>
+                                                                                                            <TableCell component="th" scope="row">
+                                                                                                                <BurgundyCheckbox disabled={checkedCourses.findIndex(c => c.section === lecture.section) === -1} onClick={event => handleCheckSection(event, section, lecture.section)}/>
+                                                                                                                {section.section}, ({section.component})
+                                                                                                                {
+                                                                                                                    section.status === 'open' ? <Tooltip title={'Open'}><CheckCircle style={{ color: "green", marginLeft: '10px', marginRight: '275px'}}/></Tooltip>
+                                                                                                                        : (
+                                                                                                                            section.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled style={{ color: "#FFB300", marginLeft: '10px' }}/></Tooltip>
+                                                                                                                                : (
+                                                                                                                                    section.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel style={{ color: "red", marginLeft: '10px' }}/></Tooltip>
+                                                                                                                                        : (null)
+                                                                                                                                )
+                                                                                                                        )
+                                                                                                                }
+                                                                                                            </TableCell>
+                                                                                                            <TableCell align="right">
+                                                                                                                {section.time}
+                                                                                                                <br/>
+                                                                                                                Room: {section.location}
+                                                                                                            </TableCell>
+                                                                                                        </TableRow>
+                                                                                                    ))}
+                                                                                                </TableBody>
+                                                                                            </Table>
+                                                                                        </Box>
+                                                                                    </TableCell>
+                                                                                </TableRow>
+                                                                            </TableContainer>
+                                                                        </FormControl>
+                                                                    )) : null}
+                                                                </TableBody>
+                                                            </Table>
+                                                        </TableContainer>
+                                                    </Paper>
+                                                </div>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    : null}
+                                </div>
                             </Grid>
                             <Grid item>
-                                <Button className={classes.button} variant='contained' onClick={handleOpenModal}>Add</Button>
                                 <Dialog classes={{ paper: classes.modal}} open={openModal} onClose={handleCloseModal}
                                         aria-labelledby='Add_Modal' aria-describedby='Confirm_Changes?'>
                                     <DialogTitle id='Modal_Title' style={{backgroundColor: '#912338', color: 'white'}}>{'Confirmation'}</DialogTitle>
                                     <DialogContent>
-                                        <ModalContent />
+                                        <ModalContent courses={checkedCourses}/>
                                     </DialogContent>
                                 </Dialog>
                             </Grid>
