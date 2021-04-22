@@ -134,7 +134,7 @@ export default function DropView() {
         <div>
             <Paper className={classes.paper} elevation={0}/>
             <div className={classes.root}>
-                <Typography className={classes.title}>Class Drop</Typography>
+                <Typography className={classes.title}>Course Drop</Typography>
                 <Grid justify="space-evenly" spacing={5} container>
                     <Grid item className={classes.card}>
                         {
