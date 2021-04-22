@@ -62,10 +62,7 @@ export function drop(coursesToDrop) {
     coursesToDrop.forEach(c=> freeColor(c.color));
 
     const _db = getDb();
-    _db.register = _db.register.filter(c => !coursesToDrop.some(cd => {
-
-        return cd.uniqueName === c.uniqueName;
-    }));
+    _db.register = _db.register.filter(c => !coursesToDrop.some(cd => cd.uniqueName === c.uniqueName));
     updateDb(_db);
 }
 
