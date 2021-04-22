@@ -104,9 +104,8 @@ export default function CourseCart() {
     const [confirm, setConfirm] = useState(false)
 
     useEffect(() => {
-
         window.addEventListener('resetCart', () => {
-            (document.getElementsByClassName('checkbox-find') ?? []).forEach( c => console.log(c))
+            (Array.from(document.getElementsByClassName('checkbox-find')) ?? []).forEach( c => c.checked = false)
             setCourses(service.getCourseCart())
             setCheckedCourses([])
         });
@@ -114,13 +113,12 @@ export default function CourseCart() {
             window.removeEventListener('resetCart',() => setCourses(service.getCourseCart()) );
         };
     }, []);
-    const confirmClasses = async (courses) => {
-        service.enroll(courses)
-        courses.forEach(course => service.deleteFromCourseCart(course))
-        console.log(confirm)
+    const confirmClasses = async (c) => {
+        service.enroll(c)
+        c.forEach(course => service.deleteFromCourseCart(course))
         await setConfirm(true)
         await setCourses(service.getCourseCart())
-        await setEnrolledCourses(courses)
+        await setEnrolledCourses(c)
         await setCheckedCourses([])
     }
     const handleChange = (event, course) => {
@@ -145,7 +143,7 @@ export default function CourseCart() {
                         {courses.map(course => (
                             <TableRow className={classes.row}>
                                 <TableCell style={{borderBottom:"none"}}>
-                                    <Checkbox class={"checkbox-find"} onChange={(event) => handleChange(event,course)} color='default'/>
+                                    <Checkbox className={"checkbox-find"} onChange={(event) => handleChange(event,course)} color='default'/>
                                 </TableCell>
                                 <TableCell style={{borderBottom:"none"}}>
                                     <Cart course={course}/>
