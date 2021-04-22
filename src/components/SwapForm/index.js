@@ -1,3 +1,4 @@
+import React, {useEffect} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import TextInput from "../textInput";
@@ -5,6 +6,7 @@ import SwapHorizontalCircleIcon from '@material-ui/icons/SwapHorizontalCircle';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dropdown from "../dropdown";
+import * as Service from "../../services/service";
 
 const useRowStyles = makeStyles({
   root: {
@@ -45,13 +47,57 @@ const useRowStyles = makeStyles({
   },
   box1:{
     borderBottom: ' 2px solid #912338 '
-  }
+  },
+  button: {
+    backgroundColor: '#912338',
+    float: "right",
+    marginBottom: "10px",
+    marginRight:"-140%",
+    color: 'white',
+    '&:hover': {
+        backgroundColor: '#a4283f'
+    }}
 });
 
 export default function SwapForm(props) {
+    const courses  = props.courses;
+    const cart = props.cart;
+    const [courseToAdd,setcourseToAdd]  = React.useState(null);
+    const [courseToDrop, setcourseToDrop] = React.useState(null);
+    const [confirm, setConfirm] = React.useState(false);
     const heading = props.heading
     const classes = useRowStyles();
-    const rows = [{name:"a course",message:" Success "},{name:"a course",message:" Success "},{name:"a course",message:" Success "}]
+
+    useEffect(() => {
+      window.addEventListener("drop",(event)=>{
+        const val = event.detail == "" ? null : event.detail
+        setcourseToDrop(val);
+      })
+      return () => {
+        window.removeEventListener("drop",(event)=>{
+        
+        })
+      }
+    })
+    
+    useEffect(() => {
+      window.addEventListener("add",(event)=>{
+        const val = event.detail == "" ? null : event.detail
+        setcourseToAdd(val);
+      })
+      return () => {
+        window.removeEventListener("add",(event)=>{
+          
+        })
+      }
+    })
+
+    const handleConfirm = (courseToAdd,courseToDrop) => {
+      Service.swap(courseToAdd, courseToDrop)
+      setConfirm(true)
+      window.dispatchEvent(new Event("swap"))
+    }
+
     return (
         <fieldset className={classes.small}>
             <legend className={classes.bigRed}>
@@ -64,7 +110,7 @@ export default function SwapForm(props) {
                 </td>
               </tr>
               <tr>
-                <td> <Dropdown label="Choose from course list" options={["Course 1","Course 2","Course 3"]}/></td>
+                <td> <Dropdown type = "drop" label="Choose from course list" options={courses}/></td>
                 <td></td>
                 <td>
                 <Box>
@@ -89,7 +135,7 @@ export default function SwapForm(props) {
                 <td></td>
                 <td></td>
                 <td>
-                <Dropdown label = "Choose from course cart" options={["Course 1","Course 2","Course 3"]}/>
+                <Dropdown type = "add" label = "Choose from course cart" options={cart ? cart :null}/>
                 </td>
               </tr>
             </table>
@@ -103,30 +149,38 @@ export default function SwapForm(props) {
                     <th>With This Class</th>
                   </tr>
                 <tr>
-                  <td>COMP 223 S -Databases </td>
+                  <td> {courseToDrop ? courseToDrop.uniqueName : ""} </td>
                   <td>
                   <IconButton>
                     <SwapHorizontalCircleIcon />
                   </IconButton> 
                   </td>
-                  <td>SOEN 357 U - UI Design</td>
+                  <td> {courseToAdd ? courseToAdd.uniqueName : ""} </td>
                 </tr>
-              </table>
-              <Button variant="contained" style={{color:"white",backgroundColor:"#912338",marginRight:"-80%",marginTop:"2%",marginBottom:"2%"}}>
+                            <Button className ={classes.button} disabled={courseToAdd == null || courseToDrop == null} 
+              onClick={ () => handleConfirm(courseToAdd,courseToDrop)} 
+              variant="contained" 
+              >
                 Confirm
               </Button>
-            </Box>
-            <Box>
-              <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Summary</h3>
-              <table style={{marginLeft:"5%", alignContent:"center",width:"90%"}}>
-              {rows.map((row) => (
-                <tr>
-                  <th>{row.name}</th>
-                  <td>{row.message}</td>
-                </tr>
-          ))}
               </table>
             </Box>
+            {confirm ? 
+              <Box>
+                <h3 style={{marginLeft:"20px", alignContent:"left",width:"120px"}}>Summary</h3>
+                <table style={{marginLeft:"5%", alignContent:"center",width:"90%"}}>
+                  <tr>
+                    <th>{courseToDrop.uniqueName}</th>
+                    <td>Dropped successfully</td>
+                  </tr>
+                  <tr>
+                    <th>{courseToAdd.uniqueName}</th>
+                    <td>Enrolled successfully</td>
+                  </tr>
+                </table>
+            </Box> :
+            null
+            }
         </fieldset>
     );
 }

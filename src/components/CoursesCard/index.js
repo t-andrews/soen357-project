@@ -60,29 +60,23 @@ function createData(name,location, time, instructor,color) {
 }
 
 function Row(props) {
-  const { row } = props;
+  const course  = props.course;
   const forDelete = props.forDelete ?? false
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
   return (
     <React.Fragment style={{marginBottom:"10%"}}>
-      <TableRow className={classes.root} style={{backgroundColor:row.color}}>
-        {forDelete ?         
-        <TableCell>
-          <IconButton>
-            <AdjustIcon/>
-          </IconButton>
-        </TableCell> : null}
+      <TableRow className={classes.root} style={{backgroundColor:course.color}}>
         <TableCell component="th" scope="row">
-          <span className={classes.course_name}>{row.name}</span>
+          <span className={classes.course_name}>{course.uniqueName}</span>
           <br/>
-          <span style={{color:"white"}}>Instructor: {row.instructor}</span>
+          <span style={{color:"white"}}>Instructor: {course.instructor}</span>
         </TableCell>
         <TableCell align="right" style={{color:"white"}}>
-          {row.time}
+          {course.sections[0].startTime} - {course.sections[0].endTime}
           <br/>
-          Room: {row.location}
+          Room: {course.sections[0].location} 
         </TableCell>
         <div  align="right" style={{width:"auto"}}>
         <IconButton
@@ -94,24 +88,26 @@ function Row(props) {
           </IconButton>
         </div>
       </TableRow>
-      <TableRow style={{borderColor:row.color}}>
+      <TableRow style={{borderColor:course.color}}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Table size="small" aria-label="purchases">
                 <TableBody>
-                  {row.subSection.map((subsection) => (
-                    <TableRow key={subsection.name}>
-                      <TableCell component="th" scope="row">
-                        {subsection.name}
-                      </TableCell>
-                      <TableCell align="right">
-                        {subsection.time}
-                        <br/>
-                        Room: {subsection.room}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                {course.sections.filter(s => s.component !== "Lecture").map(section => (
+                                        <TableRow key={section.number}>
+                                            <TableCell component="th" scope="row">
+                                                {section.section} ({section.component})
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                {section.days.map(d => d.substr(0, 2)).join('')}
+                                                {' '}
+                                                {section.startTime} - {section.endTime}
+                                                <br/>
+                                                Room: {section.location}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
                 </TableBody>
               </Table>
             </Box>
@@ -149,6 +145,7 @@ const rows = [
 
 export default function CourseCard(props) {
   const forDelete = props.forDelete ?? false
+  const courses = props.courses // receive from props
   const classes = useRowStyles();
   return (
     <div>
@@ -158,8 +155,8 @@ export default function CourseCard(props) {
           <TableHead>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <Row key={row.name} row={row} forDelete={forDelete} />
+            {courses.map((course) => (
+              <Row key={course.name} course={course} forDelete={forDelete} />
             ))}
           </TableBody>
         </Table>

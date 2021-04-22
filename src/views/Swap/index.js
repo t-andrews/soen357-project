@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {makeStyles, styled} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import {Paper} from "@material-ui/core";
 import CourseCard from "../../components/CoursesCard";
 import SwapForm from "../../components/SwapForm";
+import * as Service from "../../services/service";
 
 const useStyles = makeStyles({
     root: {
@@ -52,11 +53,25 @@ TabPanel.propTypes = {
 };
 
 export default function SwapView() {
+    const [courses, setCourses] = React.useState(Service.getEnrolledCourses());
     const classes = useStyles();
     const [toggled] = React.useState(false);
     const anchorRef = React.useRef(null);
-
+    const [cart, setCart] = React.useState(Service.getCourseCart());
     const prevOpen = React.useRef(toggled);
+    useEffect(() => {
+        window.addEventListener("swap",(event)=>{
+            const db = Service.getDb();
+            setCourses(db.register);
+            setCart(db.courseCart);
+        })
+        return () => {
+          window.removeEventListener("swap",(event)=>{
+
+          })
+        }
+      })
+
     React.useEffect(() => {
         if (prevOpen.current && !toggled) {
             anchorRef.current.focus();
@@ -70,10 +85,10 @@ export default function SwapView() {
             <div className={classes.root}>
                 <Box display="flex" flexDirection="row" >
                     <Box className={classes.card}>
-                         <CourseCard/>
+                         <CourseCard courses={courses}/>
                     </Box>
                     <Box m={1} p={1} className={classes.form}>
-                        <SwapForm heading="Swap"/>
+                        <SwapForm cart = {cart} courses = {courses} heading="Swap"/>
                     </Box>
                 </Box>
             </div>

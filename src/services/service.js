@@ -44,6 +44,6 @@ export function drop(coursesToDrop) {
 }
 
 export function swap(courseToAdd, courseToDrop) {
-    drop(courseToDrop)
+    drop([courseToDrop])
     enroll([appendUniqueName(courseToAdd)])
 }
