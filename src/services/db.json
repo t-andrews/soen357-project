@@ -87,90 +87,89 @@
     }
   ],
   "courseCart": [
-      {
-        "uniqueName": "SOEN 123 S",
-        "courseName": "SOEN 123",
-        "courseTitle": "Data Systems for Software Engineers",
-        "color": "#DB8300",
-        "units": "3.00",
-        "startDate": "Jan 13",
-        "endDate": "Apr 20",
-        "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
-        "instructor": "Essam Mansour",
-        "term": "Winter 2021",
-        "status": "enrolled",
-        "sections": [
-          {
-            "number": 1234,
-            "component": "Lecture",
-            "section": "S",
-            "startTime": "4:30PM",
-            "endTime": "7:00PM",
-            "location": "H-345 SGW",
-            "days": [
-              "Monday", "Wednesday"
-            ]
-          },
-          {
-            "number": 1235,
-            "component": "Tutorial",
-            "section": "S SA",
-            "startTime": "8:45AM",
-            "endTime": "10:55AM",
-            "location": "H-345 SGW",
-            "days": [
-              "Wednesday"
-            ]
-          },
-          {
-            "number": 1235,
-            "component": "Laboratory",
-            "section": "S SA",
-            "startTime": "8:45AM",
-            "endTime": "10:55AM",
-            "location": "H-345 SGW",
-            "days": [
-              "Wednesday"
-            ]
-          }
-        ]
-      },
-      {
-        "uniqueName": "SOEN 234 S",
-        "courseName": "SOEN 234",
-        "courseTitle": "UI",
-        "color": "#00A251",
-        "units": "3.50",
-        "startDate": "Jan 13",
-        "endDate": "Apr 20",
-        "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
-        "instructor": "Essam Mansour",
-        "term": "Winter 2021",
-        "status": "enrolled",
-        "sections": [
-          {
-            "number": 2234,
-            "component": "Lecture",
-            "section": "S",
-            "startTime": "1:15PM",
-            "endTime": "4:00PM",
-            "location": "H-345 SGW",
-            "days": [
-              "Tuesday", "Friday"
-            ]
-          },
-          {
-            "number": 2235,
-            "component": "Tutorial",
-            "section": "S SA",
-            "startTime": "10:00AM",
-            "endTime": "11:30AM",
-            "location": "H-345 SGW",
-            "days": [
-              "Monday"
-            ]
-          }
-        ]
-      }
+    {
+      "uniqueName": "SOEN 123 S",
+      "courseName": "SOEN 123",
+      "courseTitle": "Data Systems for Software Engineers",
+      "units": "3.00",
+      "startDate": "Jan 13",
+      "endDate": "Apr 20",
+      "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+      "instructor": "Essam Mansour",
+      "term": "Winter 2021",
+      "status": "enrolled",
+      "sections": [
+        {
+          "number": 1234,
+          "component": "Lecture",
+          "section": "S",
+          "startTime": "4:30PM",
+          "endTime": "7:00PM",
+          "location": "H-345 SGW",
+          "days": [
+            "Monday", "Wednesday"
+          ]
+        },
+        {
+          "number": 1235,
+          "component": "Tutorial",
+          "section": "S SA",
+          "startTime": "8:45AM",
+          "endTime": "10:55AM",
+          "location": "H-345 SGW",
+          "days": [
+            "Wednesday"
+          ]
+        },
+        {
+          "number": 1234,
+          "component": "Laboratory",
+          "section": "S",
+          "startTime": "4:30PM",
+          "endTime": "7:00PM",
+          "location": "H-345 SGW",
+          "days": [
+            "Monday", "Wednesday"
+          ]
+        }
+      ]
+    },
+    {
+      "uniqueName": "SOEN 234 S",
+      "courseName": "SOEN 234",
+      "courseTitle": "UI",
+      "color": "#00A251",
+      "units": "3.50",
+      "startDate": "Jan 13",
+      "endDate": "Apr 20",
+      "description": "Introduction to the current data ecosystem, relational databases,\nkey-value databases, document databases, column databases, graph databases, RDF\nstores, parallel and distributed file systems, data processing engines, data stream\nanalytics, and data infrastructure. Lectures: three hours per week. Tutorial: one hour per\nweek.",
+      "instructor": "Essam Mansour",
+      "term": "Winter 2021",
+      "status": "enrolled",
+      "sections": [
+        {
+          "number": 2234,
+          "component": "Lecture",
+          "section": "S",
+          "startTime": "1:15PM",
+          "endTime": "4:00PM",
+          "location": "H-345 SGW",
+          "days": [
+            "Tuesday", "Friday"
+          ]
+        },
+        {
+          "number": 2235,
+          "component": "Tutorial",
+          "section": "S SA",
+          "startTime": "10:00AM",
+          "endTime": "11:30AM",
+          "location": "H-345 SGW",
+          "days": [
+            "Monday"
+          ]
+        }
+      ]
+    }
   ]
 }
