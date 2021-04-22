@@ -29,6 +29,8 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import PropTypes from "prop-types";
 import TableHead from "@material-ui/core/TableHead";
+import {appendUniqueName} from "../../services/service";
+import * as Service from "../../services/service";
 
 const useStyles = makeStyles({
     root: {
@@ -155,164 +157,49 @@ const BurgundyCheckbox = withStyles({
     checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-function createData(value, name, location, time, instructor, color, status) {
-    return {
-        value,
-        name,
-        location,
-        time,
-        color,
-        instructor,
-        status,
-        subSection: [
-            {
-                name: "Y YX (Laboratory)",
-                time: "We 4:15PM - 6:15PM ",
-                room: "H 967 SGW",
-                status: 'wait'
-            },
-            {
-                name: "Y YY (Laboratory)",
-                time: "Th 4:15PM - 6:15PM ",
-                room: "H 967 SGW",
-                status: 'closed'
-            },
-            {
-                name: "Y YX (Laboratory)",
-                time: "Fri 4:15PM - 6:15PM ",
-                room: "H 967 SGW",
-                status: 'open'
-            },
-            {
-                name: "Y YJ (Tutorial)",
-                time: "Mo 4:15PM - 6:15PM ",
-                room: 'MB 111 SGW',
-                status: 'open'
-            },
-            {
-                name: "Y YK (Tutorial)",
-                time: "Tu 4:15PM - 6:15PM ",
-                room: 'MB 111 SGW',
-                status: 'closed'
-            },
-            {
-                name: "Y YL (Tutorial)",
-                time: "We 4:15PM - 6:15PM ",
-                room: 'MB 111 SGW',
-                status: 'open'
-            },
-            {
-                name: "Y YM (Tutorial)",
-                time: "Th 4:15PM - 6:15PM ",
-                room: 'MB 111 SGW',
-                status: 'wait'
-            }
-        ],
-    };
-}
-
-function Row(props) {
-    const { row } = props;
-    const classes = useRowStyles();
-
-    return (
-        <FormControl className={classes.courseCard}>
-            <TableContainer className={classes.root}>
-                <TableRow style={{backgroundColor: row.color}}>
-                    <TableCell>
-                        <FormControlLabel control={<BurgundyCheckbox />} value={row.value}/>
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                        <span className={classes.course_name}>{row.name}</span>
-                        {
-                            row.status === 'open' ? <Tooltip title={'Open'}><CheckCircle className={classes.status} style={{ color: "green" }}/></Tooltip>
-                                : (
-                                    row.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled className={classes.status} style={{ color: "#FFB300" }}/></Tooltip>
-                                        : (
-                                            row.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel className={classes.status} style={{ color: "red" }}/></Tooltip>
-                                                : (null)
-                                        )
-                                )
-                        }
-                        <br/>
-                        <span style={{color:"white"}}>Instructor: {row.instructor}</span>
-                    </TableCell>
-                    <TableCell align="right" style={{color:"white"}}>
-                        {row.time}
-                        <br/>
-                        Room: {row.location}
-                    </TableCell>
-                </TableRow>
-                <TableRow style={{borderColor:row.color}}>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                        <Box margin={1}>
-                            <Table size="small" aria-label="purchases">
-                                <TableBody>
-                                    {row.subSection.map((subsection) => (
-                                        <TableRow key={subsection.name}>
-                                            <TableCell component="th" scope="row">
-                                                <BurgundyCheckbox />
-                                                {subsection.name}
-                                                {
-                                                    subsection.status === 'open' ? <Tooltip title={'Open'}><CheckCircle style={{ color: "green", marginLeft: '10px', marginRight: '261px'}}/></Tooltip>
-                                                        : (
-                                                            subsection.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled style={{ color: "#FFB300", marginLeft: '10px' }}/></Tooltip>
-                                                                : (
-                                                                    subsection.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel style={{ color: "red", marginLeft: '10px' }}/></Tooltip>
-                                                                        : (null)
-                                                                )
-                                                        )
-                                                }
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                {subsection.time}
-                                                <br/>
-                                                Room: {subsection.room}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </Box>
-                    </TableCell>
-                </TableRow>
-            </TableContainer>
-        </FormControl>
-    );
-}
-
-Row.propTypes = {
-    row: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        location: PropTypes.string.isRequired,
-        time: PropTypes.string.isRequired,
-        instructor: PropTypes.string.isRequired,
-        subSection: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.number.isRequired,
-                time: PropTypes.string.isRequired,
-                room: PropTypes.string.isRequired
-            })
-        ).isRequired,
-    }).isRequired
-};
-
-const rows = [
-    createData("1", "SOEN 357 Y - UI Design", 'H 629 SGW', 'TuTh 14:15PM - 15:30PM','Some Staff', '#6e6e6e', 'open'),
-    createData("2", "SOEN 357 X - UI Design",'H 835 SGW', 'MoWe 10:15AM - 11:30AM','Some Staff','#6e6e6e', 'closed'),
-];
 
 export default function Add() {
     const classes = useStyles();
     const accordionClasses = useAccordionStyles();
+    const rowStyles = useRowStyles();
 
     const courses = AllCourses.courses.map(c => ({name: c.courseName, value: c.courseName}));
-    const [selectedCourse, setSelectedCourse] = React.useState({});
+    const [selectedCourse, setSelectedCourse] = React.useState(null);
+    const [searchString, setSearchString] = React.useState('');
     const [openModal, setOpenModal] = React.useState(false);
     const [state, setState] = React.useState({
         L200: false, L300: false, L400: false, L500: false, L600: false, L700: false, L800: false,
         Sunday: false, Monday: false, Tuesday: false, Wednesday: false, Thursday: false, Friday: false, Saturday: false,
     });
+    const [checkedCourses, setCheckedCourses] = React.useState([]);
+
+    const handleCheck = (event, course) => {
+        const uniqueCourse = Service.appendUniqueName(course);
+        uniqueCourse.sections = [];
+
+        if(event.target.checked) {
+            setCheckedCourses([...checkedCourses, uniqueCourse])
+        } else {
+            const filteredCourses = checkedCourses.filter(
+                (filterValue) => filterValue.uniqueName != uniqueCourse.uniqueName
+            );
+            setCheckedCourses(filteredCourses)
+        }
+    }
+
+    const handleCheckSection = (event, section, lectureSection) => {
+        if(event.target.checked) {
+            const updatedCourses = checkedCourses;
+            const index = updatedCourses.findIndex(c => c.section === lectureSection)
+
+            setCheckedCourses([...checkedCourses])
+        } else {
+            const filteredCourses = checkedCourses.filter(
+                (filterValue) => filterValue.uniqueName != uniqueCourse.uniqueName
+            );
+            setCheckedCourses(filteredCourses)
+        }
+    }
 
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
@@ -326,8 +213,9 @@ export default function Add() {
         setOpenModal(false);
     };
 
-    const handleSearch = (event) => {
-
+    const handleSearch = async () => {
+        await setSelectedCourse(AllCourses.courses.find(c => c.courseName === searchString));
+        console.log(searchString);
     }
 
     return(
@@ -348,7 +236,7 @@ export default function Add() {
                                             <SelectSearch placeholder="Search" options={courses}
                                                           search={true} filterOptions={fuzzySearch}
                                                           emptyMessage={"Course Not Found"}
-                                                          value={selectedCourse.name} onChange={(event) => setSelectedCourse(event)}
+                                                          value={searchString} onChange={(event) => setSearchString(event)}
                                             />
                                         </div>
                                     </Grid>
@@ -523,66 +411,102 @@ export default function Add() {
                         <Grid container direction='column' spacing={3} alignItems='flex-end'>
                             <Grid item>
                                 <div className={accordionClasses.root}>
-                                    <Accordion className={accordionClasses.accordion}>
-                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-label="Expand"
-                                                          aria-controls="additional-actions1-content" id="additional-actions1-header"
-                                        >
-                                            <Grid container direction='row' justify='space-between' className={accordionClasses.headerFont}>
-                                                <Grid item>
-                                                    <Typography variant='h5'>SOEN 357 - UI Design</Typography>
+                                    {selectedCourse ?
+                                        <Accordion className={accordionClasses.accordion}>
+                                            <AccordionSummary expandIcon={<ExpandMoreIcon/>} aria-label="Expand"
+                                                              aria-controls="additional-actions1-content"
+                                                              id="additional-actions1-header"
+                                            >
+                                                <Grid container direction='row' justify='space-between'
+                                                      className={accordionClasses.headerFont}>
+                                                    <Grid item>
+                                                        <Typography
+                                                            variant='h5'>{selectedCourse.courseName} - {selectedCourse.courseTitle}</Typography>
+                                                    </Grid>
+                                                    <Grid item style={{marginLeft: '1%'}}>
+                                                        <Typography variant='h5'>{selectedCourse.units}</Typography>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item style={{marginLeft: '1%'}}>
-                                                    <Typography variant='h5'>3.00 Units</Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <div>
-                                                <Paper className={classes.paperList} variant='outlined'>
-                                                    <TableContainer>
-                                                        <Table>
-                                                            <TableHead/>
-                                                            <TableBody>
-                                                                {rows.map((row) => (
-                                                                    <Row key={row.name} row={row}/>
-                                                                ))}
-                                                            </TableBody>
-                                                        </Table>
-                                                    </TableContainer>
-                                                </Paper>
-                                            </div>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                    <Accordion className={accordionClasses.accordion}>
-                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-label="Expand"
-                                                          aria-controls="additional-actions2-content" id="additional-actions2-header"
-                                        >
-                                            <Grid container direction='row' justify='space-between' className={accordionClasses.headerFont}>
-                                                <Grid item>
-                                                    <Typography variant='h5'>SOEN 363 - Databases</Typography>
-                                                </Grid>
-                                                <Grid item style={{marginLeft: '1%'}}>
-                                                    <Typography variant='h5'>3.00 Units</Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <div>
-                                                <Paper className={classes.paperList} variant='outlined'>
-                                                    <TableContainer>
-                                                        <Table>
-                                                            <TableHead/>
-                                                            <TableBody>
-                                                                {rows.map((row) => (
-                                                                    <Row key={row.name} row={row}/>
-                                                                ))}
-                                                            </TableBody>
-                                                        </Table>
-                                                    </TableContainer>
-                                                </Paper>
-                                            </div>
-                                        </AccordionDetails>
-                                    </Accordion>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <div>
+                                                    <Paper className={classes.paperList} variant='outlined'>
+                                                        <TableContainer>
+                                                            <Table>
+                                                                <TableHead/>
+                                                                <TableBody>
+                                                                    {selectedCourse.lectures ? selectedCourse.lectures.map((lecture) => (
+                                                                        <FormControl className={rowStyles.courseCard}>
+                                                                            <TableContainer className={rowStyles.root}>
+                                                                                <TableRow style={{backgroundColor: '#6e6e6e'}}>
+                                                                                    <TableCell>
+                                                                                        <FormControlLabel control={<BurgundyCheckbox onChange={event => handleCheck(event, lecture)} />} value={lecture.value}/>
+                                                                                    </TableCell>
+                                                                                    <TableCell component="th" scope="row">
+                                                                                        <span className={rowStyles.course_name}>{selectedCourse.courseName} {lecture.section} - {selectedCourse.courseTitle}</span>
+                                                                                        {
+                                                                                            lecture.status === 'open' ? <Tooltip title={'Open'}><CheckCircle className={rowStyles.status} style={{ color: "green" }}/></Tooltip>
+                                                                                                : (
+                                                                                                    lecture.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled className={rowStyles.status} style={{ color: "#FFB300" }}/></Tooltip>
+                                                                                                        : (
+                                                                                                            lecture.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel className={rowStyles.status} style={{ color: "red" }}/></Tooltip>
+                                                                                                                : (null)
+                                                                                                        )
+                                                                                                )
+                                                                                        }
+                                                                                        <br/>
+                                                                                        <span style={{color:"white"}}>Instructor: {lecture.instructor}</span>
+                                                                                    </TableCell>
+                                                                                    <TableCell align="right" style={{color:"white"}}>
+                                                                                        {lecture.time}
+                                                                                        <br/>
+                                                                                        Room: {lecture.location}
+                                                                                    </TableCell>
+                                                                                </TableRow>
+                                                                                <TableRow style={{borderColor: '#6e6e6e'}}>
+                                                                                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                                                                                        <Box margin={1}>
+                                                                                            <Table size="small" aria-label="purchases">
+                                                                                                <TableBody>
+                                                                                                    {lecture.sections.map((sections) => (
+                                                                                                        <TableRow key={sections.section}>
+                                                                                                            <TableCell component="th" scope="row">
+                                                                                                                <BurgundyCheckbox />
+                                                                                                                {sections.section}, ({sections.component})
+                                                                                                                {
+                                                                                                                    sections.status === 'open' ? <Tooltip title={'Open'}><CheckCircle style={{ color: "green", marginLeft: '10px', marginRight: '275px'}}/></Tooltip>
+                                                                                                                        : (
+                                                                                                                            sections.status === 'wait' ? <Tooltip title={'Waitlisted'}><PauseCircleFilled style={{ color: "#FFB300", marginLeft: '10px' }}/></Tooltip>
+                                                                                                                                : (
+                                                                                                                                    sections.status  === 'closed' ? <Tooltip title={'Closed'}><Cancel style={{ color: "red", marginLeft: '10px' }}/></Tooltip>
+                                                                                                                                        : (null)
+                                                                                                                                )
+                                                                                                                        )
+                                                                                                                }
+                                                                                                            </TableCell>
+                                                                                                            <TableCell align="right">
+                                                                                                                {sections.time}
+                                                                                                                <br/>
+                                                                                                                Room: {sections.location}
+                                                                                                            </TableCell>
+                                                                                                        </TableRow>
+                                                                                                    ))}
+                                                                                                </TableBody>
+                                                                                            </Table>
+                                                                                        </Box>
+                                                                                    </TableCell>
+                                                                                </TableRow>
+                                                                            </TableContainer>
+                                                                        </FormControl>
+                                                                    )) : null}
+                                                                </TableBody>
+                                                            </Table>
+                                                        </TableContainer>
+                                                    </Paper>
+                                                </div>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    : null}
                                 </div>
                             </Grid>
                             <Grid item>

@@ -14,7 +14,7 @@ export function getCourseCart () {
     return getDb().courseCart;
 }
 
-function appendUniqueName(course) {
+export function appendUniqueName(course) {
     course.uniqueName = `${course.courseName} ${course.sections.find(s => s.component === 'Lecture').section}`;
     return course;
 }
