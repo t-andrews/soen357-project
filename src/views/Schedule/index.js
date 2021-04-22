@@ -112,7 +112,7 @@ export default function ScheduleView() {
                     </Grid>
                 </Grid>
                 <TabPanel value={value} index={0}>
-                    <WeeklySchedule courses={courses ?? []}/>
+                    <WeeklySchedule courses={courses ?? []} filter={true}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <CourseList courses={courses ?? []}/>
